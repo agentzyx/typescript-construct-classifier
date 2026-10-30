@@ -12,4 +12,4 @@ function negate(n) {
   return -n;
 }
 
-module.exports = { add, negate };
+module.exports = { add };
