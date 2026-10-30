@@ -1,4 +1,4 @@
-import { fmt as f } from "./variables";
+import { formatValue as f } from "./variables";
 import * as fns from "./functions";
 
 export const viaAlias = f(1);
