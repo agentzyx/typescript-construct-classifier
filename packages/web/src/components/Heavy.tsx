@@ -1,4 +1,4 @@
 /** A component loaded lazily. */
-export default function Heavy() {
+export function Heavy() {
   return <div className="heavy">loaded</div>;
 }
