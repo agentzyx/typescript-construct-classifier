@@ -6,7 +6,7 @@ declare function it(name: string, fn: () => void): void;
 describe("Cart", () => {
   it("adds", () => {
     const c = new Cart();
-    c.add("x");
+    c.add("y");
   });
 
   describe("size", () => {
