@@ -35,7 +35,7 @@ export const ambientOne: Ambient = 1;
 
 export interface Box<in out T> {
   value: T;
-  get size(): number;
+  get size(): number | undefined;
   set size(v: number);
 }
 
