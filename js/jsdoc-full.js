@@ -63,7 +63,7 @@ export function loose(maybe, required, ...rest) {
 /** @satisfies {Point} */
 export const origin = { x: 0, y: 0 };
 
-/** @implements {Iterable<number>} */
+/** @implements {Iterable<string>} */
 export class Counter {
   /** @readonly */
   start = 0;
