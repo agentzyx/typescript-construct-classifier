@@ -22,7 +22,7 @@ export class Counter extends Component<CounterProps, CounterState> {
   }
 
   increment = () => {
-    this.setState((s) => ({ count: s.count + this.props.step }));
+    this.setState((s) => ({ count: s.count + this.props.step * 2 }));
   };
 
   render() {
