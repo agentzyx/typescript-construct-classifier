@@ -15,4 +15,9 @@ export function formatPrice(money: Money): string {
 }
 
 /** Currencies the shop accepts. */
-export const SUPPORTED_CURRENCIES = ["EUR", "USD"] as const;
+export const SUPPORTED_CURRENCIES = ["EUR", "USD", "GBP"] as const;
+
+/** Whether a currency code is supported. */
+export function isSupported(code: string): boolean {
+  return (SUPPORTED_CURRENCIES as readonly string[]).includes(code);
+}
