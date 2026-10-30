@@ -15,7 +15,7 @@ import { useCounter } from "./hooks/useCart";
 import { ClientCart } from "./app/ClientCart";
 import Page from "./app/Page";
 
-const Heavy = lazy(() => import("./components/Heavy"));
+const Heavy = lazy(() => import("./components/Heavier"));
 const LoggedBadge = withLogger(Badge);
 
 function Swatch() {
