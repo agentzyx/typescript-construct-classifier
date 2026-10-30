@@ -1,5 +1,5 @@
 export default class {
   run() {
-    return 1;
+    return 2;
   }
 }
