@@ -1,5 +1,5 @@
 export function CartView(props: { count: number }) {
-  return <div class="cart">{props.count}</div>;
+  return <div class="cart">{props.count * 2}</div>;
 }
 
 export const Badge = ({ label }: { label: string }) => {
