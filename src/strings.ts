@@ -8,4 +8,4 @@ WHERE active = 1
 }
 
 const tag = (s: TemplateStringsArray, ...v: unknown[]) => s.join("|") + v.length;
-export const tagged = tag`a${1}b`;
+export const tagged = tag`a${2}b`;
