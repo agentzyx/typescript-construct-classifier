@@ -11,7 +11,7 @@ export const page = <CartView count={1} />;
 export function SvgUse() {
   return (
     <svg>
-      <use xlink:href="#icon" />
+      <use xlink:href="#logo" />
     </svg>
   );
 }
