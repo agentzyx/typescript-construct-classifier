@@ -13,7 +13,7 @@
  * @template T
  * @param {T[]} items - the list
  * @returns {T | undefined}
- * @see {@linkcode last} for the opposite end
+ * @see {@linkcode echo} for the opposite end
  */
 export function first(items) {
   return items[0];
