@@ -116,7 +116,7 @@ export function debugOnly(flag: boolean) {
   return flag;
 }
 
-await Promise.resolve();
+await Promise.resolve(1);
 
 export async function withAsyncResource() {
   await using res = { async [Symbol.asyncDispose]() {} };
