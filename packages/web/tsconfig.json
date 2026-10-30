@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2022", "lib": ["ESNext", "DOM", "DOM.Iterable"], "module": "ESNext", "moduleResolution": "Bundler",
     "strict": true, "jsx": "react-jsx", "noEmit": true, "skipLibCheck": true, "types": [],
-    "paths": { "@/*": ["./src/*"] }
+    "paths": { "@/*": ["./src/components/*"] }
   },
   "include": ["src"]
 }
