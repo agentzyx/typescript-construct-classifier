@@ -24,7 +24,7 @@ export const api = {
 };
 
 export const { a: alpha, b: beta } = { a: 1, b: 2 };
-export const config = { mode: "dev" } satisfies Record<string, string>;
+export const config = { mode: "prod" } satisfies Record<string, string>;
 export const tuple = [1, 2] as const;
 
 function withRetry<T extends (...args: any[]) => Promise<unknown>>(fn: T): T {
