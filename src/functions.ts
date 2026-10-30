@@ -73,8 +73,8 @@ export function doubled(xs: number[]) {
 }
 
 export function report(values: number[]) {
-  const count = values.length;
-  const sum = values.reduce((a, b) => a + b, 0);
+  const count = values.length;   
+  const sum = values.reduce((a, b) => a + b, 0);	
   const min = Math.min(...values);
   const max = Math.max(...values);
   const mean = count === 0 ? 0 : sum / count;
