@@ -138,7 +138,7 @@ Not published separately (identical edits): B02 → S8, DOC03 → S11, DOC18 →
 | D06 | syntax error: unclosed brace in plain | src/functions.ts no longer parses (unclosed `{` in `plain`); results for this file are degraded. | `src/functions.ts:97` TS1005 |
 | D07 | add empty file | Empty file src/empty.ts added — no declarations. | none |
 | D08 | add comments-only file | Comments-only file src/notes.ts added — no declarations. | none |
-| D09 | add a 5,000-function file | src/big.ts added with 5,000 functions (`f0` … `f4999`). | none |
+| D09 | add a 5,000-function file | src/big.ts added with 5,000 functions (`f0` … `f4999`), 20,000 lines. | none |
 | D10 | untyped JS scale body | `scale` (untyped JavaScript, `@ts-nocheck`) now adds 0; types are unknown, so callers are unchecked. | none |
 
 ## M — Multi-file changes (4)

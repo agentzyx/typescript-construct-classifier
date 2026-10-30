@@ -4,7 +4,8 @@ Test fixture for tools that analyse TypeScript and JavaScript pull requests: whi
 deletes, modifies, renames or moves; what kind of construct each one is; where it sits; and what the change
 affects.
 
-- `FIXTURES.md` — toolchain, documentation conventions, classification rules, base files.
+- `FIXTURES.md` — toolchain, documentation conventions, classification rules, base files, and how to evaluate a
+  pipeline's output against a PR (the PR descriptions are the answer key; corrections are posted as PR comments).
 - `PRS.md` — every fixture PR with its expected output and measured compiler errors.
 - `prs/` — each PR's edit as data, expected output (`expect.json`), measured errors.
 - `tools/` — `measure_prs.py` (apply edits, compile, report new errors), `check_pr.py` (compile a checked-out branch and

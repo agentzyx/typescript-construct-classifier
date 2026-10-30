@@ -1,0 +1,142 @@
+{
+ "base": {
+  ".": [
+   "js/plain.js",
+   "js/untyped.js",
+   "src/ambient.d.ts",
+   "src/app.ts",
+   "src/augment.ts",
+   "src/bom.ts",
+   "src/classes.ts",
+   "src/consumers.ts",
+   "src/crlf.ts",
+   "src/defaults/cls.ts",
+   "src/defaults/fn.ts",
+   "src/defaults/obj.ts",
+   "src/documented.ts",
+   "src/functions.ts",
+   "src/generated/api.generated.ts",
+   "src/index.ts",
+   "src/loose.ts",
+   "src/nonewline.ts",
+   "src/routes.ts",
+   "src/startup.ts",
+   "src/store.ts",
+   "src/strings.ts",
+   "src/tabs.ts",
+   "src/types.ts",
+   "src/unicode.ts",
+   "src/user.ts",
+   "src/variables.ts",
+   "src/view.tsx",
+   "test/cart.test.ts"
+  ],
+  "legacy": [
+   "legacy/lib.d.ts",
+   "legacy/old.ts",
+   "legacy/util.ts"
+  ],
+  "packages/web": [
+   "packages/web/src/App.tsx",
+   "packages/web/src/app/ClientCart.tsx",
+   "packages/web/src/app/Page.tsx",
+   "packages/web/src/app/actions.ts",
+   "packages/web/src/components/Badge.tsx",
+   "packages/web/src/components/Button.tsx",
+   "packages/web/src/components/CartView.test.tsx",
+   "packages/web/src/components/CartView.tsx",
+   "packages/web/src/components/Header.tsx",
+   "packages/web/src/components/Heavy.tsx",
+   "packages/web/src/components/Icon.tsx",
+   "packages/web/src/components/Legacy.tsx",
+   "packages/web/src/components/List.tsx",
+   "packages/web/src/components/Modal.tsx",
+   "packages/web/src/components/Nested.tsx",
+   "packages/web/src/components/Tabs.tsx",
+   "packages/web/src/components/withLogger.tsx",
+   "packages/web/src/context/Theme.tsx",
+   "packages/web/src/css.d.ts",
+   "packages/web/src/hooks/useCart.ts",
+   "packages/web/src/hooks/useResource.ts",
+   "packages/web/src/main.tsx"
+  ]
+ },
+ "delta": {
+  "A07": {
+   ".": {
+    "add": [
+     "src/gen.ts"
+    ],
+    "remove": []
+   }
+  },
+  "C02": {
+   ".": {
+    "add": [
+     "src/math.ts"
+    ],
+    "remove": []
+   }
+  },
+  "C03": {
+   ".": {
+    "add": [],
+    "remove": [
+     "src/defaults/obj.ts"
+    ]
+   }
+  },
+  "C04": {
+   ".": {
+    "add": [
+     "src/tabbed.ts"
+    ],
+    "remove": [
+     "src/tabs.ts"
+    ]
+   }
+  },
+  "C05": {
+   ".": {
+    "add": [
+     "src/boot.ts"
+    ],
+    "remove": [
+     "src/startup.ts"
+    ]
+   }
+  },
+  "D07": {
+   ".": {
+    "add": [
+     "src/empty.ts"
+    ],
+    "remove": []
+   }
+  },
+  "D08": {
+   ".": {
+    "add": [
+     "src/notes.ts"
+    ],
+    "remove": []
+   }
+  },
+  "D09": {
+   ".": {
+    "add": [
+     "src/big.ts"
+    ],
+    "remove": []
+   }
+  },
+  "M04": {
+   "packages/web": {
+    "add": [
+     "packages/web/src/hooks/types.ts"
+    ],
+    "remove": []
+   }
+  }
+ }
+}

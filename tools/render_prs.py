@@ -18,8 +18,9 @@ TOOLCHAIN = "TypeScript 7.0.2 (`tsc -p .`, `tsc -p legacy`, `tsc -p packages/web
 def load():
     specs = {}
     for f in sorted(PRS.glob("*.json")):
-        if f.name != "expect.json":
-            for pr in json.loads(f.read_text()):
+        data = json.loads(f.read_text())
+        if isinstance(data, list):          # PR edit sets only (not expect.json / compiled-files.json)
+            for pr in data:
                 specs[pr["id"]] = dict(pr, source=f"prs/{f.name}")
     expect = json.loads((PRS / "expect.json").read_text())
     errors = {}

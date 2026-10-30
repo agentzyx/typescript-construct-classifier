@@ -23,9 +23,13 @@ Test repository for the Swamp PR-analysis behaviors:
   `python3 tools/measure_prs.py . node_modules/.bin/tsc prs/<set>.json` applies each edit in place, compiles all three
   projects, restores the file, and prints the new errors; it cross-checks parsed errors against the raw count and
   asserts the base is clean before and after.
-- `tools/check_pr.py` compiles the checked-out tree and compares the errors with the recorded line for `pr/<ID>`
-  (`FIXTURE_REF=pr/<ID>`); any other ref must have zero errors. CI (`.github/workflows/fixture-errors.yml`) runs it on
-  each PR's exact head commit and on pushes to `main`.
+- `tools/check_pr.py` compiles the checked-out tree and compares (1) the errors with the recorded line for `pr/<ID>`
+  in `prs/measured-errors.txt` and (2) each project's compiled files with `prs/compiled-files.json` (the base set plus
+  the PR's recorded additions and removals); any other ref must have zero errors and exactly the base set. It prints
+  the compiled-file counts with every verdict, so a shrunken compile scope fails instead of passing vacuously.
+  CI (`.github/workflows/fixture-errors.yml`) runs it on each PR's exact head commit and on pushes to `main`, reading
+  the answer key from `origin/main` (`FIXTURE_ANSWER_REF`) so a PR cannot change its own expected result.
+  Record scope with `python3 tools/measure_prs.py . node_modules/.bin/tsc --scope-out prs/compiled-files.json prs/*.json`.
 
 ## Documentation convention (code-level)
 
@@ -75,6 +79,18 @@ Definitions used by the expectations:
 - **Parameter properties are class properties.** `constructor(public owner?: string)` declares `Cart.owner`; removing the parameter deletes that property.
 - **Flags.** `signatureChanged`, `bodyChanged` (functions, methods, accessors, constructors); `typeChanged` (type aliases, interface members, JSDoc `@typedef`); `valueChanged` (variables, properties, enum members); `modifiersChanged` (async, static, abstract, readonly, decorators, `private`, wrappers); `exportChanged`; `commentChanged`; `docChanged`; `deprecationChanged`; `visibilityIntentChanged`; `docStale`; `docMaybeStale`; `undocumented`; `docStyleMismatch`; `effectDepsChanged`; `viaMembers`; `fileRenamed`; `nonLiteralLabel`; `parseErrors`; `weakTypes` (JavaScript without type information).
 - **Change values.** `added`, `deleted`, `modified`, `renamed` (same body, new name), `moved` (same code, new file), `movedSameFile` (rule 3), `cosmetic` (whitespace only).
+
+Clarifications (each closes an ambiguity found by cross-checking the answer key against an independent extraction):
+
+- **What a declaration's doc is (rule 1).** The comment block or blocks immediately above it with no blank line in between. A block separated by a blank line — such as a standalone JSDoc `@typedef` — is not that declaration's doc, even though TypeScript attaches it to the next declaration (`node.jsDoc`). Example: changing the `@typedef` in `js/plain.js` does not change `label`'s doc (B46, S9).
+- **Rule 10 applies only when the variable holds a function**: the callee is a plain identifier (`memo`, `forwardRef`, `lazy`, `withRetry`, a higher-order component) and an argument is an inline function. `values.reduce((a, b) => a + b, 0)` or `items.map(…)` are not wrapped definitions.
+- **Hook calls follow rule 11**: `const add = useCallback(fn, deps)` and `const total = useMemo(fn, deps)` inside a component *or hook* are part of the enclosing component or hook — not rule 6 or rule 10 components.
+- **A container's own code ignores whitespace and member separators** (commas, semicolons, line breaks), and **a member's leading comments belong to the member**. Adding, removing or re-documenting a member alone makes the container `viaMembers`.
+- **Renamed or moved containers carry their members**: members follow the container and are not reported separately unless they changed themselves (R03: `CartPanel › handleAdd` is not reported).
+- **Export lists count**: adding `get` to `export { routes, get }` makes `get` `modified` with `exportChanged`, although its declaration text is unchanged (A16).
+- **`export *` propagates**: adding, removing, renaming or changing an exported declaration in a module re-exported with `export * from` changes the re-exporting module's public API; optimal output says so (A04, A05, A06, A07, A12, S3).
+- **Inferred exported types are impact**: a change can alter the exported type of an unchanged declaration elsewhere (A13: `viaNamespace` in `src/consumers.ts` becomes `Promise<number>`); optimal output reports it.
+- **Parse errors degrade the file**: with a syntax error, the parser's recovery can restructure every later declaration (D06: later functions nest inside `plain`); optimal output marks the file degraded instead of reporting the resulting adds and deletes.
 
 `change-matcher` order of checks (one component can carry several flags):
 
@@ -171,8 +187,34 @@ One entry per published PR, keyed by ID:
 | `references` | references on the base, **measured** with the TypeScript 7.0.2 API (`getReferencedSymbolsForNode`) |
 | `notes` | edge details an optimal output should also mention |
 | `optimal` | the one-paragraph summary an agent should receive |
+| `publicApi` | **measured** change to the emitted declarations (`tsc --declaration --emitDeclarationOnly`, base vs head, all three projects): removed (`-`) and added (`+`) declaration lines per `.d.ts` file |
 
 Compiler errors for each PR are in `prs/measured-errors.txt` (regenerate with `tools/measure_prs.py`).
+
+## Evaluating output against a PR
+
+For anyone judging a pipeline's output against a PR description (the same content as that PR's entry in
+`prs/expect.json`). The description is the answer key. Descriptions are never edited: corrections and additions are
+posted as PR comments and recorded in `prs/expect.json` on `main`, which is the current answer key — read the PR's
+comments too.
+
+| Item in the description | How to judge |
+|---|---|
+| **Changed components** | **Required.** Each row must be found, identified by file + container path + name. A missing row is a miss. |
+| Change (`added`, `modified`, …) | **Required** to match exactly. |
+| Flags | **Required**: every listed flag. An extra flag is a deviation only if the rules above say it cannot apply. |
+| Kind | **Required: the noun** (function, method, class, interface, type, enum, enum member, namespace, variable, property, accessor, constructor, static block, call signature, method signature, callback, component, hook, context, object). Words in parentheses and adjectives (`arrow`, `async`, `generic`, `merged`, `abstract`, `generator`, `FC`, `field`, …) describe the form and are **not** required. |
+| Detail | Expected content, judged on meaning, not wording. |
+| **Must not be reported as changed** | **False-positive check.** Reporting any of these as changed is an error. |
+| Other components not listed | Judge against the classification rules; reporting an unchanged component as changed is a false positive. |
+| **File-level changes** | **Required.** |
+| Compiler errors | **Measured facts.** If the pipeline reports diagnostics, its new errors must equal this list (file, line, code). |
+| References | **Measured on the base.** A pipeline that reports references must include these; TypeScript may return more (for example the whole interface-member family, see S7). |
+| Public API (`publicApi` in `prs/expect.json`) | **Measured.** If the pipeline reports public-API or exported-type changes, they must agree with these declaration changes, including changes to unchanged files (A13). |
+| Notes | Expected detail, **except** where a note says reporting is optional — those are bonus. |
+| Summary an agent should receive | Judged on meaning: it must state the same facts (what changed, the construct, the effect, the breakage), not the same words. |
+
+Suggested scores per PR: identification (required components and file-level items found), classification (change and flags correct), precision (no false positives, including the must-not list), semantics (errors and references), summary.
 
 ## PRs
 

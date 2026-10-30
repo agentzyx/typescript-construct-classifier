@@ -24,7 +24,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`plain` (function): body changed — `sum` now adds `0`; signature unchanged; no new errors."
+  "optimal": "`plain` (function): body changed — `sum` now adds `0`; signature unchanged; no new errors.",
+  "publicApi": {}
  },
  "A02": {
   "primaryFile": "src/functions.ts",
@@ -49,7 +50,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`plain` (function): signature changed — optional parameter `c = 0` added; callers unaffected; no new errors."
+  "optimal": "`plain` (function): signature changed — optional parameter `c = 0` added; callers unaffected; no new errors.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function plain(a: number, b: number): number;",
+    "+export declare function plain(a: number, b: number, c?: number): number;"
+   ]
+  }
  },
  "A03": {
   "primaryFile": "src/functions.ts",
@@ -74,7 +81,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`load` (async function): return type widened to `Promise<string | undefined>`; body unchanged; no new errors."
+  "optimal": "`load` (async function): return type widened to `Promise<string | undefined>`; body unchanged; no new errors.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function load(id: string): Promise<string>;",
+    "+export declare function load(id: string): Promise<string | undefined>;"
+   ]
+  }
  },
  "A04": {
   "primaryFile": "src/functions.ts",
@@ -99,8 +112,21 @@
   ],
   "fileLevel": [],
   "references": [],
-  "notes": [],
-  "optimal": "`half` (function) added in src/functions.ts — exported and documented (`@param n`, `@returns`)."
+  "notes": [
+   "src/index.ts re-exports src/functions.ts with `export *`, so `half` changes the barrel's public API although src/index.ts is unchanged."
+  ],
+  "optimal": "`half` (function) added in src/functions.ts — exported and documented (`@param n`, `@returns`).",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+/**",
+    "+ * Halves a number.",
+    "+ *",
+    "+ * @param n - the value to halve",
+    "+ * @returns `n / 2`",
+    "+ */",
+    "+export declare function half(n: number): number;"
+   ]
+  }
  },
  "A05": {
   "primaryFile": "src/functions.ts",
@@ -125,7 +151,12 @@
   "notes": [
    "`src/index.ts` re-exports `src/functions.ts` with `export *`, so the barrel silently stops exporting `isString`."
   ],
-  "optimal": "`isString` (type-predicate function) deleted; it had no references on base, so nothing breaks."
+  "optimal": "`isString` (type-predicate function) deleted; it had no references on base, so nothing breaks.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function isString(v: unknown): v is string;"
+   ]
+  }
  },
  "A06": {
   "primaryFile": "src/functions.ts",
@@ -147,8 +178,16 @@
   "unchanged": [],
   "fileLevel": [],
   "references": [],
-  "notes": [],
-  "optimal": "`withThis` renamed to `withContext` (function); body and parameters identical; no references on base."
+  "notes": [
+   "src/index.ts re-exports src/functions.ts with `export *`, so `withContext (and the removal of withThis)` changes the barrel's public API although src/index.ts is unchanged."
+  ],
+  "optimal": "`withThis` renamed to `withContext` (function); body and parameters identical; no references on base.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function withThis(this: {",
+    "+export declare function withContext(this: {"
+   ]
+  }
  },
  "A07": {
   "primaryFile": "src/functions.ts",
@@ -179,7 +218,15 @@
   "notes": [
    "`src/index.ts` re-exports `./functions` with `export *`, so `counter` is no longer exported by the barrel."
   ],
-  "optimal": "`counter` (generator function) moved from src/functions.ts to the new file src/gen.ts, unchanged."
+  "optimal": "`counter` (generator function) moved from src/functions.ts to the new file src/gen.ts, unchanged.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function counter(n: number): Generator<number, void, unknown>;"
+   ],
+   ".:src/gen.d.ts": [
+    "+export declare function counter(n: number): Generator<number, void, unknown>;"
+   ]
+  }
  },
  "A08": {
   "primaryFile": "src/functions.ts",
@@ -211,7 +258,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`load` and `counter` swapped order in src/functions.ts; no code changes."
+  "optimal": "`load` and `counter` swapped order in src/functions.ts; no code changes.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+export declare function counter(n: number): Generator<number, void, unknown>;",
+    "-export declare function counter(n: number): Generator<number, void, unknown>;"
+   ]
+  }
  },
  "A09": {
   "primaryFile": "src/functions.ts",
@@ -236,7 +289,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`plain` (function): comment added inside the body; code unchanged."
+  "optimal": "`plain` (function): comment added inside the body; code unchanged.",
+  "publicApi": {}
  },
  "A10": {
   "primaryFile": "src/functions.ts",
@@ -259,7 +313,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`plain` (function): whitespace-only change (re-indented); nothing else."
+  "optimal": "`plain` (function): whitespace-only change (re-indented); nothing else.",
+  "publicApi": {}
  },
  "A11": {
   "primaryFile": "src/functions.ts",
@@ -285,7 +340,17 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`load` (async function): TSDoc added (`@param id`, `@returns`); code unchanged."
+  "optimal": "`load` (async function): TSDoc added (`@param id`, `@returns`); code unchanged.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+/**",
+    "+ * Loads a record by id.",
+    "+ *",
+    "+ * @param id - the record id",
+    "+ * @returns the loaded record",
+    "+ */"
+   ]
+  }
  },
  "A12": {
   "primaryFile": "src/functions.ts",
@@ -312,7 +377,12 @@
   "notes": [
    "The barrel `export * from \"./functions\"` stops exporting `isString`."
   ],
-  "optimal": "`isString` is no longer exported; body unchanged."
+  "optimal": "`isString` is no longer exported; body unchanged.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function isString(v: unknown): v is string;"
+   ]
+  }
  },
  "A13": {
   "primaryFile": "src/functions.ts",
@@ -347,8 +417,20 @@
     ]
    }
   ],
-  "notes": [],
-  "optimal": "`plain` (function) became `async` and now returns `Promise<number>`; callers in src/consumers.ts now receive a Promise (no compile error)."
+  "notes": [
+   "Measured (declaration emit): the exported type of `viaNamespace` in src/consumers.ts changes from `number` to `Promise<number>` although src/consumers.ts is unchanged."
+  ],
+  "optimal": "`plain` (function) became `async` and now returns `Promise<number>`; callers in src/consumers.ts now receive a Promise (no compile error).",
+  "publicApi": {
+   ".:src/consumers.d.ts": [
+    "-export declare const viaNamespace: number;",
+    "+export declare const viaNamespace: Promise<number>;"
+   ],
+   ".:src/functions.d.ts": [
+    "-export declare function plain(a: number, b: number): number;",
+    "+export declare function plain(a: number, b: number): Promise<number>;"
+   ]
+  }
  },
  "A14": {
   "primaryFile": "src/functions.ts",
@@ -384,7 +466,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Two functions changed in one hunk: `plain` (return value) and `load` (now trims `id`)."
+  "optimal": "Two functions changed in one hunk: `plain` (return value) and `load` (now trims `id`).",
+  "publicApi": {}
  },
  "A15": {
   "primaryFile": "src/functions.ts",
@@ -409,7 +492,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`report` (function): two body changes — `count` falls back to 0 and the `range` line is relabelled `spread`."
+  "optimal": "`report` (function): two body changes — `count` falls back to 0 and the `range` line is relabelled `spread`.",
+  "publicApi": {}
  },
  "A16": {
   "primaryFile": "src/routes.ts",
@@ -445,8 +529,18 @@
   "unchanged": [],
   "fileLevel": [],
   "references": [],
-  "notes": [],
-  "optimal": "In src/routes.ts the `Handler` type gains an optional `method`, and `get` is now exported."
+  "notes": [
+   "`get`'s declaration text is unchanged; it becomes exported through the export list `export { routes, get }`, which counts as `exportChanged` (FIXTURES.md → Clarifications)."
+  ],
+  "optimal": "In src/routes.ts the `Handler` type gains an optional `method`, and `get` is now exported.",
+  "publicApi": {
+   ".:src/routes.d.ts": [
+    "+    method?: string;",
+    "-export { routes };",
+    "+declare function get(path: string, h: Handler): void;",
+    "+export { routes, get };"
+   ]
+  }
  },
  "B01": {
   "primaryFile": "src/classes.ts",
@@ -487,7 +581,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart.area` (method): body changed (doubles the count); `Cart` changed only through this member."
+  "optimal": "`Cart.area` (method): body changed (doubles the count); `Cart` changed only through this member.",
+  "publicApi": {}
  },
  "B03": {
   "primaryFile": "src/classes.ts",
@@ -527,7 +622,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart.size` getter body changed; the setter is unchanged."
+  "optimal": "`Cart.size` getter body changed; the setter is unchanged.",
+  "publicApi": {}
  },
  "B04": {
   "primaryFile": "src/classes.ts",
@@ -567,7 +663,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart.size` setter now clamps to ≥ 0; the getter is unchanged."
+  "optimal": "`Cart.size` setter now clamps to ≥ 0; the getter is unchanged.",
+  "publicApi": {}
  },
  "B05": {
   "primaryFile": "src/classes.ts",
@@ -605,7 +702,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart` static initialization block now sets `count` to 2."
+  "optimal": "`Cart` static initialization block now sets `count` to 2.",
+  "publicApi": {}
  },
  "B06": {
   "primaryFile": "src/classes.ts",
@@ -643,7 +741,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart.#hidden` (private method) now upper-cases the secret."
+  "optimal": "`Cart.#hidden` (private method) now upper-cases the secret.",
+  "publicApi": {}
  },
  "B07": {
   "primaryFile": "src/classes.ts",
@@ -683,7 +782,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Shape.area` (abstract) may now return `null`; `Cart.area` still conforms; no new errors."
+  "optimal": "`Shape.area` (abstract) may now return `null`; `Cart.area` still conforms; no new errors.",
+  "publicApi": {
+   ".:src/classes.d.ts": [
+    "-    abstract area(): number;",
+    "+    abstract area(): number | null;"
+   ]
+  }
  },
  "B08": {
   "primaryFile": "src/classes.ts",
@@ -723,7 +828,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart.add`: `@logged` decorator removed; body unchanged. `logged` is now unused."
+  "optimal": "`Cart.add`: `@logged` decorator removed; body unchanged. `logged` is now unused.",
+  "publicApi": {}
  },
  "B09": {
   "primaryFile": "src/classes.ts",
@@ -761,7 +867,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart.label` (auto-accessor) default changed to \"basket\"."
+  "optimal": "`Cart.label` (auto-accessor) default changed to \"basket\".",
+  "publicApi": {}
  },
  "B10": {
   "primaryFile": "src/classes.ts",
@@ -799,7 +906,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart[Symbol.iterator]` now yields items in reverse order."
+  "optimal": "`Cart[Symbol.iterator]` now yields items in reverse order.",
+  "publicApi": {}
  },
  "B11": {
   "primaryFile": "src/classes.ts",
@@ -837,7 +945,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Anon.run` (class expression method) now returns 2."
+  "optimal": "`Anon.run` (class expression method) now returns 2.",
+  "publicApi": {}
  },
  "B12": {
   "primaryFile": "src/classes.ts",
@@ -889,7 +998,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Mixin `Timestamped`: the returned class's `ts` property now adds 1."
+  "optimal": "Mixin `Timestamped`: the returned class's `ts` property now adds 1.",
+  "publicApi": {}
  },
  "B13": {
   "primaryFile": "src/functions.ts",
@@ -914,7 +1024,12 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`pick` gains a `boolean` overload; implementation widened accordingly."
+  "optimal": "`pick` gains a `boolean` overload; implementation widened accordingly.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+export declare function pick(x: boolean): boolean;"
+   ]
+  }
  },
  "B14": {
   "primaryFile": "src/types.ts",
@@ -950,7 +1065,12 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`User` (merged interface) gains optional `phone` in its second declaration block."
+  "optimal": "`User` (merged interface) gains optional `phone` in its second declaration block.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "+    phone?: string;"
+   ]
+  }
  },
  "B15": {
   "primaryFile": "src/types.ts",
@@ -988,7 +1108,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`User.greet` gains an optional `loud` parameter."
+  "optimal": "`User.greet` gains an optional `loud` parameter.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-    greet(msg: string): string;",
+    "+    greet(msg: string, loud?: boolean): string;"
+   ]
+  }
  },
  "B16": {
   "primaryFile": "src/types.ts",
@@ -1026,7 +1152,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Callable`'s call signature gains optional `radix`."
+  "optimal": "`Callable`'s call signature gains optional `radix`.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-    (x: number): string;",
+    "+    (x: number, radix?: number): string;"
+   ]
+  }
  },
  "B17": {
   "primaryFile": "src/types.ts",
@@ -1051,7 +1183,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Status` now also allows \"auto\"."
+  "optimal": "`Status` now also allows \"auto\".",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-export type Status = \"on\" | \"off\";",
+    "+export type Status = \"on\" | \"off\" | \"auto\";"
+   ]
+  }
  },
  "B18": {
   "primaryFile": "src/types.ts",
@@ -1076,7 +1214,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Unwrap<T>` now unwraps any `PromiseLike`."
+  "optimal": "`Unwrap<T>` now unwraps any `PromiseLike`.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-export type Unwrap<T> = T extends Promise<infer U> ? U : T;",
+    "+export type Unwrap<T> = T extends PromiseLike<infer U> ? U : T;"
+   ]
+  }
  },
  "B19": {
   "primaryFile": "src/types.ts",
@@ -1112,7 +1256,14 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Color` gains `Yellow = 4`."
+  "optimal": "`Color` gains `Yellow = 4`.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-    Blue = 3",
+    "+    Blue = 3,",
+    "+    Yellow = 4"
+   ]
+  }
  },
  "B20": {
   "primaryFile": "src/types.ts",
@@ -1152,7 +1303,15 @@
   "notes": [
    "Optimal output also reports the implicit change to `Dir.Down` (2 → 11)."
   ],
-  "optimal": "`Dir.Up` changes from 1 to 10; `Dir.Down` implicitly changes from 2 to 11 although its line is untouched."
+  "optimal": "`Dir.Up` changes from 1 to 10; `Dir.Down` implicitly changes from 2 to 11 although its line is untouched.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-    Up = 1,",
+    "-    Down = 2",
+    "+    Up = 10,",
+    "+    Down = 11"
+   ]
+  }
  },
  "B21": {
   "primaryFile": "src/types.ts",
@@ -1204,7 +1363,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Geo.Inner.k` changes from 1 to 2."
+  "optimal": "`Geo.Inner.k` changes from 1 to 2.",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-        const k = 1;",
+    "+        const k = 2;"
+   ]
+  }
  },
  "B22": {
   "primaryFile": "src/types.ts",
@@ -1242,7 +1407,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`tool.version` changes from 1 to 2 (`tool` is a function merged with a namespace)."
+  "optimal": "`tool.version` changes from 1 to 2 (`tool` is a function merged with a namespace).",
+  "publicApi": {
+   ".:src/types.d.ts": [
+    "-    const version = 1;",
+    "+    const version = 2;"
+   ]
+  }
  },
  "B23": {
   "primaryFile": "src/variables.ts",
@@ -1267,7 +1438,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`fmt` (arrow function) now trims its output."
+  "optimal": "`fmt` (arrow function) now trims its output.",
+  "publicApi": {}
  },
  "B24": {
   "primaryFile": "src/variables.ts",
@@ -1292,7 +1464,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`legacyFn` now triples instead of doubling."
+  "optimal": "`legacyFn` now triples instead of doubling.",
+  "publicApi": {}
  },
  "B25": {
   "primaryFile": "src/variables.ts",
@@ -1333,7 +1506,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`api.get` builds the URL with a template literal."
+  "optimal": "`api.get` builds the URL with a template literal.",
+  "publicApi": {}
  },
  "B26": {
   "primaryFile": "src/variables.ts",
@@ -1371,7 +1545,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`api.version` getter now returns 2."
+  "optimal": "`api.version` getter now returns 2.",
+  "publicApi": {}
  },
  "B27": {
   "primaryFile": "src/variables.ts",
@@ -1410,7 +1585,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`api[\"computed\" + \"Key\"]` now returns 2."
+  "optimal": "`api[\"computed\" + \"Key\"]` now returns 2.",
+  "publicApi": {}
  },
  "B28": {
   "primaryFile": "src/variables.ts",
@@ -1439,7 +1615,8 @@
   "notes": [
    "A tool that cannot attribute to the individual binding should at least report the statement; reporting `alpha` as changed is a false positive."
   ],
-  "optimal": "`beta` (destructured export) changes from 2 to 3; `alpha` is unchanged."
+  "optimal": "`beta` (destructured export) changes from 2 to 3; `alpha` is unchanged.",
+  "publicApi": {}
  },
  "B29": {
   "primaryFile": "src/variables.ts",
@@ -1466,7 +1643,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`step` changes from 2 to 3; `counterVar` is unchanged."
+  "optimal": "`step` changes from 2 to 3; `counterVar` is unchanged.",
+  "publicApi": {}
  },
  "B30": {
   "primaryFile": "src/variables.ts",
@@ -1491,7 +1669,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`config.mode` changes to \"prod\" (still satisfies `Record<string, string>`)."
+  "optimal": "`config.mode` changes to \"prod\" (still satisfies `Record<string, string>`).",
+  "publicApi": {}
  },
  "B31": {
   "primaryFile": "src/defaults/fn.ts",
@@ -1516,7 +1695,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Default export (anonymous function) of src/defaults/fn.ts now returns \"anonymous\"."
+  "optimal": "Default export (anonymous function) of src/defaults/fn.ts now returns \"anonymous\".",
+  "publicApi": {}
  },
  "B32": {
   "primaryFile": "src/defaults/cls.ts",
@@ -1554,7 +1734,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Default-exported class in src/defaults/cls.ts: `run` now returns 2."
+  "optimal": "Default-exported class in src/defaults/cls.ts: `run` now returns 2.",
+  "publicApi": {}
  },
  "B33": {
   "primaryFile": "src/defaults/obj.ts",
@@ -1593,7 +1774,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Default-exported object in src/defaults/obj.ts: `name` is now \"config\"."
+  "optimal": "Default-exported object in src/defaults/obj.ts: `name` is now \"config\".",
+  "publicApi": {}
  },
  "B34": {
   "primaryFile": "src/index.ts",
@@ -1614,7 +1796,13 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "src/index.ts now also re-exports `LIMIT` from ./variables — the package's public API grows by one name."
+  "optimal": "src/index.ts now also re-exports `LIMIT` from ./variables — the package's public API grows by one name.",
+  "publicApi": {
+   ".:src/index.d.ts": [
+    "-export { fmt as format, api } from \"./variables\";",
+    "+export { fmt as format, api, LIMIT } from \"./variables\";"
+   ]
+  }
  },
  "B35": {
   "primaryFile": "src/augment.ts",
@@ -1647,13 +1835,29 @@
     ],
     "file": "src/augment.ts",
     "detail": ""
+   },
+   {
+    "component": "declare module \"./types\"",
+    "kind": "namespace (module augmentation)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/augment.ts",
+    "detail": ""
    }
   ],
   "unchanged": [],
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Augmentation of `./types` adds optional `User.avatarUrl`."
+  "optimal": "Augmentation of `./types` adds optional `User.avatarUrl`.",
+  "publicApi": {
+   ".:src/augment.d.ts": [
+    "+        avatarUrl?: string;"
+   ]
+  }
  },
  "B36": {
   "primaryFile": "src/augment.ts",
@@ -1686,13 +1890,29 @@
     ],
     "file": "src/augment.ts",
     "detail": ""
+   },
+   {
+    "component": "declare global",
+    "kind": "namespace (global augmentation)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/augment.ts",
+    "detail": ""
    }
   ],
   "unchanged": [],
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Global augmentation adds `Window.buildId`."
+  "optimal": "Global augmentation adds `Window.buildId`.",
+  "publicApi": {
+   ".:src/augment.d.ts": [
+    "+        buildId: string;"
+   ]
+  }
  },
  "B37": {
   "primaryFile": "src/ambient.d.ts",
@@ -1717,7 +1937,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Ambient `track` gains an optional `data` parameter."
+  "optimal": "Ambient `track` gains an optional `data` parameter.",
+  "publicApi": {}
  },
  "B38": {
   "primaryFile": "src/view.tsx",
@@ -1742,7 +1963,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView` (src/view.tsx) now renders `count * 2`."
+  "optimal": "`CartView` (src/view.tsx) now renders `count * 2`.",
+  "publicApi": {}
  },
  "B39": {
   "primaryFile": "src/view.tsx",
@@ -1767,7 +1989,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Badge` (src/view.tsx) renders `<strong>` instead of `<span>`."
+  "optimal": "`Badge` (src/view.tsx) renders `<strong>` instead of `<span>`.",
+  "publicApi": {}
  },
  "B40": {
   "primaryFile": "test/cart.test.ts",
@@ -1805,7 +2028,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Test `Cart › adds` now adds \"y\" instead of \"x\"."
+  "optimal": "Test `Cart › adds` now adds \"y\" instead of \"x\".",
+  "publicApi": {}
  },
  "B41": {
   "primaryFile": "src/routes.ts",
@@ -1832,7 +2056,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Route handler `get(\"/orders\")` now formats with a colon."
+  "optimal": "Route handler `get(\"/orders\")` now formats with a colon.",
+  "publicApi": {}
  },
  "B42": {
   "primaryFile": "src/startup.ts",
@@ -1851,7 +2076,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Top-level async IIFE in src/startup.ts now loads \"startup\" instead of \"boot\" (runs at import time)."
+  "optimal": "Top-level async IIFE in src/startup.ts now loads \"startup\" instead of \"boot\" (runs at import time).",
+  "publicApi": {}
  },
  "B43": {
   "primaryFile": "src/startup.ts",
@@ -1870,7 +2096,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Top-level loop `outer:` in src/startup.ts now breaks on the first iteration."
+  "optimal": "Top-level loop `outer:` in src/startup.ts now breaks on the first iteration.",
+  "publicApi": {}
  },
  "B44": {
   "primaryFile": "src/strings.ts",
@@ -1897,7 +2124,8 @@
   "notes": [
    "Attribution must be `sql`. Column-0 text inside the template is not a declaration (git diff -W gets this wrong)."
   ],
-  "optimal": "`sql` now selects inactive users (`WHERE active = 0`)."
+  "optimal": "`sql` now selects inactive users (`WHERE active = 0`).",
+  "publicApi": {}
  },
  "B45": {
   "primaryFile": "src/strings.ts",
@@ -1922,7 +2150,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`tagged` now interpolates 2 instead of 1."
+  "optimal": "`tagged` now interpolates 2 instead of 1.",
+  "publicApi": {}
  },
  "B46": {
   "primaryFile": "js/plain.js",
@@ -1944,11 +2173,22 @@
     "detail": "optional `note` field added"
    }
   ],
-  "unchanged": [],
+  "unchanged": [
+   "label (js/plain.js)"
+  ],
   "fileLevel": [],
   "references": [],
-  "notes": [],
-  "optimal": "JSDoc type `Item` gains an optional `note`; no new errors."
+  "notes": [
+   "TypeScript attaches the standalone `@typedef` block (separated by a blank line) to `label` (`node.jsDoc`), so a pipeline that diffs TypeScript's JSDoc reports `label`'s doc as changed. It is not `label`'s doc (FIXTURES.md → Clarifications); reporting `label` as changed is a false positive."
+  ],
+  "optimal": "JSDoc type `Item` gains an optional `note`; no new errors.",
+  "publicApi": {
+   ".:js/plain.d.ts": [
+    "- * @typedef {{ id: number, label: string }} Item",
+    "+ * @typedef {{ id: number, label: string, note?: string }} Item",
+    "+    note?: string;"
+   ]
+  }
  },
  "B47": {
   "primaryFile": "js/plain.js",
@@ -1973,7 +2213,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`label` (JavaScript) now trims the label."
+  "optimal": "`label` (JavaScript) now trims the label.",
+  "publicApi": {}
  },
  "B48": {
   "primaryFile": "legacy/util.ts",
@@ -2005,7 +2246,15 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "legacy/util.ts adds `helperV2` and `export =` now exports it instead of `helper`."
+  "optimal": "legacy/util.ts adds `helperV2` and `export =` now exports it instead of `helper`.",
+  "publicApi": {
+   "legacy:util.d.ts": [
+    "-declare function helper(): number;",
+    "-export = helper;",
+    "+declare function helperV2(): number;",
+    "+export = helperV2;"
+   ]
+  }
  },
  "B49": {
   "primaryFile": "legacy/old.ts",
@@ -2036,7 +2285,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "legacy/old.ts renames its `import = require` binding to `helperFn`; `v` updated accordingly."
+  "optimal": "legacy/old.ts renames its `import = require` binding to `helperFn`; `v` updated accordingly.",
+  "publicApi": {}
  },
  "B50": {
   "primaryFile": "legacy/lib.d.ts",
@@ -2055,7 +2305,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "legacy/lib.d.ts now exposes its UMD global as `LibV2`."
+  "optimal": "legacy/lib.d.ts now exposes its UMD global as `LibV2`.",
+  "publicApi": {}
  },
  "B51": {
   "primaryFile": "src/functions.ts",
@@ -2080,7 +2331,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`withResource`: the disposable now logs on dispose."
+  "optimal": "`withResource`: the disposable now logs on dispose.",
+  "publicApi": {}
  },
  "B52": {
   "primaryFile": "src/functions.ts",
@@ -2121,7 +2373,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`outer › inner` (nested function) now adds 1."
+  "optimal": "`outer › inner` (nested function) now adds 1.",
+  "publicApi": {}
  },
  "B53": {
   "primaryFile": "test/cart.test.ts",
@@ -2159,7 +2412,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "A second `it(\"adds\")` test is added to `describe(\"Cart\")`; the existing one is unchanged and keeps its identity."
+  "optimal": "A second `it(\"adds\")` test is added to `describe(\"Cart\")`; the existing one is unchanged and keeps its identity.",
+  "publicApi": {}
  },
  "B54": {
   "primaryFile": "test/cart.test.ts",
@@ -2180,13 +2434,25 @@
     ],
     "file": "test/cart.test.ts",
     "detail": "renamed from it(\"adds\"); body identical"
+   },
+   {
+    "component": "describe(\"Cart\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "test/cart.test.ts",
+    "detail": ""
    }
   ],
   "unchanged": [],
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Test `it(\"adds\")` is relabelled with a template literal; body identical."
+  "optimal": "Test `it(\"adds\")` is relabelled with a template literal; body identical.",
+  "publicApi": {}
  },
  "B55": {
   "primaryFile": "src/functions.ts",
@@ -2213,7 +2479,8 @@
   "notes": [
    "The `.map` callback must not appear as its own component."
   ],
-  "optimal": "`doubled` now triples each value (change inside its `.map` callback)."
+  "optimal": "`doubled` now triples each value (change inside its `.map` callback).",
+  "publicApi": {}
  },
  "B56": {
   "primaryFile": "src/functions.ts",
@@ -2253,7 +2520,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`outer › viaArrow` now doubles the result of `inner()`."
+  "optimal": "`outer › viaArrow` now doubles the result of `inner()`.",
+  "publicApi": {}
  },
  "B57": {
   "primaryFile": "src/variables.ts",
@@ -2278,7 +2546,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`fetchUser` (wrapped by `withRetry`) now formats names with a dash."
+  "optimal": "`fetchUser` (wrapped by `withRetry`) now formats names with a dash.",
+  "publicApi": {}
  },
  "B58": {
   "primaryFile": "src/variables.ts",
@@ -2305,7 +2574,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`fetchUser` is no longer wrapped by `withRetry`; its body is unchanged. `withRetry` is now unused."
+  "optimal": "`fetchUser` is no longer wrapped by `withRetry`; its body is unchanged. `withRetry` is now unused.",
+  "publicApi": {}
  },
  "DOC01": {
   "primaryFile": "src/documented.ts",
@@ -2331,7 +2601,12 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`power` is now marked `@deprecated` (use `**`); code unchanged."
+  "optimal": "`power` is now marked `@deprecated` (use `**`); code unchanged.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "+ * @deprecated Use the `**` operator instead."
+   ]
+  }
  },
  "DOC02": {
   "primaryFile": "src/documented.ts",
@@ -2357,7 +2632,12 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`oldSquare` is no longer deprecated; code unchanged."
+  "optimal": "`oldSquare` is no longer deprecated; code unchanged.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "- * @deprecated Use {@link power} with `exp = 2` instead."
+   ]
+  }
  },
  "DOC04": {
   "primaryFile": "src/documented.ts",
@@ -2386,7 +2666,15 @@
   "notes": [
    "The `@returns` and `@throws` prose still mention `exp`; reporting that as a hint is optional."
   ],
-  "optimal": "`power`: parameter `exp` renamed to `exponent` consistently (signature, body, `@param`)."
+  "optimal": "`power`: parameter `exp` renamed to `exponent` consistently (signature, body, `@param`).",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "- * @param exp - a non-negative integer exponent",
+    "+ * @param exponent - a non-negative integer exponent",
+    "-export declare function power(base: number, exp: number): number;",
+    "+export declare function power(base: number, exponent: number): number;"
+   ]
+  }
  },
  "DOC05": {
   "primaryFile": "src/documented.ts",
@@ -2411,7 +2699,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`power`: `@returns` wording changed; code unchanged."
+  "optimal": "`power`: `@returns` wording changed; code unchanged.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "- * @returns `base` raised to `exp`",
+    "+ * @returns `base` to the power `exp`"
+   ]
+  }
  },
  "DOC06": {
   "primaryFile": "src/documented.ts",
@@ -2450,7 +2744,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Basket.add` now adds 2 per call; its TSDoc (\"Adds one unit\") was not updated — possibly stale."
+  "optimal": "`Basket.add` now adds 2 per call; its TSDoc (\"Adds one unit\") was not updated — possibly stale.",
+  "publicApi": {}
  },
  "DOC07": {
   "primaryFile": "src/documented.ts",
@@ -2476,7 +2771,12 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`wrap` is now marked `@internal`; code unchanged."
+  "optimal": "`wrap` is now marked `@internal`; code unchanged.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "+ * @internal"
+   ]
+  }
  },
  "DOC08": {
   "primaryFile": "src/documented.ts",
@@ -2502,7 +2802,18 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`wrap` lost its TSDoc and is now an undocumented export."
+  "optimal": "`wrap` lost its TSDoc and is now an undocumented export.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "-/**",
+    "- * Wraps a value in a single-element array.",
+    "- *",
+    "- * @typeParam T - the element type",
+    "- * @param value - the value to wrap",
+    "- * @returns a one-element array containing `value`",
+    "- */"
+   ]
+  }
  },
  "DOC09": {
   "primaryFile": "src/documented.ts",
@@ -2527,7 +2838,12 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`cube` added — exported and undocumented."
+  "optimal": "`cube` added — exported and undocumented.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "+export declare function cube(n: number): number;"
+   ]
+  }
  },
  "DOC10": {
   "primaryFile": "src/documented.ts",
@@ -2565,7 +2881,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`PowerOptions.round` documented default changes to `true`; type unchanged."
+  "optimal": "`PowerOptions.round` documented default changes to `true`; type unchanged.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "-     * @defaultValue false",
+    "+     * @defaultValue true"
+   ]
+  }
  },
  "DOC11": {
   "primaryFile": "src/documented.ts",
@@ -2603,7 +2925,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Unit.Metric` doc reworded."
+  "optimal": "`Unit.Metric` doc reworded.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "-    /** Metric units. */",
+    "+    /** Metric (SI) units. */"
+   ]
+  }
  },
  "DOC12": {
   "primaryFile": "src/documented.ts",
@@ -2631,7 +2959,12 @@
   "notes": [
    "TypeScript parses `@typeParam` as an unrecognised tag; the name must be read from the tag text."
   ],
-  "optimal": "`wrap` documents a type parameter `U` that does not exist — doc is stale."
+  "optimal": "`wrap` documents a type parameter `U` that does not exist — doc is stale.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "+ * @typeParam U - unused"
+   ]
+  }
  },
  "DOC13": {
   "primaryFile": "src/documented.ts",
@@ -2666,7 +2999,13 @@
    }
   ],
   "notes": [],
-  "optimal": "`PowerOptions` doc now links to `wrap` instead of `power`."
+  "optimal": "`PowerOptions` doc now links to `wrap` instead of `power`.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "-/** Settings accepted by {@link power}-based helpers. */",
+    "+/** Settings accepted by {@link wrap}-based helpers. */"
+   ]
+  }
  },
  "DOC14": {
   "primaryFile": "src/functions.ts",
@@ -2691,7 +3030,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`display`: line-comment doc reworded; code unchanged."
+  "optimal": "`display`: line-comment doc reworded; code unchanged.",
+  "publicApi": {}
  },
  "DOC15": {
   "primaryFile": "src/functions.ts",
@@ -2719,7 +3059,8 @@
   "notes": [
    "Optimal output notes the inner comment now contradicts the code."
   ],
-  "optimal": "`square` now uses `**`; its doc and the inner comment (\"multiply rather than Math.pow\") were not updated."
+  "optimal": "`square` now uses `**`; its doc and the inner comment (\"multiply rather than Math.pow\") were not updated.",
+  "publicApi": {}
  },
  "DOC16": {
   "primaryFile": "src/functions.ts",
@@ -2746,7 +3087,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`square` now uses `**`, with its inner comment updated; the TSDoc block is unchanged."
+  "optimal": "`square` now uses `**`, with its inner comment updated; the TSDoc block is unchanged.",
+  "publicApi": {}
  },
  "DOC17": {
   "primaryFile": "src/functions.ts",
@@ -2772,7 +3114,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`square` doc adds a `{number}` type brace — redundant in TypeScript (style mismatch)."
+  "optimal": "`square` doc adds a `{number}` type brace — redundant in TypeScript (style mismatch).",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "- * @param n the value to square",
+    "+ * @param {number} n the value to square"
+   ]
+  }
  },
  "C01": {
   "primaryFile": "src/startup.ts",
@@ -2791,7 +3139,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "src/startup.ts now also imports `plain` (unused)."
+  "optimal": "src/startup.ts now also imports `plain` (unused).",
+  "publicApi": {}
  },
  "C02": {
   "primaryFile": "src/math.ts",
@@ -2829,7 +3178,27 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "New file src/math.ts adds `clamp` and `lerp` (both documented)."
+  "optimal": "New file src/math.ts adds `clamp` and `lerp` (both documented).",
+  "publicApi": {
+   ".:src/math.d.ts": [
+    "+/**",
+    "+ * Clamps a number to a range.",
+    "+ *",
+    "+ * @param n - the value",
+    "+ * @param lo - lower bound",
+    "+ * @param hi - upper bound",
+    "+ */",
+    "+export declare function clamp(n: number, lo: number, hi: number): number;",
+    "+/**",
+    "+ * Linear interpolation.",
+    "+ *",
+    "+ * @param a - start",
+    "+ * @param b - end",
+    "+ * @param t - fraction between 0 and 1",
+    "+ */",
+    "+export declare function lerp(a: number, b: number, t: number): number;"
+   ]
+  }
  },
  "C03": {
   "primaryFile": "src/defaults/obj.ts",
@@ -2880,7 +3249,16 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "src/defaults/obj.ts deleted with its default-exported object; nothing referenced it."
+  "optimal": "src/defaults/obj.ts deleted with its default-exported object; nothing referenced it.",
+  "publicApi": {
+   ".:src/defaults/obj.d.ts": [
+    "-declare const _default: {",
+    "-    name: string;",
+    "-    run(): number;",
+    "-};",
+    "-export default _default;"
+   ]
+  }
  },
  "C04": {
   "primaryFile": "src/tabbed.ts",
@@ -2911,7 +3289,15 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "src/tabs.ts renamed to src/tabbed.ts; contents unchanged."
+  "optimal": "src/tabs.ts renamed to src/tabbed.ts; contents unchanged.",
+  "publicApi": {
+   ".:src/tabbed.d.ts": [
+    "+export declare function tabbed(): number;"
+   ],
+   ".:src/tabs.d.ts": [
+    "-export declare function tabbed(): number;"
+   ]
+  }
  },
  "C05": {
   "primaryFile": "src/boot.ts",
@@ -2954,7 +3340,15 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "src/startup.ts renamed to src/boot.ts; `isReady` now compares strictly to `true`."
+  "optimal": "src/startup.ts renamed to src/boot.ts; `isReady` now compares strictly to `true`.",
+  "publicApi": {
+   ".:src/boot.d.ts": [
+    "+export declare function isReady(): boolean;"
+   ],
+   ".:src/startup.d.ts": [
+    "-export declare function isReady(): boolean;"
+   ]
+  }
  },
  "C06": {
   "primaryFile": "tsconfig.json",
@@ -2973,7 +3367,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Root tsconfig enables `noUnusedLocals`; no new errors in the fixture."
+  "optimal": "Root tsconfig enables `noUnusedLocals`; no new errors in the fixture.",
+  "publicApi": {}
  },
  "C07": {
   "primaryFile": "package.json",
@@ -2992,7 +3387,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Root package.json adds a `typecheck` script."
+  "optimal": "Root package.json adds a `typecheck` script.",
+  "publicApi": {}
  },
  "C08": {
   "primaryFile": "src/generated/api.generated.ts",
@@ -3011,7 +3407,13 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Generated file src/generated/api.generated.ts changed (marked DO NOT EDIT) — reported, not analysed."
+  "optimal": "Generated file src/generated/api.generated.ts changed (marked DO NOT EDIT) — reported, not analysed.",
+  "publicApi": {
+   ".:src/generated/api.generated.d.ts": [
+    "-export declare const generated = 1;",
+    "+export declare const generated = 2;"
+   ]
+  }
  },
  "C09": {
   "primaryFile": "vendor/lib.ts",
@@ -3030,7 +3432,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "vendor/lib.ts changed — excluded path, not analysed."
+  "optimal": "vendor/lib.ts changed — excluded path, not analysed.",
+  "publicApi": {}
  },
  "C10": {
   "primaryFile": "docs/README.md",
@@ -3049,7 +3452,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "docs/README.md changed (documentation file)."
+  "optimal": "docs/README.md changed (documentation file).",
+  "publicApi": {}
  },
  "C11": {
   "primaryFile": "assets/logo.png",
@@ -3068,7 +3472,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Binary file assets/logo.png added."
+  "optimal": "Binary file assets/logo.png added.",
+  "publicApi": {}
  },
  "D01": {
   "primaryFile": "src/unicode.ts",
@@ -3095,7 +3500,8 @@
   "notes": [
    "Declaration name position: line 3, column 17 (1-based). Absolute offset of the name: 57 in UTF-8 bytes, 51 in UTF-16 code units, 50 in code points. The output should state which unit it uses."
   ],
-  "optimal": "`après` now adds 2."
+  "optimal": "`après` now adds 2.",
+  "publicApi": {}
  },
  "D02": {
   "primaryFile": "src/crlf.ts",
@@ -3122,7 +3528,8 @@
   "notes": [
    "Changed line is line 2; `\\r` must not shift line or column numbers."
   ],
-  "optimal": "`crlf` now returns 2 (line 2 of a CRLF file)."
+  "optimal": "`crlf` now returns 2 (line 2 of a CRLF file).",
+  "publicApi": {}
  },
  "D03": {
   "primaryFile": "src/tabs.ts",
@@ -3147,7 +3554,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`tabbed` now returns `t + 1`."
+  "optimal": "`tabbed` now returns `t + 1`.",
+  "publicApi": {}
  },
  "D04": {
   "primaryFile": "src/nonewline.ts",
@@ -3174,7 +3582,12 @@
   "notes": [
    "The diff shows the old last line `}` removed and re-added (\\ No newline at end of file). `noNewline` must not be reported as modified."
   ],
-  "optimal": "`after` added to src/nonewline.ts; `noNewline` is unchanged."
+  "optimal": "`after` added to src/nonewline.ts; `noNewline` is unchanged.",
+  "publicApi": {
+   ".:src/nonewline.d.ts": [
+    "+export declare const after = 1;"
+   ]
+  }
  },
  "D05": {
   "primaryFile": "src/bom.ts",
@@ -3201,7 +3614,8 @@
   "notes": [
    "Name offset: 19 in UTF-8 bytes (BOM is 3 bytes), 17 in UTF-16 units. Line 1."
   ],
-  "optimal": "`withBom` gains an explicit `number` return type."
+  "optimal": "`withBom` gains an explicit `number` return type.",
+  "publicApi": {}
  },
  "D06": {
   "primaryFile": "src/functions.ts",
@@ -3227,9 +3641,41 @@
   "fileLevel": [],
   "references": [],
   "notes": [
-   "The parser's error recovery may misattribute later declarations; the report should mark the file as degraded rather than claim precise results."
+   "The parser's error recovery may misattribute later declarations; the report should mark the file as degraded rather than claim precise results.",
+   "Measured with TypeScript 7.0.2: after the unclosed brace, every later top-level declaration in src/functions.ts is parsed as nested inside `plain` (for example `plain › identity`, `plain › doubled`, `plain › withResource`), so a naive before/after extraction reports more than 30 spurious adds and deletes. Optimal output marks src/functions.ts as degraded and reports only that `plain` no longer parses."
   ],
-  "optimal": "src/functions.ts no longer parses (unclosed `{` in `plain`); results for this file are degraded."
+  "optimal": "src/functions.ts no longer parses (unclosed `{` in `plain`); results for this file are degraded.",
+  "publicApi": {
+   ".:src/consumers.d.ts": [
+    "-import * as fns from \"./functions\";",
+    "-export declare const asValue: (typeof fns.identity)[];",
+    "+export declare const asValue: any[];"
+   ],
+   ".:src/functions.d.ts": [
+    "-export declare function load(id: string): Promise<string>;",
+    "-export declare function counter(n: number): Generator<number, void, unknown>;",
+    "-export declare function pick(x: string): string;",
+    "-export declare function pick(x: number): number;",
+    "-export declare function identity<T extends object>(v: T): T;",
+    "-export declare function assertDefined(v: unknown): asserts v;",
+    "-export declare function isString(v: unknown): v is string;",
+    "-export declare function withThis(this: {",
+    "-    n: number;",
+    "-}, k?: number, ...rest: number[]): number;",
+    "-export declare function outer(): number;",
+    "-export declare function withResource(): {",
+    "-    [Symbol.dispose](): void;",
+    "-};",
+    "-export declare function display(n: number): string;",
+    "-/**",
+    "- * Squares a number.",
+    "- * @param n the value to square",
+    "- */",
+    "-export declare function square(n: number): number;",
+    "-export declare function doubled(xs: number[]): number[];",
+    "-export declare function report(values: number[]): string;"
+   ]
+  }
  },
  "D07": {
   "primaryFile": "src/empty.ts",
@@ -3248,7 +3694,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Empty file src/empty.ts added — no declarations."
+  "optimal": "Empty file src/empty.ts added — no declarations.",
+  "publicApi": {}
  },
  "D08": {
   "primaryFile": "src/notes.ts",
@@ -3267,7 +3714,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "Comments-only file src/notes.ts added — no declarations."
+  "optimal": "Comments-only file src/notes.ts added — no declarations.",
+  "publicApi": {}
  },
  "D09": {
   "primaryFile": "src/big.ts",
@@ -3291,12 +3739,60 @@
    {
     "file": "src/big.ts",
     "change": "added",
-    "detail": "5,000 functions, ~150 KB"
+    "detail": "5,000 functions, 20,000 lines, 322,780 bytes"
    }
   ],
   "references": [],
-  "notes": [],
-  "optimal": "src/big.ts added with 5,000 functions (`f0` … `f4999`)."
+  "notes": [
+   "Measured on GitHub (PR #109): the PR files API lists `src/big.ts` with `additions: 20000` but no `patch` field; the raw diff (`Accept: application/vnd.github.diff`) serves all 20,006 lines. A pipeline that reads patches from the files API must detect the missing patch and fall back, not report the file as unchanged or empty.",
+   "Corrects the published PR description, which states ~150 KB."
+  ],
+  "optimal": "src/big.ts added with 5,000 functions (`f0` … `f4999`), 20,000 lines.",
+  "publicApi": {
+   ".:src/big.d.ts": [
+    "+export declare function f0(x: number): number;",
+    "+export declare function f1(x: number): number;",
+    "+export declare function f2(x: number): number;",
+    "+export declare function f3(x: number): number;",
+    "+export declare function f4(x: number): number;",
+    "+export declare function f5(x: number): number;",
+    "+export declare function f6(x: number): number;",
+    "+export declare function f7(x: number): number;",
+    "+export declare function f8(x: number): number;",
+    "+export declare function f9(x: number): number;",
+    "+export declare function f10(x: number): number;",
+    "+export declare function f11(x: number): number;",
+    "+export declare function f12(x: number): number;",
+    "+export declare function f13(x: number): number;",
+    "+export declare function f14(x: number): number;",
+    "+export declare function f15(x: number): number;",
+    "+export declare function f16(x: number): number;",
+    "+export declare function f17(x: number): number;",
+    "+export declare function f18(x: number): number;",
+    "+export declare function f19(x: number): number;",
+    "+export declare function f20(x: number): number;",
+    "+export declare function f21(x: number): number;",
+    "+export declare function f22(x: number): number;",
+    "+export declare function f23(x: number): number;",
+    "+export declare function f24(x: number): number;",
+    "+export declare function f25(x: number): number;",
+    "+export declare function f26(x: number): number;",
+    "+export declare function f27(x: number): number;",
+    "+export declare function f28(x: number): number;",
+    "+export declare function f29(x: number): number;",
+    "+export declare function f30(x: number): number;",
+    "+export declare function f31(x: number): number;",
+    "+export declare function f32(x: number): number;",
+    "+export declare function f33(x: number): number;",
+    "+export declare function f34(x: number): number;",
+    "+export declare function f35(x: number): number;",
+    "+export declare function f36(x: number): number;",
+    "+export declare function f37(x: number): number;",
+    "+export declare function f38(x: number): number;",
+    "+export declare function f39(x: number): number;",
+    "… 4960 more lines"
+   ]
+  }
  },
  "D10": {
   "primaryFile": "js/untyped.js",
@@ -3322,7 +3818,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`scale` (untyped JavaScript, `@ts-nocheck`) now adds 0; types are unknown, so callers are unchecked."
+  "optimal": "`scale` (untyped JavaScript, `@ts-nocheck`) now adds 0; types are unknown, so callers are unchecked.",
+  "publicApi": {}
  },
  "M01": {
   "primaryFile": "src/variables.ts",
@@ -3356,7 +3853,17 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "`fmt` renamed to `formatValue`; both importers updated; public barrel name `format` unchanged; no new errors."
+  "optimal": "`fmt` renamed to `formatValue`; both importers updated; public barrel name `format` unchanged; no new errors.",
+  "publicApi": {
+   ".:src/index.d.ts": [
+    "-export { fmt as format, api } from \"./variables\";",
+    "+export { formatValue as format, api } from \"./variables\";"
+   ],
+   ".:src/variables.d.ts": [
+    "-export declare const fmt: (x: unknown) => string;",
+    "+export declare const formatValue: (x: unknown) => string;"
+   ]
+  }
  },
  "M02": {
   "primaryFile": "src/store.ts",
@@ -3464,7 +3971,17 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Store.get` now takes a string id; `DbStore`, `MemStore`, `handle` and `direct` updated to match; no new errors."
+  "optimal": "`Store.get` now takes a string id; `DbStore`, `MemStore`, `handle` and `direct` updated to match; no new errors.",
+  "publicApi": {
+   ".:src/store.d.ts": [
+    "-    get(id: number): string;",
+    "+    get(id: string): string;",
+    "-    get(id: number): string;",
+    "+    get(id: string): string;",
+    "-    get(id: number): string;",
+    "+    get(id: string): string;"
+   ]
+  }
  },
  "M03": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -3536,7 +4053,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartViewProps` gains a required `currency`; both usages (`App` and the CartView test) pass it; no new errors."
+  "optimal": "`CartViewProps` gains a required `currency`; both usages (`App` and the CartView test) pass it; no new errors.",
+  "publicApi": {
+   "packages/web:components/CartView.d.ts": [
+    "+    /** ISO currency code. */",
+    "+    currency: string;"
+   ]
+  }
  },
  "M04": {
   "primaryFile": "packages/web/src/hooks/useCart.ts",
@@ -3570,7 +4093,25 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "`CartItem` moved to hooks/types.ts; hooks/useCart.ts imports and re-exports it, so importers are unaffected."
+  "optimal": "`CartItem` moved to hooks/types.ts; hooks/useCart.ts imports and re-exports it, so importers are unaffected.",
+  "publicApi": {
+   "packages/web:hooks/types.d.ts": [
+    "+/** A line in the cart. */",
+    "+export interface CartItem {",
+    "+    sku: string;",
+    "+    qty: number;",
+    "+}"
+   ],
+   "packages/web:hooks/useCart.d.ts": [
+    "-/** A line in the cart. */",
+    "-export interface CartItem {",
+    "-    sku: string;",
+    "-    qty: number;",
+    "-}",
+    "+import type { CartItem } from \"./types\";",
+    "+export type { CartItem };"
+   ]
+  }
  },
  "S1": {
   "primaryFile": "src/user.ts",
@@ -3620,7 +4161,13 @@
   "notes": [
    "References alone miss src/app.ts:13; only the new-error comparison finds it."
   ],
-  "optimal": "`Profile.name` becomes `string[]`; `loadProfile` (src/app.ts:4) and the `greet(p)` call (src/app.ts:13) now fail to compile. The second break does not mention `Profile`."
+  "optimal": "`Profile.name` becomes `string[]`; `loadProfile` (src/app.ts:4) and the `greet(p)` call (src/app.ts:13) now fail to compile. The second break does not mention `Profile`.",
+  "publicApi": {
+   ".:src/user.d.ts": [
+    "-    name: string;",
+    "+    name: string[];"
+   ]
+  }
  },
  "S2": {
   "primaryFile": "src/store.ts",
@@ -3658,7 +4205,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Store.get` now takes a string; both implementations (`DbStore.get`, `MemStore.get`) and the call through the interface in `handle` fail to compile."
+  "optimal": "`Store.get` now takes a string; both implementations (`DbStore.get`, `MemStore.get`) and the call through the interface in `handle` fail to compile.",
+  "publicApi": {
+   ".:src/store.d.ts": [
+    "-    get(id: number): string;",
+    "+    get(id: string): string;"
+   ]
+  }
  },
  "S3": {
   "primaryFile": "src/functions.ts",
@@ -3690,7 +4243,18 @@
    }
   ],
   "notes": [],
-  "optimal": "`plain` deleted while still used: src/consumers.ts:5 (`fns.plain`) and :10 (`m.plain` via dynamic import) fail; the barrel's `export *` silently stops exporting it."
+  "optimal": "`plain` deleted while still used: src/consumers.ts:5 (`fns.plain`) and :10 (`m.plain` via dynamic import) fail; the barrel's `export *` silently stops exporting it.",
+  "publicApi": {
+   ".:src/consumers.d.ts": [
+    "-export declare const viaNamespace: number;",
+    "+export declare const viaNamespace: any;",
+    "-export declare function lazy(): Promise<number>;",
+    "+export declare function lazy(): Promise<any>;"
+   ],
+   ".:src/functions.d.ts": [
+    "-export declare function plain(a: number, b: number): number;"
+   ]
+  }
  },
  "S4": {
   "primaryFile": "src/variables.ts",
@@ -3723,7 +4287,17 @@
    }
   ],
   "notes": [],
-  "optimal": "`fmt` renamed to `formatValue` but importers were not updated: src/consumers.ts:1 and src/index.ts:3 fail."
+  "optimal": "`fmt` renamed to `formatValue` but importers were not updated: src/consumers.ts:1 and src/index.ts:3 fail.",
+  "publicApi": {
+   ".:src/consumers.d.ts": [
+    "-export declare const viaAlias: string;",
+    "+export declare const viaAlias: any;"
+   ],
+   ".:src/variables.d.ts": [
+    "-export declare const fmt: (x: unknown) => string;",
+    "+export declare const formatValue: (x: unknown) => string;"
+   ]
+  }
  },
  "S5": {
   "primaryFile": "src/functions.ts",
@@ -3756,7 +4330,13 @@
    }
   ],
   "notes": [],
-  "optimal": "`identity` now requires a string type argument; its only reference (src/consumers.ts:6, used as a value) still compiles."
+  "optimal": "`identity` now requires a string type argument; its only reference (src/consumers.ts:6, used as a value) still compiles.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function identity<T extends object>(v: T): T;",
+    "+export declare function identity<T extends string>(v: T): T;"
+   ]
+  }
  },
  "S6": {
   "primaryFile": "src/classes.ts",
@@ -3802,7 +4382,13 @@
    }
   ],
   "notes": [],
-  "optimal": "`Cart.add` is now private; test/cart.test.ts:9 fails."
+  "optimal": "`Cart.add` is now private; test/cart.test.ts:9 fails.",
+  "publicApi": {
+   ".:src/classes.d.ts": [
+    "-    add(item: string): void;",
+    "+    private add;"
+   ]
+  }
  },
  "S7": {
   "primaryFile": "src/store.ts",
@@ -3854,7 +4440,8 @@
   "notes": [
    "Measured: references to DbStore.get include the call through the interface (src/store.ts:18)."
   ],
-  "optimal": "`DbStore.get` now formats ids with a colon; no new errors."
+  "optimal": "`DbStore.get` now formats ids with a colon; no new errors.",
+  "publicApi": {}
  },
  "S8": {
   "primaryFile": "src/classes.ts",
@@ -3903,7 +4490,14 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Cart`'s constructor drops `public owner?`, which also removes the `Cart.owner` property; nothing used it, so no new errors."
+  "optimal": "`Cart`'s constructor drops `public owner?`, which also removes the `Cart.owner` property; nothing used it, so no new errors.",
+  "publicApi": {
+   ".:src/classes.d.ts": [
+    "-    owner?: string | undefined;",
+    "-    constructor(items?: string[], owner?: string | undefined);",
+    "+    constructor(items?: string[]);"
+   ]
+  }
  },
  "S9": {
   "primaryFile": "js/plain.js",
@@ -3925,7 +4519,9 @@
     "detail": "`id: number` → `id: string`"
    }
   ],
-  "unchanged": [],
+  "unchanged": [
+   "label (js/plain.js)"
+  ],
   "fileLevel": [],
   "references": [
    {
@@ -3936,8 +4532,18 @@
     ]
    }
   ],
-  "notes": [],
-  "optimal": "JSDoc type `Item.id` becomes a string; the TypeScript call in src/loose.ts:5 now fails."
+  "notes": [
+   "TypeScript attaches the standalone `@typedef` block (separated by a blank line) to `label` (`node.jsDoc`), so a pipeline that diffs TypeScript's JSDoc reports `label`'s doc as changed. It is not `label`'s doc (FIXTURES.md → Clarifications); reporting `label` as changed is a false positive."
+  ],
+  "optimal": "JSDoc type `Item.id` becomes a string; the TypeScript call in src/loose.ts:5 now fails.",
+  "publicApi": {
+   ".:js/plain.d.ts": [
+    "- * @typedef {{ id: number, label: string }} Item",
+    "+ * @typedef {{ id: string, label: string }} Item",
+    "-    id: number;",
+    "+    id: string;"
+   ]
+  }
  },
  "S10": {
   "primaryFile": "js/plain.js",
@@ -3972,7 +4578,15 @@
    }
   ],
   "notes": [],
-  "optimal": "`label` now declares a string parameter: its own body (js/plain.js:10, `item.label`) and the TypeScript caller (src/loose.ts:5) fail."
+  "optimal": "`label` now declares a string parameter: its own body (js/plain.js:10, `item.label`) and the TypeScript caller (src/loose.ts:5) fail.",
+  "publicApi": {
+   ".:js/plain.d.ts": [
+    "- * @param {Item} item",
+    "+ * @param {string} item",
+    "-export declare function label(item: Item): string;",
+    "+export declare function label(item: string): string;"
+   ]
+  }
  },
  "S11": {
   "primaryFile": "src/documented.ts",
@@ -3999,7 +4613,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`power`: parameter `exp` renamed to `exponent` but its `@param exp` was not updated — the doc is stale. The compiler reports nothing; only the doc check catches this."
+  "optimal": "`power`: parameter `exp` renamed to `exponent` but its `@param exp` was not updated — the doc is stale. The compiler reports nothing; only the doc check catches this.",
+  "publicApi": {
+   ".:src/documented.d.ts": [
+    "-export declare function power(base: number, exp: number): number;",
+    "+export declare function power(base: number, exponent: number): number;"
+   ]
+  }
  },
  "R01": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4048,7 +4668,12 @@
    }
   ],
   "notes": [],
-  "optimal": "`CartViewProps` gains a required `currency`; both usages fail: packages/web/src/App.tsx:41 and the CartView test (line 9)."
+  "optimal": "`CartViewProps` gains a required `currency`; both usages fail: packages/web/src/App.tsx:41 and the CartView test (line 9).",
+  "publicApi": {
+   "packages/web:components/CartView.d.ts": [
+    "+    currency: string;"
+   ]
+  }
  },
  "R02": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4086,7 +4711,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartViewProps.initial` becomes optional; `CartView` itself now fails at line 19 (`useCart(initial)`)."
+  "optimal": "`CartViewProps.initial` becomes optional; `CartView` itself now fails at line 19 (`useCart(initial)`).",
+  "publicApi": {
+   "packages/web:components/CartView.d.ts": [
+    "-    initial: CartItem[];",
+    "+    initial?: CartItem[];"
+   ]
+  }
  },
  "R03": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4121,9 +4752,16 @@
    }
   ],
   "notes": [
-   "The {@link CartView} in CartViewProps' doc (CartView.tsx:5) is a reference; after the rename it no longer resolves. Reporting that is optional."
+   "The {@link CartView} in CartViewProps' doc (CartView.tsx:5) is a reference; after the rename it no longer resolves. Reporting that is optional.",
+   "Members follow the renamed component: `CartPanel › handleAdd` is not reported as changed (FIXTURES.md → Clarifications)."
   ],
-  "optimal": "`CartView` renamed to `CartPanel`; imports in App.tsx:2 and the test (line 1) fail."
+  "optimal": "`CartView` renamed to `CartPanel`; imports in App.tsx:2 and the test (line 1) fail.",
+  "publicApi": {
+   "packages/web:components/CartView.d.ts": [
+    "-export declare function CartView({ initial, title }: CartViewProps): import(\"react\").JSX.Element | null;",
+    "+export declare function CartPanel({ initial, title }: CartViewProps): import(\"react\").JSX.Element | null;"
+   ]
+  }
  },
  "R04": {
   "primaryFile": "packages/web/src/hooks/useCart.ts",
@@ -4157,7 +4795,13 @@
    }
   ],
   "notes": [],
-  "optimal": "Hook `useCart` requires a new `max` argument; its caller `CartView` (line 19) fails."
+  "optimal": "Hook `useCart` requires a new `max` argument; its caller `CartView` (line 19) fails.",
+  "publicApi": {
+   "packages/web:hooks/useCart.d.ts": [
+    "-export declare function useCart(initial: CartItem[]): {",
+    "+export declare function useCart(initial: CartItem[], max: number): {"
+   ]
+  }
  },
  "R05": {
   "primaryFile": "packages/web/src/hooks/useCart.ts",
@@ -4182,7 +4826,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Hook `useCart` returns `sum` instead of `total`; `CartView` (line 19) destructures `total` and fails."
+  "optimal": "Hook `useCart` returns `sum` instead of `total`; `CartView` (line 19) destructures `total` and fails.",
+  "publicApi": {
+   "packages/web:hooks/useCart.d.ts": [
+    "-    total: number;",
+    "+    sum: number;"
+   ]
+  }
  },
  "R06": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4208,7 +4858,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView`: the first `useEffect` no longer depends on `total`, so the title will not update when the total changes. The compiler reports nothing."
+  "optimal": "`CartView`: the first `useEffect` no longer depends on `total`, so the title will not update when the total changes. The compiler reports nothing.",
+  "publicApi": {}
  },
  "R07": {
   "primaryFile": "packages/web/src/hooks/useCart.ts",
@@ -4235,7 +4886,16 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Hook `useCounter` returns an object instead of a tuple; `Swatch` in App.tsx (line 23) destructures it as an array and fails."
+  "optimal": "Hook `useCounter` returns an object instead of a tuple; `Swatch` in App.tsx (line 23) destructures it as an array and fails.",
+  "publicApi": {
+   "packages/web:hooks/useCart.d.ts": [
+    "-export declare function useCounter(start?: number): readonly [number, () => void];",
+    "+export declare function useCounter(start?: number): {",
+    "+    value: number;",
+    "+    increment: () => void;",
+    "+};"
+   ]
+  }
  },
  "R08": {
   "primaryFile": "packages/web/src/context/Theme.tsx",
@@ -4273,7 +4933,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Theme.dense` becomes `\"yes\" | \"no\"`; the context default (Theme.tsx:10) and the provider value in App.tsx (line 35) fail."
+  "optimal": "`Theme.dense` becomes `\"yes\" | \"no\"`; the context default (Theme.tsx:10) and the provider value in App.tsx (line 35) fail.",
+  "publicApi": {
+   "packages/web:context/Theme.d.ts": [
+    "-    dense: boolean;",
+    "+    dense: \"yes\" | \"no\";"
+   ]
+  }
  },
  "R09": {
   "primaryFile": "packages/web/src/hooks/useCart.ts",
@@ -4300,7 +4966,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartAction` gains `undo`; the unchanged `cartReducer` exhaustiveness check (useCart.ts:32) now fails."
+  "optimal": "`CartAction` gains `undo`; the unchanged `cartReducer` exhaustiveness check (useCart.ts:32) now fails.",
+  "publicApi": {
+   "packages/web:hooks/useCart.d.ts": [
+    "+} | {",
+    "+    type: \"undo\";"
+   ]
+  }
  },
  "R10": {
   "primaryFile": "packages/web/src/components/Legacy.tsx",
@@ -4338,7 +5010,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CounterProps.step` becomes a string; `<Counter step={2} />` (App.tsx:45) and `Counter.increment`'s arithmetic (Legacy.tsx:25) fail."
+  "optimal": "`CounterProps.step` becomes a string; `<Counter step={2} />` (App.tsx:45) and `Counter.increment`'s arithmetic (Legacy.tsx:25) fail.",
+  "publicApi": {
+   "packages/web:components/Legacy.d.ts": [
+    "-    step: number;",
+    "+    step: string;"
+   ]
+  }
  },
  "R11": {
   "primaryFile": "packages/web/src/components/List.tsx",
@@ -4363,7 +5041,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`List`'s constraint becomes `{ id: number }`; App.tsx:44 (two errors) and the unchanged `ListProps<T>` reference (List.tsx:14) fail."
+  "optimal": "`List`'s constraint becomes `{ id: number }`; App.tsx:44 (two errors) and the unchanged `ListProps<T>` reference (List.tsx:14) fail.",
+  "publicApi": {
+   "packages/web:components/List.d.ts": [
+    "-    id: string;",
+    "+    id: number;"
+   ]
+  }
  },
  "R12": {
   "primaryFile": "packages/web/src/components/Header.tsx",
@@ -4389,7 +5073,15 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Header` no longer accepts `children`; App.tsx:37 (children passed) fails."
+  "optimal": "`Header` no longer accepts `children`; App.tsx:37 (children passed) fails.",
+  "publicApi": {
+   "packages/web:components/Header.d.ts": [
+    "-import type { FC, PropsWithChildren } from \"react\";",
+    "+import type { FC } from \"react\";",
+    "-export declare const Header: FC<PropsWithChildren<HeaderProps>>;",
+    "+export declare const Header: FC<HeaderProps>;"
+   ]
+  }
  },
  "R13": {
   "primaryFile": "packages/web/src/components/Button.tsx",
@@ -4415,7 +5107,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Button` no longer forwards a ref (wrapper `forwardRef` removed); no caller passed a ref, so no new errors."
+  "optimal": "`Button` no longer forwards a ref (wrapper `forwardRef` removed); no caller passed a ref, so no new errors.",
+  "publicApi": {
+   "packages/web:components/Button.d.ts": [
+    "-export declare const Button: import(\"react\").ForwardRefExoticComponent<ButtonProps & import(\"react\").RefAttributes<HTMLButtonElement>>;",
+    "+export declare function Button({ label, onPress }: ButtonProps): import(\"react\").JSX.Element;"
+   ]
+  }
  },
  "R14": {
   "primaryFile": "packages/web/src/components/Button.tsx",
@@ -4440,7 +5138,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Input`'s `ref` prop now expects an input element; App.tsx:43 (passes an `InputHandle` ref) and `useImperativeHandle` (Button.tsx:26) fail."
+  "optimal": "`Input`'s `ref` prop now expects an input element; App.tsx:43 (passes an `InputHandle` ref) and `useImperativeHandle` (Button.tsx:26) fail.",
+  "publicApi": {
+   "packages/web:components/Button.d.ts": [
+    "-    ref?: Ref<InputHandle>;",
+    "+    ref?: Ref<HTMLInputElement>;"
+   ]
+  }
  },
  "R15": {
   "primaryFile": "packages/web/src/app/actions.ts",
@@ -4465,7 +5169,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Server action `saveCart` drops its previous-state parameter; `useActionState` in ClientCart.tsx:8 fails."
+  "optimal": "Server action `saveCart` drops its previous-state parameter; `useActionState` in ClientCart.tsx:8 fails.",
+  "publicApi": {
+   "packages/web:app/actions.d.ts": [
+    "-export declare function saveCart(_previous: string, form: FormData): Promise<string>;",
+    "+export declare function saveCart(form: FormData): Promise<string>;"
+   ]
+  }
  },
  "R16": {
   "primaryFile": "packages/web/src/components/Badge.tsx",
@@ -4497,7 +5207,15 @@
    }
   ],
   "notes": [],
-  "optimal": "`Pill` deleted while App.tsx imports it (line 3) — compile error."
+  "optimal": "`Pill` deleted while App.tsx imports it (line 3) — compile error.",
+  "publicApi": {
+   "packages/web:components/Badge.d.ts": [
+    "-/** A rounded label (anonymous component inside `memo`). */",
+    "-export declare const Pill: import(\"react\").MemoExoticComponent<(props: {",
+    "-    text: string;",
+    "-}) => import(\"react\").JSX.Element>;"
+   ]
+  }
  },
  "R17": {
   "primaryFile": "packages/web/src/components/Tabs.tsx",
@@ -4525,7 +5243,15 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Tabs.Panel`'s `title` prop is renamed `heading`; App.tsx:47 fails."
+  "optimal": "`Tabs.Panel`'s `title` prop is renamed `heading`; App.tsx:47 fails.",
+  "publicApi": {
+   "packages/web:components/Tabs.d.ts": [
+    "-    var Panel: ({ title, children }: {",
+    "-        title: string;",
+    "+    var Panel: ({ heading, children }: {",
+    "+        heading: string;"
+   ]
+  }
  },
  "R18": {
   "primaryFile": "packages/web/src/components/withLogger.tsx",
@@ -4550,7 +5276,15 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`withLogger` now requires an `extra: number` prop; wrapping `Badge` (App.tsx:19) and rendering `LoggedBadge` (App.tsx:52) fail."
+  "optimal": "`withLogger` now requires an `extra: number` prop; wrapping `Badge` (App.tsx:19) and rendering `LoggedBadge` (App.tsx:52) fail.",
+  "publicApi": {
+   "packages/web:components/withLogger.d.ts": [
+    "-export declare function withLogger<P extends object>(Wrapped: ComponentType<P>): (props: P) => import(\"react\").JSX.Element;",
+    "+export declare function withLogger<P extends {",
+    "+    extra: number;",
+    "+}>(Wrapped: ComponentType<P>): (props: P) => import(\"react\").JSX.Element;"
+   ]
+  }
  },
  "R19": {
   "primaryFile": "packages/web/src/App.tsx",
@@ -4575,7 +5309,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Lazy component `Heavy` now imports a module that does not exist (App.tsx:18)."
+  "optimal": "Lazy component `Heavy` now imports a module that does not exist (App.tsx:18).",
+  "publicApi": {}
  },
  "R20": {
   "primaryFile": "packages/web/src/components/Heavy.tsx",
@@ -4600,7 +5335,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Heavy` is now a named export; `lazy(() => import(...))` in App.tsx:18 requires a default export and fails."
+  "optimal": "`Heavy` is now a named export; `lazy(() => import(...))` in App.tsx:18 requires a default export and fails.",
+  "publicApi": {
+   "packages/web:components/Heavy.d.ts": [
+    "-export default function Heavy(): import(\"react\").JSX.Element;",
+    "+export declare function Heavy(): import(\"react\").JSX.Element;"
+   ]
+  }
  },
  "R21": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4619,7 +5360,8 @@
   ],
   "references": [],
   "notes": [],
-  "optimal": "components/CartView.tsx is now a client module (`\"use client\"`)."
+  "optimal": "components/CartView.tsx is now a client module (`\"use client\"`).",
+  "publicApi": {}
  },
  "R22": {
   "primaryFile": "packages/web/src/components/Badge.tsx",
@@ -4646,7 +5388,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Badge.displayName` is now \"ShopBadge\" (affects DevTools labels)."
+  "optimal": "`Badge.displayName` is now \"ShopBadge\" (affects DevTools labels).",
+  "publicApi": {}
  },
  "R23": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4671,7 +5414,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView`: JSX comment reworded; no code change."
+  "optimal": "`CartView`: JSX comment reworded; no code change.",
+  "publicApi": {}
  },
  "R24": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4696,7 +5440,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView`: the close button now toggles `open` instead of closing."
+  "optimal": "`CartView`: the close button now toggles `open` instead of closing.",
+  "publicApi": {}
  },
  "R25": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4734,7 +5479,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView › handleAdd` now adds \"sample-2\"."
+  "optimal": "`CartView › handleAdd` now adds \"sample-2\".",
+  "publicApi": {}
  },
  "R26": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4759,7 +5505,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView`: list items are keyed by quantity instead of SKU (keys may now collide)."
+  "optimal": "`CartView`: list items are keyed by quantity instead of SKU (keys may now collide).",
+  "publicApi": {}
  },
  "R27": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4786,7 +5533,8 @@
   "notes": [
    "Optimal output cross-checks the class name against the CSS module; not required by the rules."
   ],
-  "optimal": "`CartView` references CSS class `cartt`, which does not exist in CartView.module.css; the compiler cannot see this."
+  "optimal": "`CartView` references CSS class `cartt`, which does not exist in CartView.module.css; the compiler cannot see this.",
+  "publicApi": {}
  },
  "R28": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -4811,7 +5559,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView`: empty-state text is now \"Nothing here\"."
+  "optimal": "`CartView`: empty-state text is now \"Nothing here\".",
+  "publicApi": {}
  },
  "R29": {
   "primaryFile": "packages/web/src/components/Badge.tsx",
@@ -4836,7 +5585,19 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Badge` is no longer memoized; its render function is unchanged."
+  "optimal": "`Badge` is no longer memoized; its render function is unchanged.",
+  "publicApi": {
+   "packages/web:components/Badge.d.ts": [
+    "-/** A small label. */",
+    "-export declare const Badge: import(\"react\").MemoExoticComponent<({ label }: {",
+    "+export declare function Badge({ label }: {",
+    "-}) => import(\"react\").JSX.Element>;",
+    "+}): import(\"react\").JSX.Element;",
+    "+export declare namespace Badge {",
+    "+    var displayName: string;",
+    "+}"
+   ]
+  }
  },
  "R30": {
   "primaryFile": "packages/web/src/components/Modal.tsx",
@@ -4861,7 +5622,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Modal` portals into `#modal`, which may be missing (`null`); Modal.tsx:6 fails."
+  "optimal": "`Modal` portals into `#modal`, which may be missing (`null`); Modal.tsx:6 fails.",
+  "publicApi": {}
  },
  "R31": {
   "primaryFile": "packages/web/src/components/Nested.tsx",
@@ -4901,7 +5663,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Outer › Row` renames its prop to `label`; `Outer`'s own `<Row name={n} />` (Nested.tsx:9) fails."
+  "optimal": "`Outer › Row` renames its prop to `label`; `Outer`'s own `<Row name={n} />` (Nested.tsx:9) fails.",
+  "publicApi": {}
  },
  "R32": {
   "primaryFile": "packages/web/src/components/Icon.tsx",
@@ -4926,7 +5689,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Icon`'s default size is now 20."
+  "optimal": "`Icon`'s default size is now 20.",
+  "publicApi": {}
  },
  "R33": {
   "primaryFile": "packages/web/src/app/Page.tsx",
@@ -4952,7 +5716,13 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "Server component `Page` is no longer async and uses a static list."
+  "optimal": "Server component `Page` is no longer async and uses a static list.",
+  "publicApi": {
+   "packages/web:app/Page.d.ts": [
+    "-export default function Page(): Promise<import(\"react\").JSX.Element>;",
+    "+export default function Page(): import(\"react\").JSX.Element;"
+   ]
+  }
  },
  "R34": {
   "primaryFile": "packages/web/src/context/Theme.tsx",
@@ -4977,7 +5747,8 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`ThemeProvider` uses `ThemeContext.Provider` instead of the React 19 shorthand; behaviour unchanged."
+  "optimal": "`ThemeProvider` uses `ThemeContext.Provider` instead of the React 19 shorthand; behaviour unchanged.",
+  "publicApi": {}
  },
  "R35": {
   "primaryFile": "packages/web/src/hooks/useResource.ts",
@@ -5001,8 +5772,16 @@
   "unchanged": [],
   "fileLevel": [],
   "references": [],
-  "notes": [],
-  "optimal": "`useField`'s optimistic updater now takes a number; no caller passes a value, so no new errors."
+  "notes": [
+   "Measured (declaration emit): the public type of `useField`'s returned `setOptimistic` changes from `(action: string) => void` to `(action: number) => void`."
+  ],
+  "optimal": "`useField`'s optimistic updater now takes a number; no caller passes a value, so no new errors.",
+  "publicApi": {
+   "packages/web:hooks/useResource.d.ts": [
+    "-    setOptimistic: (action: string) => void;",
+    "+    setOptimistic: (action: number) => void;"
+   ]
+  }
  },
  "R36": {
   "primaryFile": "packages/web/src/components/CartView.tsx",
@@ -5028,7 +5807,16 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`CartView` lost its TSDoc and is now an undocumented export."
+  "optimal": "`CartView` lost its TSDoc and is now an undocumented export.",
+  "publicApi": {
+   "packages/web:components/CartView.d.ts": [
+    "-/**",
+    "- * Shows the cart lines and lets the user add a sample item.",
+    "- *",
+    "- * @param props - see {@link CartViewProps}",
+    "- */"
+   ]
+  }
  },
  "R37": {
   "primaryFile": "packages/web/src/components/Legacy.tsx",
@@ -5066,6 +5854,7 @@
   "fileLevel": [],
   "references": [],
   "notes": [],
-  "optimal": "`Counter.increment` now adds twice the step."
+  "optimal": "`Counter.increment` now adds twice the step.",
+  "publicApi": {}
  }
 }
