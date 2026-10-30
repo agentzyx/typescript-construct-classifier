@@ -86,7 +86,7 @@ export function control(values: Record<string, number>): number {
     total += values[key] ?? 0;
   }
   let i = 0;
-  while (i < 3) i++;
+  while (i < 5) i++;
   do {
     i--;
   } while (i > 0);
