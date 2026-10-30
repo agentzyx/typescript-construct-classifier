@@ -94,6 +94,11 @@ export function report(values: number[]) {
   return lines.join("\n");
 }
 
+/** Same name as documented.ts's export. */
+export function wrap<T>(value: T): T[] {
+  return [value];
+}
+
 /** Clamps negative numbers to zero. */
 export function clampZero(n: number): number {
   return n < 0 ? 0 : n;
