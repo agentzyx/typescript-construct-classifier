@@ -38,13 +38,13 @@ export class Basket {
  * Raises a number to an integer power.
  *
  * @param base - the number to raise
- * @param exp - a non-negative integer exponent
+ * @param exponent - a non-negative integer exponent
  * @returns `base` raised to `exp`
  * @throws RangeError if `exp` is negative or not an integer
  */
-export function power(base: number, exp: number): number {
-  if (exp < 0 || !Number.isInteger(exp)) throw new RangeError("bad exponent");
-  return base ** exp;
+export function power(base: number, exponent: number): number {
+  if (exponent < 0 || !Number.isInteger(exponent)) throw new RangeError("bad exponent");
+  return base ** exponent;
 }
 
 /**
