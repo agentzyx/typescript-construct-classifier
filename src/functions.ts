@@ -3,14 +3,14 @@ export function plain(a: number, b: number): number {
   return sum;
 }
 
-export async function load(id: string): Promise<string> {
-  return id;
-}
-
 export function* counter(n: number) {
   for (let i = 0; i < n; i++) {
     yield i;
   }
+}
+
+export async function load(id: string): Promise<string> {
+  return id;
 }
 
 export function pick(x: string): string;
