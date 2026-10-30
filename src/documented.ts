@@ -19,7 +19,7 @@ export class Basket {
    * @returns the new count for `sku`
    */
   add(sku: string): number {
-    const next = (this.counts.get(sku) ?? 0) + 1;
+    const next = (this.counts.get(sku) ?? 0) + 2;
     this.counts.set(sku, next);
     return next;
   }
