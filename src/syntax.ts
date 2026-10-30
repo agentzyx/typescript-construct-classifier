@@ -18,7 +18,7 @@ export type Pair = [first: string, second?: number, ...rest: boolean[]];
 export type Loose = [string, number?, ...boolean[]];
 export const dataName = data.name;
 export const holes = [1, , 3];
-export type Both = { a: number } & { b: string };
+export type Both = { a: number } & { b: string } & { c: boolean };
 export type UserFromImport = import("./types").User;
 export type KOf = typeof Geo.Inner.k;
 
