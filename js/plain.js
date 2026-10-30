@@ -7,7 +7,7 @@
  * @returns {string}
  */
 export function label(item) {
-  return item.label;
+  return item.label.trim();
 }
 
 /**
