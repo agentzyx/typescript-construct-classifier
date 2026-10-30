@@ -14,7 +14,7 @@ let ticks = 0;
 export const Level = { low: 1, high: 2 } as const;
 export type Level = (typeof Level)[keyof typeof Level];
 
-export type Pair = [first: string, second?: number, ...rest: boolean[]];
+export type Pair = [first: string, second?: bigint, ...rest: boolean[]];
 export type Loose = [string, number?, ...boolean[]];
 export const dataName = data.name;
 export const holes = [1, , 3];
