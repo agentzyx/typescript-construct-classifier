@@ -20,7 +20,7 @@ export const dataName = data.name;
 export const holes = [1, , 3];
 export type Both = { a: number } & { b: string };
 export type UserFromImport = import("./types").User;
-export type KOf = typeof Geo.Inner.k;
+export type KOf = typeof Geo.dist;
 
 export const token: unique symbol = Symbol("token");
 export const big: bigint = 10n;
