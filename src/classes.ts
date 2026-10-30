@@ -33,7 +33,7 @@ export class Cart extends Shape {
   }
 
   @logged
-  add(item: string) {
+  private add(item: string) {
     this.items.push(item);
   }
 
