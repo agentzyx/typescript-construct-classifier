@@ -50,7 +50,7 @@ export class Cart extends Shape {
   }
 
   *[Symbol.iterator]() {
-    yield* this.items;
+    yield* [...this.items].reverse();
   }
 
   async save(): Promise<void> {}
