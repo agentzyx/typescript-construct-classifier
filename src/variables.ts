@@ -18,7 +18,7 @@ export const api = {
     return fetch(url, { method: "POST" });
   },
   get version() {
-    return 1;
+    return 2;
   },
   ["computed" + "Key"]: () => 1,
 };
