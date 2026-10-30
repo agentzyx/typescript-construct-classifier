@@ -41,6 +41,7 @@ export class Basket {
  * @param exp - a non-negative integer exponent
  * @returns `base` raised to `exp`
  * @throws RangeError if `exp` is negative or not an integer
+ * @deprecated Use the `**` operator instead.
  */
 export function power(base: number, exp: number): number {
   if (exp < 0 || !Number.isInteger(exp)) throw new RangeError("bad exponent");
