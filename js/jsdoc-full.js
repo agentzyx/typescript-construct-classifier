@@ -88,7 +88,6 @@ export class Base {
 }
 
 export class Derived extends Base {
-  /** @override */
   greet() {
     return "derived";
   }
