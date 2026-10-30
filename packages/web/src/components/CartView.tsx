@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import styles from "./CartView.module.css";
 import { useCart, type CartItem } from "../hooks/useCart";
