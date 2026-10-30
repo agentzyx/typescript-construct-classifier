@@ -39,7 +39,7 @@ export class Basket {
  *
  * @param base - the number to raise
  * @param exp - a non-negative integer exponent
- * @returns `base` raised to `exp`
+ * @returns `base` to the power `exp`
  * @throws RangeError if `exp` is negative or not an integer
  */
 export function power(base: number, exp: number): number {
