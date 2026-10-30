@@ -96,3 +96,7 @@ export enum Unit {
 
 /** A function that maps a number to a number. */
 export type NumFn = (n: number) => number;
+
+export function cube(n: number): number {
+  return n * n * n;
+}
