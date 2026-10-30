@@ -2,7 +2,7 @@ import { Component, type ErrorInfo, type ReactNode } from "react";
 
 /** Props for {@link Counter}. */
 interface CounterProps {
-  step: number;
+  step: string;
 }
 
 interface CounterState {
