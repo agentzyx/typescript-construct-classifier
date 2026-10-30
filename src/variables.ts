@@ -6,7 +6,7 @@ export const fmt = (x: unknown): string => {
 };
 
 export const legacyFn = function named(n: number) {
-  return n * 2;
+  return n * 3;
 };
 
 export const api = {
