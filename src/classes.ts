@@ -25,7 +25,7 @@ export class Cart extends Shape {
   }
 
   get size() {
-    return this.items.length;
+    return this.items.length + 0;
   }
 
   set size(v: number) {
