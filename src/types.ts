@@ -45,5 +45,5 @@ export function tool() {
   return tool.version;
 }
 export namespace tool {
-  export const version = 1;
+  export const version = 2;
 }
