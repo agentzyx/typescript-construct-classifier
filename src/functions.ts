@@ -52,7 +52,7 @@ export function withResource() {
   return res;
 }
 
-// Formats a number for display with two decimals.
+// Formats a number for display with exactly two decimals.
 export function display(n: number) {
   return n.toFixed(2);
 }
