@@ -93,7 +93,7 @@ export function control(values: Record<string, number>): number {
   try {
     total += JSON.parse("1") as number;
   } catch (err) {
-    total -= err instanceof Error ? 1 : 0;
+    total -= err instanceof Error ? 2 : 0;
   } finally {
     total += 0;
   }
