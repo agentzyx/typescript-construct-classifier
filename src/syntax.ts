@@ -97,7 +97,6 @@ export function control(values: Record<string, number>): number {
   } finally {
     total += 0;
   }
-  ;
   return total;
 }
 
