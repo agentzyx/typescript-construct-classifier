@@ -10,7 +10,8 @@ export interface CartItem {
 export type CartAction =
   | { type: "add"; sku: string }
   | { type: "remove"; sku: string }
-  | { type: "clear" };
+  | { type: "clear" }
+  | { type: "undo" };
 
 /**
  * Applies an action to the cart.
