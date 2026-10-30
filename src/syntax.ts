@@ -2,7 +2,7 @@
 import Inner = Geo.Inner;
 import { Geo } from "./types";
 import data from "./data.json" with { type: "json" };
-export import InnerAlias = Geo.Inner;
+export import InnerAlias = Geo;
 
 export const innerK = Inner.k;
 
