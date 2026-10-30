@@ -19,7 +19,7 @@ export function pick(x: string | number) {
   return x;
 }
 
-export function identity<T extends object>(v: T): T {
+export function identity<T extends string>(v: T): T {
   return v;
 }
 
