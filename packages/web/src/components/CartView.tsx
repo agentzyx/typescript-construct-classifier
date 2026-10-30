@@ -43,7 +43,7 @@ export function CartView({ initial, title = "Cart" }: CartViewProps) {
       ) : (
         <ul>
           {items.map((i) => (
-            <li key={i.sku}>
+            <li key={i.qty}>
               {i.sku} × {i.qty}
             </li>
           ))}
