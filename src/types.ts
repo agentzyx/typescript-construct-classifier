@@ -25,6 +25,7 @@ export enum Color {
   Red,
   Green = "g".length,
   Blue = 3,
+  Yellow = 4,
 }
 
 export const enum Dir {
