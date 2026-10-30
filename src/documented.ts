@@ -88,7 +88,7 @@ export interface PowerOptions {
 
 /** Supported unit systems. */
 export enum Unit {
-  /** Metric units. */
+  /** Metric (SI) units. */
   Metric,
   /** Imperial units. */
   Imperial,
