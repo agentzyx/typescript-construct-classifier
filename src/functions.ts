@@ -68,7 +68,7 @@ export function square(n: number) {
 
 export function doubled(xs: number[]) {
   return xs.map((x) => {
-    return x * 2;
+    return x * 3;
   });
 }
 
