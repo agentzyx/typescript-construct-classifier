@@ -58,7 +58,7 @@ export abstract class Animal {
 export class Container<T> {
   constructor(value: T);
   constructor(value: T, label: string);
-  constructor(private value: T, protected label = "box") {}
+  constructor(private value: T, public label = "box") {}
 
   get(): T;
   get(fallback: T): T;
