@@ -11,7 +11,7 @@ let ticks = 0;
 ++ticks;
 
 /** Severity levels (a value and a type sharing one name). */
-export const Level = { low: 1, high: 2 } as const;
+export const Level = { low: 1, high: 2, critical: 3 } as const;
 export type Level = (typeof Level)[keyof typeof Level];
 
 export type Pair = [first: string, second?: number, ...rest: boolean[]];
