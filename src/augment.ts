@@ -3,6 +3,7 @@ import "./types";
 declare module "./types" {
   interface User {
     nickname?: string;
+    avatarUrl?: string;
   }
 }
 
