@@ -1,5 +1,5 @@
 export const café = "naïve 🍣 ✓";
 
 export function après(x: number) {
-  return x + 1;
+  return x + 2;
 }
