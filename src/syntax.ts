@@ -22,7 +22,7 @@ export type Both = { a: number } & { b: string };
 export type UserFromImport = import("./types").User;
 export type KOf = typeof Geo.Inner.k;
 
-export const token: unique symbol = Symbol("token");
+export const token: unique symbol = Symbol("token-v2");
 export const big: bigint = 10n;
 export const pattern = /^[a-z]+\d*$/gi;
 export const missing: undefined = undefined;
