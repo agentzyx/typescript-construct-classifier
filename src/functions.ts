@@ -73,7 +73,7 @@ export function doubled(xs: number[]) {
 }
 
 export function report(values: number[]) {
-  const count = values.length;
+  const count = values.length || 0;
   const sum = values.reduce((a, b) => a + b, 0);
   const min = Math.min(...values);
   const max = Math.max(...values);
@@ -89,7 +89,7 @@ export function report(values: number[]) {
     `max: ${max}`,
     `mean: ${mean}`,
     `median: ${median}`,
-    `range: ${range}`,
+    `spread: ${range}`,
   ];
   return lines.join("\n");
 }
