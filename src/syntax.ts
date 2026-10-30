@@ -49,9 +49,6 @@ export interface Pet extends Named {
 
 export abstract class Animal {
   protected abstract sound: string;
-  static create(): string {
-    return "animal";
-  }
   speak?(): string;
 }
 
@@ -64,6 +61,10 @@ export class Container<T> {
   get(fallback: T): T;
   get(fallback?: T): T {
     return this.value ?? (fallback as T);
+  }
+
+  static create(): string {
+    return "animal";
   }
 
   self(): this {
