@@ -1,10 +1,8 @@
 import { useCallback, useMemo, useReducer, useState } from "react";
 
-/** A line in the cart. */
-export interface CartItem {
-  sku: string;
-  qty: number;
-}
+import type { CartItem } from "./types";
+
+export type { CartItem };
 
 /** Actions accepted by {@link cartReducer}. */
 export type CartAction =
