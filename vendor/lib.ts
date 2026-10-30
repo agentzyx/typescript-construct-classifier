@@ -1,1 +1,1 @@
-export const vendored = 1;
+export const vendored = 2;
