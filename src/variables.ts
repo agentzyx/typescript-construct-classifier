@@ -32,5 +32,5 @@ function withRetry<T extends (...args: any[]) => Promise<unknown>>(fn: T): T {
 }
 
 export const fetchUser = withRetry(async (id: number) => {
-  return { id, name: "user" + id };
+  return { id, name: "user-" + id };
 });
