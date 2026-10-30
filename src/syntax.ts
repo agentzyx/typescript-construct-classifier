@@ -43,7 +43,7 @@ export interface Named {
   name: string;
 }
 
-export interface Pet extends Named {
+export interface Pet extends Named, Box<number> {
   legs: number;
 }
 
