@@ -62,8 +62,8 @@ export function display(n: number) {
  * @param n the value to square
  */
 export function square(n: number) {
-  // multiply rather than Math.pow for speed
-  return n * n;
+  // use the exponent operator for clarity
+  return n ** 2;
 }
 
 export function doubled(xs: number[]) {
