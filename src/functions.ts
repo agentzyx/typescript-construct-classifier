@@ -48,7 +48,7 @@ export function outer() {
 }
 
 export function withResource() {
-  using res = { [Symbol.dispose]() {} };
+  using res = { [Symbol.dispose]() { console.log("disposed"); } };
   return res;
 }
 
