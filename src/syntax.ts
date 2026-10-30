@@ -76,7 +76,7 @@ export function identityConst<const T extends readonly unknown[]>(items: T): T {
 }
 
 export function Legacy(this: unknown) {
-  if (!new.target) throw new Error("use new");
+  if (!new.target) throw new TypeError("Legacy must be called with new");
 }
 
 export function control(values: Record<string, number>): number {
