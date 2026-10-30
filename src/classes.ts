@@ -38,7 +38,7 @@ export class Cart extends Shape {
   }
 
   #hidden() {
-    return this.#secret;
+    return this.#secret.toUpperCase();
   }
 
   override describe() {
