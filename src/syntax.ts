@@ -19,7 +19,7 @@ export type Loose = [string, number?, ...boolean[]];
 export const dataName = data.name;
 export const holes = [1, , 3];
 export type Both = { a: number } & { b: string };
-export type UserFromImport = import("./types").User;
+export type UserFromImport = import("./types").Callable;
 export type KOf = typeof Geo.Inner.k;
 
 export const token: unique symbol = Symbol("token");
