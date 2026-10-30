@@ -1,4 +1,7 @@
 function helper() {
   return 1;
 }
-export = helper;
+function helperV2() {
+  return 2;
+}
+export = helperV2;
