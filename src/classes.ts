@@ -53,7 +53,9 @@ export class Cart extends Shape {
     yield* this.items;
   }
 
-  async save(): Promise<void> {}
+  async flush(): Promise<number> {
+    return this.items.length;
+  }
 }
 
 export const Anon = class {
