@@ -5,7 +5,7 @@ import { useCart, type CartItem } from "../hooks/useCart";
 /** Props for {@link CartView}. */
 export interface CartViewProps {
   /** Lines shown when the cart first renders. */
-  initial: CartItem[];
+  initial?: CartItem[];
   /** Heading text. */
   title?: string;
 }
