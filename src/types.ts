@@ -16,7 +16,7 @@ export interface Callable {
 }
 
 export type Id = User["id"];
-export type Status = "on" | "off";
+export type Status = "on" | "off" | "auto";
 export type ReadonlyUser = { readonly [K in keyof User]: User[K] };
 export type Unwrap<T> = T extends Promise<infer U> ? U : T;
 export type Route = `/api/${string}`;
