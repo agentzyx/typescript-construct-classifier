@@ -56,5 +56,5 @@ export function useCart(initial: CartItem[]) {
 export function useCounter(start = 0) {
   const [value, setValue] = useState(start);
   const increment = () => setValue((v) => v + 1);
-  return [value, increment] as const;
+  return { value, increment };
 }
