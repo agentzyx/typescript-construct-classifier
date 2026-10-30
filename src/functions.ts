@@ -1,5 +1,6 @@
 export function plain(a: number, b: number): number {
   const sum = a + b;
+  if (sum > 0) {
   return sum;
 }
 
