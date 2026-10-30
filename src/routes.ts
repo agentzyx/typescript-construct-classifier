@@ -1,4 +1,4 @@
-type Handler = (req: { url: string }) => string;
+type Handler = (req: { url: string; method?: string }) => string;
 const routes: Record<string, Handler> = {};
 
 function get(path: string, h: Handler) {
@@ -13,4 +13,4 @@ get("/orders", (req) => {
   return "orders " + req.url;
 });
 
-export { routes };
+export { routes, get };
