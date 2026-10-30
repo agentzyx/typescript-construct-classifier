@@ -4,7 +4,7 @@ export interface Store {
 
 export class DbStore implements Store {
   get(id: number) {
-    return "db" + id;
+    return "db:" + id;
   }
 }
 
