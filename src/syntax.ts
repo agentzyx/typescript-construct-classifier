@@ -29,7 +29,7 @@ export const missing: undefined = undefined;
 export const sym: symbol = Symbol.iterator;
 
 declare enum Ambient {
-  One = 1,
+  One = 2,
 }
 export const ambientOne: Ambient = 1;
 
