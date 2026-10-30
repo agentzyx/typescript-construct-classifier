@@ -20,7 +20,7 @@ export const api = {
   get version() {
     return 1;
   },
-  ["computed" + "Key"]: () => 1,
+  ["computed" + "Key"]: () => 2,
 };
 
 export const { a: alpha, b: beta } = { a: 1, b: 2 };
