@@ -52,7 +52,7 @@ export abstract class Animal {
   static create(): string {
     return "animal";
   }
-  speak?(): string;
+  abstract speak(): string;
 }
 
 export class Container<T> {
