@@ -65,7 +65,6 @@ export const origin = { x: 0, y: 0 };
 
 /** @implements {Iterable<number>} */
 export class Counter {
-  /** @readonly */
   start = 0;
   /** @private */
   secret = 1;
