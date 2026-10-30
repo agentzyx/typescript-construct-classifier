@@ -40,7 +40,7 @@ export function cartReducer(items: CartItem[], action: CartAction): CartItem[] {
  * @param initial - starting cart lines
  * @returns the lines, their total quantity, and an `add` function
  */
-export function useCart(initial: CartItem[]) {
+export function useCart(initial: CartItem[], max: number) {
   const [items, dispatch] = useReducer(cartReducer, initial);
   const total = useMemo(() => items.reduce((n, i) => n + i.qty, 0), [items]);
   const add = useCallback((sku: string) => dispatch({ type: "add", sku }), []);
