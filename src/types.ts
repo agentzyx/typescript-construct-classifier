@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface Callable {
-  (x: number): string;
+  (x: number, radix?: number): string;
   new (x: string): Callable;
   [key: string]: unknown;
 }
