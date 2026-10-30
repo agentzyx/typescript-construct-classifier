@@ -3,7 +3,7 @@
  */
 
 /**
- * @param {Item} item
+ * @param {string} item
  * @returns {string}
  */
 export function label(item) {
