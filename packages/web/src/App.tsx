@@ -38,7 +38,7 @@ export function App() {
           <Badge label="new" />
           <Pill text="sale" />
         </Header>
-        <CartView initial={[{ sku: "a", qty: 1 }]} title="Your cart" />
+        <CartView initial={[{ sku: "a", qty: 1 }]} title="Your cart" currency="EUR" />
         <Button label="Buy" onPress={() => inputRef.current?.focus()} />
         <Input ref={inputRef} placeholder="Coupon" />
         <List items={[{ id: "1", name: "x" }]} render={(item) => <b>{item.name}</b>} />
