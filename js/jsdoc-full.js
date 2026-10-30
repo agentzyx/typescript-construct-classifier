@@ -10,7 +10,7 @@
 
 /**
  * Picks the first element.
- * @template T
+ * @template {string} T
  * @param {T[]} items - the list
  * @returns {T | undefined}
  * @see {@linkcode last} for the opposite end
