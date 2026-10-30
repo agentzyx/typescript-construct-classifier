@@ -15,7 +15,7 @@ export interface CartViewProps {
  *
  * @param props - see {@link CartViewProps}
  */
-export function CartView({ initial, title = "Cart" }: CartViewProps) {
+export function CartPanel({ initial, title = "Cart" }: CartViewProps) {
   const { items, total, add } = useCart(initial);
   const [open, setOpen] = useState(true);
 
