@@ -32,7 +32,6 @@ export class Cart extends Shape {
     this.items.length = v;
   }
 
-  @logged
   add(item: string) {
     this.items.push(item);
   }
