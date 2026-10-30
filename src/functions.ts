@@ -1,4 +1,4 @@
-export function plain(a: number, b: number): number {
+export function plain(a: number, b: number, c = 0): number {
   const sum = a + b;
   return sum;
 }
