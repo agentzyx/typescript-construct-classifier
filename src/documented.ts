@@ -81,7 +81,7 @@ export interface PowerOptions {
   maxExp: number;
   /**
    * Whether to round the result.
-   * @defaultValue false
+   * @defaultValue true
    */
   round?: boolean;
 }
