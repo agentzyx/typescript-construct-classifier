@@ -6,9 +6,9 @@ export function Tabs({ children }: { children: ReactNode }) {
 }
 
 /** One panel inside {@link Tabs}. */
-Tabs.Panel = function Panel({ title, children }: { title: string; children: ReactNode }) {
+Tabs.Panel = function Panel({ heading, children }: { heading: string; children: ReactNode }) {
   return (
-    <section aria-label={title} role="tabpanel">
+    <section aria-label={heading} role="tabpanel">
       {children}
     </section>
   );
