@@ -62,7 +62,8 @@ export class Container<T> {
 
   get(): T;
   get(fallback: T): T;
-  get(fallback?: T): T {
+  get(fallback: T, strict: boolean): T;
+  get(fallback?: T, _strict?: boolean): T {
     return this.value ?? (fallback as T);
   }
 
