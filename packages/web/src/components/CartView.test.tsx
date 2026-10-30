@@ -6,7 +6,7 @@ declare function render(ui: unknown): { getByTestId(id: string): { click(): void
 
 describe("CartView", () => {
   it("adds a sample item", () => {
-    const view = render(<CartView initial={[]} />);
+    const view = render(<CartView initial={[]} currency="EUR" />);
     view.getByTestId("add").click();
   });
 });

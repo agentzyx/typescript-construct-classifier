@@ -8,6 +8,8 @@ export interface CartViewProps {
   initial: CartItem[];
   /** Heading text. */
   title?: string;
+  /** ISO currency code. */
+  currency: string;
 }
 
 /**
