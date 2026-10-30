@@ -1,5 +1,5 @@
 export default {
-  name: "cfg",
+  name: "config",
   run() {
     return 1;
   },
