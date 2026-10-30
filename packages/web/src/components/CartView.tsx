@@ -28,7 +28,7 @@ export function CartView({ initial, title = "Cart" }: CartViewProps) {
   }, []);
 
   const handleAdd = () => {
-    add("sample");
+    add("sample-2");
   };
 
   if (!open) return null;
