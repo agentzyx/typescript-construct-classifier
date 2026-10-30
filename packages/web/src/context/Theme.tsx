@@ -3,7 +3,7 @@ import { createContext, use, useContext, type ReactNode } from "react";
 /** Visual theme values. */
 export interface Theme {
   color: string;
-  dense: boolean;
+  dense: "yes" | "no";
 }
 
 /** The current theme. */
