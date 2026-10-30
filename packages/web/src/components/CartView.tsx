@@ -10,11 +10,6 @@ export interface CartViewProps {
   title?: string;
 }
 
-/**
- * Shows the cart lines and lets the user add a sample item.
- *
- * @param props - see {@link CartViewProps}
- */
 export function CartView({ initial, title = "Cart" }: CartViewProps) {
   const { items, total, add } = useCart(initial);
   const [open, setOpen] = useState(true);
