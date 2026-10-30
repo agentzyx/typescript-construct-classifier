@@ -53,7 +53,7 @@ export function useCart(initial: CartItem[]) {
  * @param start - initial value
  * @returns a `[value, increment]` tuple
  */
-export function useCounter(start = 0) {
+export function useTally(start = 0) {
   const [value, setValue] = useState(start);
   const increment = () => setValue((v) => v + 1);
   return [value, increment] as const;
