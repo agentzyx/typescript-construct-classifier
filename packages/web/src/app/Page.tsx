@@ -1,5 +1,5 @@
 /** An async server component. */
-export default async function Page() {
-  const data = await Promise.resolve(["a", "b"]);
+export default function Page() {
+  const data = ["a", "b"];
   return <p>{data.join(", ")}</p>;
 }
