@@ -24,7 +24,7 @@ export type KOf = typeof Geo.Inner.k;
 
 export const token: unique symbol = Symbol("token");
 export const big: bigint = 10n;
-export const pattern = /^[a-z]+\d*$/gi;
+export const pattern = /^[a-z]+\d*$/g;
 export const missing: undefined = undefined;
 export const sym: symbol = Symbol.iterator;
 
