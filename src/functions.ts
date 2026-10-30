@@ -47,8 +47,8 @@ export function outer() {
   return viaArrow();
 }
 
-export function withResource() {
-  using res = { [Symbol.dispose]() {} };
+export function withDisposable() {
+  using res = { [Symbol.dispose]() { console.log("done"); } };
   return res;
 }
 
