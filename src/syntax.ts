@@ -138,9 +138,9 @@ export class Tagged {
 }
 
 export function left(n: number): number {
-  return n - 1;
+  return n + 1;
 }
 
 export function right(n: number): number {
-  return n + 1;
+  return n - 1;
 }
