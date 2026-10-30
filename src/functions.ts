@@ -94,6 +94,10 @@ export function report(values: number[]) {
   return lines.join("\n");
 }
 
+export function triple(n: number): number {
+  return n * 3;
+}
+
 /** Clamps negative numbers to zero. */
 export function clampZero(n: number): number {
   return n < 0 ? 0 : n;
