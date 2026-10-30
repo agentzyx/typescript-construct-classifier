@@ -72,6 +72,16 @@ export function doubled(xs: number[]) {
   });
 }
 
+/**
+ * Halves a number.
+ *
+ * @param n - the value to halve
+ * @returns `n / 2`
+ */
+export function half(n: number): number {
+  return n / 2;
+}
+
 export function report(values: number[]) {
   const count = values.length;
   const sum = values.reduce((a, b) => a + b, 0);
