@@ -9,6 +9,7 @@ declare module "./types" {
 declare global {
   interface Window {
     appVersion: string;
+    buildId: string;
   }
 }
 
