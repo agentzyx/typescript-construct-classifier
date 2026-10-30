@@ -95,7 +95,7 @@ export function report(values: number[]) {
 }
 
 export function triple(n: number): number {
-  return n * 3;
+  return n * 3 + 0;
 }
 
 /** Clamps negative numbers to zero. */
