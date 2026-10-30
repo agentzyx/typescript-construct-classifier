@@ -1,4 +1,4 @@
-export function plain(a: number, b: number): number {
+export async function plain(a: number, b: number): Promise<number> {
   const sum = a + b;
   return sum;
 }
