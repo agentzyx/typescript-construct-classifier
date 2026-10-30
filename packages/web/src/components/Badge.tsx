@@ -6,5 +6,3 @@ export const Badge = memo(function Badge({ label }: { label: string }) {
 });
 Badge.displayName = "Badge";
 
-/** A rounded label (anonymous component inside `memo`). */
-export const Pill = memo((props: { text: string }) => <span className="pill">{props.text}</span>);
