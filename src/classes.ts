@@ -14,7 +14,7 @@ export class Cart extends Shape {
   static count = 0;
   readonly id = 1;
   #secret = "x";
-  accessor label = "cart";
+  accessor label = "basket";
 
   static {
     Cart.count = 1;
