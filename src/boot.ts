@@ -12,5 +12,5 @@ outer: for (const i of [1, 2]) {
 }
 
 export function isReady() {
-  return ready;
+  return ready === true;
 }
