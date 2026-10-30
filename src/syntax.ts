@@ -1,4 +1,3 @@
-/// <reference path="./ambient.d.ts" />
 import Inner = Geo.Inner;
 import { Geo } from "./types";
 import data from "./data.json" with { type: "json" };
