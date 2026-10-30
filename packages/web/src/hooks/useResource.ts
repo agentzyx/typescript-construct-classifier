@@ -35,6 +35,6 @@ export function useWidth() {
 export function useField(value: string) {
   const id = useId();
   const [pending, startTransition] = useTransition();
-  const [optimistic, setOptimistic] = useOptimistic(value, (_current, next: string) => next);
+  const [optimistic, setOptimistic] = useOptimistic(value, (_current, next: number) => String(next));
   return { id, pending, startTransition, optimistic, setOptimistic };
 }
