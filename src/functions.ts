@@ -35,13 +35,9 @@ export function withThis(this: { n: number }, k = 1, ...rest: number[]) {
   return this.n + k + rest.length;
 }
 
-function internalHelper() {
-  return 42;
-}
-
 export function outer() {
   function inner() {
-    return internalHelper();
+    return 42;
   }
   const viaArrow = () => inner();
   return viaArrow();
