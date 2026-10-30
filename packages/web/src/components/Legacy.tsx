@@ -1,4 +1,4 @@
-import { Component, type ErrorInfo, type ReactNode } from "react";
+import { Component, useEffect, useState, type ErrorInfo, type ReactNode } from "react";
 
 /** Props for {@link Counter}. */
 interface CounterProps {
@@ -9,25 +9,16 @@ interface CounterState {
   count: number;
 }
 
-/** A class component with state and lifecycle methods. */
-export class Counter extends Component<CounterProps, CounterState> {
-  state: CounterState = { count: 0 };
-
-  componentDidMount() {
+/** A counter component (function version of the former class component). */
+export function Counter({ step }: CounterProps) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
     console.log("mounted");
-  }
-
-  componentDidUpdate(prev: CounterProps) {
-    if (prev.step !== this.props.step) console.log("step changed");
-  }
-
-  increment = () => {
-    this.setState((s) => ({ count: s.count + this.props.step }));
+  }, []);
+  const increment = () => {
+    setCount((c) => c + step);
   };
-
-  render() {
-    return <button onClick={this.increment}>{this.state.count}</button>;
-  }
+  return <button onClick={increment}>{count}</button>;
 }
 
 /** Catches render errors in its subtree. */
