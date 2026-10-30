@@ -75,7 +75,7 @@ export function oldSquare(n: number): number {
  */
 export function resetCaches(): void {}
 
-/** Settings accepted by {@link power}-based helpers. */
+/** Settings accepted by {@link wrap}-based helpers. */
 export interface PowerOptions {
   /** Maximum exponent allowed. */
   maxExp: number;
