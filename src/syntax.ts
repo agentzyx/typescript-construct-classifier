@@ -50,7 +50,7 @@ export interface Pet extends Named {
 export abstract class Animal {
   protected abstract sound: string;
   static create(): string {
-    return "animal";
+    return "creature";
   }
   speak?(): string;
 }
