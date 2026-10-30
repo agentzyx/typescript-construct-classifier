@@ -1,5 +1,5 @@
 export const LIMIT = 10;
-export let counterVar = 0, step = 2;
+export let counterVar = 0, step = 3;
 
 export const fmt = (x: unknown): string => {
   return String(x);
