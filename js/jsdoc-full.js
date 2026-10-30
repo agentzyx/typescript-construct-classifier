@@ -60,7 +60,7 @@ export function loose(maybe, required, ...rest) {
   return [maybe, required, rest];
 }
 
-/** @satisfies {Point} */
+/** @satisfies {{ x: number }} */
 export const origin = { x: 0, y: 0 };
 
 /** @implements {Iterable<number>} */
