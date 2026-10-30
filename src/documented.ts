@@ -47,13 +47,6 @@ export function power(base: number, exp: number): number {
   return base ** exp;
 }
 
-/**
- * Wraps a value in a single-element array.
- *
- * @typeParam T - the element type
- * @param value - the value to wrap
- * @returns a one-element array containing `value`
- */
 export function wrap<T>(value: T): T[] {
   return [value];
 }
