@@ -46,7 +46,7 @@ export class Cart extends Shape {
   }
 
   area() {
-    return this.items.length;
+    return this.items.length * 2;
   }
 
   *[Symbol.iterator]() {
