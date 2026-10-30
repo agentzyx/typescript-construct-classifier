@@ -1,0 +1,103 @@
+[
+ {
+  "id": "M01",
+  "title": "rename fmt -> formatValue and update importers",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "export const fmt =",
+    "new": "export const formatValue ="
+   },
+   {
+    "op": "replace",
+    "file": "src/consumers.ts",
+    "old": "import { fmt as f } from \"./variables\";",
+    "new": "import { formatValue as f } from \"./variables\";"
+   },
+   {
+    "op": "replace",
+    "file": "src/index.ts",
+    "old": "export { fmt as format, api } from \"./variables\";",
+    "new": "export { formatValue as format, api } from \"./variables\";"
+   }
+  ]
+ },
+ {
+  "id": "M02",
+  "title": "Store.get id: string everywhere",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/store.ts",
+    "old": "  get(id: number): string;",
+    "new": "  get(id: string): string;"
+   },
+   {
+    "op": "replace",
+    "file": "src/store.ts",
+    "old": "export class DbStore implements Store {\n  get(id: number) {",
+    "new": "export class DbStore implements Store {\n  get(id: string) {"
+   },
+   {
+    "op": "replace",
+    "file": "src/store.ts",
+    "old": "export class MemStore implements Store {\n  get(id: number) {",
+    "new": "export class MemStore implements Store {\n  get(id: string) {"
+   },
+   {
+    "op": "replace",
+    "file": "src/store.ts",
+    "old": "  return s.get(1);",
+    "new": "  return s.get(\"1\");"
+   },
+   {
+    "op": "replace",
+    "file": "src/store.ts",
+    "old": "  return new DbStore().get(2);",
+    "new": "  return new DbStore().get(\"2\");"
+   }
+  ]
+ },
+ {
+  "id": "M03",
+  "title": "React: add required currency prop and update usages",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/CartView.tsx",
+    "old": "  title?: string;\n}",
+    "new": "  title?: string;\n  /** ISO currency code. */\n  currency: string;\n}"
+   },
+   {
+    "op": "replace",
+    "file": "packages/web/src/App.tsx",
+    "old": "<CartView initial={[{ sku: \"a\", qty: 1 }]} title=\"Your cart\" />",
+    "new": "<CartView initial={[{ sku: \"a\", qty: 1 }]} title=\"Your cart\" currency=\"EUR\" />"
+   },
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/CartView.test.tsx",
+    "old": "render(<CartView initial={[]} />)",
+    "new": "render(<CartView initial={[]} currency=\"EUR\" />)"
+   }
+  ]
+ },
+ {
+  "id": "M04",
+  "title": "React: move CartItem to types.ts and update imports",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/hooks/useCart.ts",
+    "old": "/** A line in the cart. */\nexport interface CartItem {\n  sku: string;\n  qty: number;\n}\n",
+    "new": "import type { CartItem } from \"./types\";\n\nexport type { CartItem };\n"
+   },
+   {
+    "op": "create",
+    "file": "packages/web/src/hooks/types.ts",
+    "content": "/** A line in the cart. */\nexport interface CartItem {\n  sku: string;\n  qty: number;\n}\n"
+   }
+  ]
+ }
+]

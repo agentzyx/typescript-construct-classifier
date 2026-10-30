@@ -1,0 +1,211 @@
+[
+ {
+  "id": "A01",
+  "title": "plain: change a body line",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const sum = a + b;\n",
+    "new": "  const sum = a + b + 0;\n"
+   }
+  ]
+ },
+ {
+  "id": "A02",
+  "title": "plain: add a parameter",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function plain(a: number, b: number): number {",
+    "new": "export function plain(a: number, b: number, c = 0): number {"
+   }
+  ]
+ },
+ {
+  "id": "A03",
+  "title": "load: change return type",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export async function load(id: string): Promise<string> {",
+    "new": "export async function load(id: string): Promise<string | undefined> {"
+   }
+  ]
+ },
+ {
+  "id": "A04",
+  "title": "add exported function half (with TSDoc)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function report(values: number[]) {",
+    "new": "/**\n * Halves a number.\n *\n * @param n - the value to halve\n * @returns `n / 2`\n */\nexport function half(n: number): number {\n  return n / 2;\n}\n\nexport function report(values: number[]) {"
+   }
+  ]
+ },
+ {
+  "id": "A05",
+  "title": "delete isString",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function isString(v: unknown): v is string {\n  return typeof v === \"string\";\n}\n\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "A06",
+  "title": "rename withThis -> withContext, same body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function withThis(",
+    "new": "export function withContext("
+   }
+  ]
+ },
+ {
+  "id": "A07",
+  "title": "move counter to new file src/gen.ts",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function* counter(n: number) {\n  for (let i = 0; i < n; i++) {\n    yield i;\n  }\n}\n\n",
+    "new": ""
+   },
+   {
+    "op": "create",
+    "file": "src/gen.ts",
+    "content": "export function* counter(n: number) {\n  for (let i = 0; i < n; i++) {\n    yield i;\n  }\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "A08",
+  "title": "swap order of load and counter",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export async function load(id: string): Promise<string> {\n  return id;\n}\n\nexport function* counter(n: number) {\n  for (let i = 0; i < n; i++) {\n    yield i;\n  }\n}\n",
+    "new": "export function* counter(n: number) {\n  for (let i = 0; i < n; i++) {\n    yield i;\n  }\n}\n\nexport async function load(id: string): Promise<string> {\n  return id;\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "A09",
+  "title": "comment added inside plain body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const sum = a + b;\n",
+    "new": "  // add the two operands\n  const sum = a + b;\n"
+   }
+  ]
+ },
+ {
+  "id": "A10",
+  "title": "re-indent plain body (whitespace only)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const sum = a + b;\n  return sum;\n",
+    "new": "    const sum = a + b;\n    return sum;\n"
+   }
+  ]
+ },
+ {
+  "id": "A11",
+  "title": "add TSDoc above load",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export async function load(",
+    "new": "/**\n * Loads a record by id.\n *\n * @param id - the record id\n * @returns the loaded record\n */\nexport async function load("
+   }
+  ]
+ },
+ {
+  "id": "A12",
+  "title": "remove export from isString",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function isString(",
+    "new": "function isString("
+   }
+  ]
+ },
+ {
+  "id": "A13",
+  "title": "make plain async",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function plain(a: number, b: number): number {",
+    "new": "export async function plain(a: number, b: number): Promise<number> {"
+   }
+  ]
+ },
+ {
+  "id": "A14",
+  "title": "one hunk spanning end of plain and start of load",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  return sum;\n}\n\nexport async function load(id: string): Promise<string> {\n  return id;",
+    "new": "  return sum * 1;\n}\n\nexport async function load(id: string): Promise<string> {\n  return id.trim();"
+   }
+  ]
+ },
+ {
+  "id": "A15",
+  "title": "two separate hunks inside report",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const count = values.length;",
+    "new": "  const count = values.length || 0;"
+   },
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "    `range: ${range}`,",
+    "new": "    `spread: ${range}`,"
+   }
+  ]
+ },
+ {
+  "id": "A16",
+  "title": "first and last line of routes.ts",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/routes.ts",
+    "old": "type Handler = (req: { url: string }) => string;",
+    "new": "type Handler = (req: { url: string; method?: string }) => string;"
+   },
+   {
+    "op": "replace",
+    "file": "src/routes.ts",
+    "old": "export { routes };",
+    "new": "export { routes, get };"
+   }
+  ]
+ }
+]

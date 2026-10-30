@@ -1,0 +1,266 @@
+[
+ {
+  "id": "R01",
+  "title": "CartViewProps: add required prop currency",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "  title?: string;\n}",
+  "new": "  title?: string;\n  currency: string;\n}"
+ },
+ {
+  "id": "R02",
+  "title": "CartViewProps: initial becomes optional",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "  initial: CartItem[];",
+  "new": "  initial?: CartItem[];"
+ },
+ {
+  "id": "R03",
+  "title": "rename CartView -> CartPanel (definition only)",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "export function CartView(",
+  "new": "export function CartPanel("
+ },
+ {
+  "id": "R04",
+  "title": "useCart: add required parameter max",
+  "file": "packages/web/src/hooks/useCart.ts",
+  "old": "export function useCart(initial: CartItem[]) {",
+  "new": "export function useCart(initial: CartItem[], max: number) {"
+ },
+ {
+  "id": "R05",
+  "title": "useCart: return total renamed to sum",
+  "file": "packages/web/src/hooks/useCart.ts",
+  "old": "  return { items, total, add };",
+  "new": "  return { items, sum: total, add };"
+ },
+ {
+  "id": "R06",
+  "title": "CartView effect deps [title, total] -> [title]",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "  }, [title, total]);",
+  "new": "  }, [title]);"
+ },
+ {
+  "id": "R07",
+  "title": "useCounter returns object instead of tuple",
+  "file": "packages/web/src/hooks/useCart.ts",
+  "old": "  return [value, increment] as const;",
+  "new": "  return { value, increment };"
+ },
+ {
+  "id": "R08",
+  "title": "Theme.dense boolean -> \"yes\" | \"no\"",
+  "file": "packages/web/src/context/Theme.tsx",
+  "old": "  dense: boolean;",
+  "new": "  dense: \"yes\" | \"no\";"
+ },
+ {
+  "id": "R09",
+  "title": "CartAction: add { type: \"undo\" } (exhaustive switch)",
+  "file": "packages/web/src/hooks/useCart.ts",
+  "old": "  | { type: \"clear\" };",
+  "new": "  | { type: \"clear\" }\n  | { type: \"undo\" };"
+ },
+ {
+  "id": "R10",
+  "title": "Counter props step: number -> string",
+  "file": "packages/web/src/components/Legacy.tsx",
+  "old": "interface CounterProps {\n  step: number;",
+  "new": "interface CounterProps {\n  step: string;"
+ },
+ {
+  "id": "R11",
+  "title": "List constraint id: string -> id: number",
+  "file": "packages/web/src/components/List.tsx",
+  "old": "export function List<T extends { id: string }>",
+  "new": "export function List<T extends { id: number }>"
+ },
+ {
+  "id": "R12",
+  "title": "Header no longer accepts children",
+  "file": "packages/web/src/components/Header.tsx",
+  "old": "export const Header: FC<PropsWithChildren<HeaderProps>> = ({ title, children }) => {",
+  "new": "export const Header: FC<HeaderProps> = ({ title }) => {\n  const children = null;"
+ },
+ {
+  "id": "R13",
+  "title": "Button: forwardRef -> plain function component",
+  "file": "packages/web/src/components/Button.tsx",
+  "old": "export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({ label, onPress }, ref) {\n  return (\n    <button ref={ref} onClick={onPress}>\n      {label}\n    </button>\n  );\n});",
+  "new": "export function Button({ label, onPress }: ButtonProps) {\n  return (\n    <button onClick={onPress}>\n      {label}\n    </button>\n  );\n}"
+ },
+ {
+  "id": "R14",
+  "title": "Input ref prop Ref<InputHandle> -> Ref<HTMLInputElement>",
+  "file": "packages/web/src/components/Button.tsx",
+  "old": "{ ref?: Ref<InputHandle>; placeholder: string }",
+  "new": "{ ref?: Ref<HTMLInputElement>; placeholder: string }"
+ },
+ {
+  "id": "R15",
+  "title": "server action saveCart drops previous-state param",
+  "file": "packages/web/src/app/actions.ts",
+  "old": "export async function saveCart(_previous: string, form: FormData)",
+  "new": "export async function saveCart(form: FormData)"
+ },
+ {
+  "id": "R16",
+  "title": "delete Pill",
+  "file": "packages/web/src/components/Badge.tsx",
+  "old": "\n/** A rounded label (anonymous component inside `memo`). */\nexport const Pill = memo((props: { text: string }) => <span className=\"pill\">{props.text}</span>);\n",
+  "new": "\n"
+ },
+ {
+  "id": "R17",
+  "title": "Tabs.Panel prop title -> heading",
+  "file": "packages/web/src/components/Tabs.tsx",
+  "old": "function Panel({ title, children }: { title: string; children: ReactNode }) {\n  return (\n    <section aria-label={title}",
+  "new": "function Panel({ heading, children }: { heading: string; children: ReactNode }) {\n  return (\n    <section aria-label={heading}"
+ },
+ {
+  "id": "R18",
+  "title": "withLogger constraint requires extra: number",
+  "file": "packages/web/src/components/withLogger.tsx",
+  "old": "export function withLogger<P extends object>",
+  "new": "export function withLogger<P extends { extra: number }>"
+ },
+ {
+  "id": "R19",
+  "title": "lazy import path -> ./components/Heavier",
+  "file": "packages/web/src/App.tsx",
+  "old": "import(\"./components/Heavy\")",
+  "new": "import(\"./components/Heavier\")"
+ },
+ {
+  "id": "R20",
+  "title": "Heavy: default export -> named export",
+  "file": "packages/web/src/components/Heavy.tsx",
+  "old": "export default function Heavy() {",
+  "new": "export function Heavy() {"
+ },
+ {
+  "id": "R21",
+  "title": "add \"use client\" to CartView.tsx",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "import { useEffect, useState } from \"react\";",
+  "new": "\"use client\";\n\nimport { useEffect, useState } from \"react\";"
+ },
+ {
+  "id": "R22",
+  "title": "Badge.displayName changed",
+  "file": "packages/web/src/components/Badge.tsx",
+  "old": "Badge.displayName = \"Badge\";",
+  "new": "Badge.displayName = \"ShopBadge\";"
+ },
+ {
+  "id": "R23",
+  "title": "JSX comment text changed",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "{/* heading and close button */}",
+  "new": "{/* title row */}"
+ },
+ {
+  "id": "R24",
+  "title": "inline onClick handler body changed",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "onClick={() => setOpen(false)}",
+  "new": "onClick={() => setOpen(!open)}"
+ },
+ {
+  "id": "R25",
+  "title": "named local handler handleAdd body changed",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "    add(\"sample\");",
+  "new": "    add(\"sample-2\");"
+ },
+ {
+  "id": "R26",
+  "title": "list key i.sku -> i.qty",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "<li key={i.sku}>",
+  "new": "<li key={i.qty}>"
+ },
+ {
+  "id": "R27",
+  "title": "CSS module class typo styles.cart -> styles.cartt",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "className={styles.cart}",
+  "new": "className={styles.cartt}"
+ },
+ {
+  "id": "R28",
+  "title": "JSX text Empty -> Nothing here",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": ">Empty<",
+  "new": ">Nothing here<"
+ },
+ {
+  "id": "R29",
+  "title": "Badge: remove memo wrapper",
+  "file": "packages/web/src/components/Badge.tsx",
+  "old": "export const Badge = memo(function Badge({ label }: { label: string }) {\n  return <span className=\"badge\">{label}</span>;\n});",
+  "new": "export const Badge = function Badge({ label }: { label: string }) {\n  return <span className=\"badge\">{label}</span>;\n};"
+ },
+ {
+  "id": "R30",
+  "title": "Modal portal target may be null",
+  "file": "packages/web/src/components/Modal.tsx",
+  "old": "document.body);",
+  "new": "document.getElementById(\"modal\"));"
+ },
+ {
+  "id": "R31",
+  "title": "nested Row prop name -> label",
+  "file": "packages/web/src/components/Nested.tsx",
+  "old": "function Row({ name }: { name: string }) {\n    return <li>{name}</li>;",
+  "new": "function Row({ label }: { label: string }) {\n    return <li>{label}</li>;"
+ },
+ {
+  "id": "R32",
+  "title": "Icon default size 16 -> 20",
+  "file": "packages/web/src/components/Icon.tsx",
+  "old": "{ size = 16 }",
+  "new": "{ size = 20 }"
+ },
+ {
+  "id": "R33",
+  "title": "Page: async server component -> sync",
+  "file": "packages/web/src/app/Page.tsx",
+  "old": "export default async function Page() {\n  const data = await Promise.resolve([\"a\", \"b\"]);",
+  "new": "export default function Page() {\n  const data = [\"a\", \"b\"];"
+ },
+ {
+  "id": "R34",
+  "title": "ThemeProvider: React 19 <Ctx value> -> <Ctx.Provider value>",
+  "file": "packages/web/src/context/Theme.tsx",
+  "old": "<ThemeContext value={theme}>{children}</ThemeContext>",
+  "new": "<ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>"
+ },
+ {
+  "id": "R35",
+  "title": "useField optimistic reducer param type string -> number",
+  "file": "packages/web/src/hooks/useResource.ts",
+  "old": "(_current, next: string) => next",
+  "new": "(_current, next: number) => String(next)"
+ },
+ {
+  "id": "R36",
+  "title": "remove TSDoc from CartView (exported component)",
+  "file": "packages/web/src/components/CartView.tsx",
+  "old": "/**\n * Shows the cart lines and lets the user add a sample item.\n *\n * @param props - see {@link CartViewProps}\n */\n",
+  "new": ""
+ },
+ {
+  "id": "R37",
+  "title": "Counter.increment class-field arrow body (rule 13)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/Legacy.tsx",
+    "old": "    this.setState((s) => ({ count: s.count + this.props.step }));",
+    "new": "    this.setState((s) => ({ count: s.count + this.props.step * 2 }));"
+   }
+  ]
+ }
+]

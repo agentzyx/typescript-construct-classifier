@@ -1,0 +1,5071 @@
+{
+ "A01": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A single body line changes inside a top-level function; the signature does not.",
+  "rules": [
+   "check 1 (code changed → body)"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "load"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`plain` (function): body changed — `sum` now adds `0`; signature unchanged; no new errors."
+ },
+ "A02": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A parameter with a default value is added; existing callers stay valid.",
+  "rules": [
+   "check 1 (code changed → signature)"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "parameter `c = 0` added (optional)"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`plain` (function): signature changed — optional parameter `c = 0` added; callers unaffected; no new errors."
+ },
+ "A03": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Only the declared return type changes.",
+  "rules": [
+   "check 1 (signature)"
+  ],
+  "components": [
+   {
+    "component": "load",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "return type `Promise<string>` → `Promise<string | undefined>`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`load` (async function): return type widened to `Promise<string | undefined>`; body unchanged; no new errors."
+ },
+ "A04": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A new exported, TSDoc-documented function is inserted between existing functions.",
+  "rules": [
+   "added"
+  ],
+  "components": [
+   {
+    "component": "half",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "exported; doc: block with @param, @returns"
+   }
+  ],
+  "unchanged": [
+   "report",
+   "doubled"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`half` (function) added in src/functions.ts — exported and documented (`@param n`, `@returns`)."
+ },
+ "A05": {
+  "primaryFile": "src/functions.ts",
+  "tests": "An exported function with no references anywhere is deleted.",
+  "rules": [
+   "deleted"
+  ],
+  "components": [
+   {
+    "component": "isString",
+    "kind": "function",
+    "change": "deleted",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "no references on base"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "`src/index.ts` re-exports `src/functions.ts` with `export *`, so the barrel silently stops exporting `isString`."
+  ],
+  "optimal": "`isString` (type-predicate function) deleted; it had no references on base, so nothing breaks."
+ },
+ "A06": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A function is renamed and its body is identical — rename detection by body fingerprint.",
+  "rules": [
+   "rename detection (bodyFingerprint equal)"
+  ],
+  "components": [
+   {
+    "component": "withContext",
+    "kind": "function",
+    "change": "renamed",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "renamed from `withThis`; body identical"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`withThis` renamed to `withContext` (function); body and parameters identical; no references on base."
+ },
+ "A07": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A function moves to a new file with its text unchanged.",
+  "rules": [
+   "move detection across files"
+  ],
+  "components": [
+   {
+    "component": "counter",
+    "kind": "function",
+    "change": "moved",
+    "flags": [],
+    "container": [],
+    "file": "src/gen.ts",
+    "detail": "from src/functions.ts to src/gen.ts; text identical"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/gen.ts",
+    "change": "added",
+    "detail": "new file containing `counter`"
+   }
+  ],
+  "references": [],
+  "notes": [
+   "`src/index.ts` re-exports `./functions` with `export *`, so `counter` is no longer exported by the barrel."
+  ],
+  "optimal": "`counter` (generator function) moved from src/functions.ts to the new file src/gen.ts, unchanged."
+ },
+ "A08": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Two functions swap places in the same file with no other change.",
+  "rules": [
+   "rule 3 (moved, same file)"
+  ],
+  "components": [
+   {
+    "component": "load",
+    "kind": "function",
+    "change": "movedSameFile",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "now after `counter`"
+   },
+   {
+    "component": "counter",
+    "kind": "generator function",
+    "change": "movedSameFile",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "now before `load`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`load` and `counter` swapped order in src/functions.ts; no code changes."
+ },
+ "A09": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A comment is added inside a function body; code is unchanged.",
+  "rules": [
+   "rule 2 (comment inside body → commentChanged)"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "commentChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "comment `// add the two operands` added"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`plain` (function): comment added inside the body; code unchanged."
+ },
+ "A10": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Only indentation changes.",
+  "rules": [
+   "rule 2 (whitespace only → cosmetic)"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "re-indented"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`plain` (function): whitespace-only change (re-indented); nothing else."
+ },
+ "A11": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A TSDoc block is added to a previously undocumented exported function.",
+  "rules": [
+   "rule 1 (docChanged)",
+   "undocumented cleared"
+  ],
+  "components": [
+   {
+    "component": "load",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "doc added: summary, @param id, @returns"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`load` (async function): TSDoc added (`@param id`, `@returns`); code unchanged."
+ },
+ "A12": {
+  "primaryFile": "src/functions.ts",
+  "tests": "`export` is removed from a function.",
+  "rules": [
+   "exportChanged"
+  ],
+  "components": [
+   {
+    "component": "isString",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "exportChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "exported → not exported"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The barrel `export * from \"./functions\"` stops exporting `isString`."
+  ],
+  "optimal": "`isString` is no longer exported; body unchanged."
+ },
+ "A13": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A function becomes `async`; its return type changes to a Promise.",
+  "rules": [
+   "modifiersChanged",
+   "signatureChanged"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "`async` added; return type `number` → `Promise<number>`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "plain",
+    "measuredOnBase": [
+     "src/functions.ts:1 (declaration)",
+     "src/consumers.ts:5 (fns.plain(1, 2))",
+     "src/consumers.ts:10 (m.plain(2, 3), dynamic import)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`plain` (function) became `async` and now returns `Promise<number>`; callers in src/consumers.ts now receive a Promise (no compile error)."
+ },
+ "A14": {
+  "primaryFile": "src/functions.ts",
+  "tests": "One diff hunk spans the end of one function and the start of the next.",
+  "rules": [
+   "line attribution across a hunk"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "`return sum * 1`"
+   },
+   {
+    "component": "load",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "`return id.trim()`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Two functions changed in one hunk: `plain` (return value) and `load` (now trims `id`)."
+ },
+ "A15": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Two separate hunks fall inside one long function.",
+  "rules": [
+   "one component per definition, many hunks"
+  ],
+  "components": [
+   {
+    "component": "report",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "2 hunks: `count` fallback, `range` label renamed to `spread`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`report` (function): two body changes — `count` falls back to 0 and the `range` line is relabelled `spread`."
+ },
+ "A16": {
+  "primaryFile": "src/routes.ts",
+  "tests": "Changes on the first and last line of a file.",
+  "rules": [
+   "line attribution at file edges",
+   "exportChanged"
+  ],
+  "components": [
+   {
+    "component": "Handler",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/routes.ts",
+    "detail": "adds optional `method`"
+   },
+   {
+    "component": "get",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "exportChanged"
+    ],
+    "container": [],
+    "file": "src/routes.ts",
+    "detail": "now exported via `export { routes, get }`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "In src/routes.ts the `Handler` type gains an optional `method`, and `get` is now exported."
+ },
+ "B01": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Method body inside a class.",
+  "rules": [
+   "rule 9 (container viaMembers)"
+  ],
+  "components": [
+   {
+    "component": "area",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "Cart.size (get)",
+   "Shape.area"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.area` (method): body changed (doubles the count); `Cart` changed only through this member."
+ },
+ "B03": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Only the getter half of a get/set pair changes.",
+  "rules": [
+   "accessor discriminator"
+  ],
+  "components": [
+   {
+    "component": "size",
+    "kind": "accessor (get)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "Cart.size (set)"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.size` getter body changed; the setter is unchanged."
+ },
+ "B04": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Only the setter half of a get/set pair changes.",
+  "rules": [
+   "accessor discriminator"
+  ],
+  "components": [
+   {
+    "component": "size",
+    "kind": "accessor (set)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "Cart.size (get)"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.size` setter now clamps to ≥ 0; the getter is unchanged."
+ },
+ "B05": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Static initialization block.",
+  "rules": [
+   "static block as member"
+  ],
+  "components": [
+   {
+    "component": "static block #1",
+    "kind": "staticBlock",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart` static initialization block now sets `count` to 2."
+ },
+ "B06": {
+  "primaryFile": "src/classes.ts",
+  "tests": "ECMAScript private method (`#hidden`).",
+  "rules": [
+   "private names kept with #"
+  ],
+  "components": [
+   {
+    "component": "#hidden",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.#hidden` (private method) now upper-cases the secret."
+ },
+ "B07": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Abstract method signature widened; the subclass implementation stays compatible.",
+  "rules": [
+   "signatureChanged"
+  ],
+  "components": [
+   {
+    "component": "area",
+    "kind": "abstract method",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Shape"
+    ],
+    "file": "src/classes.ts",
+    "detail": "`number` → `number | null`"
+   },
+   {
+    "component": "Shape",
+    "kind": "abstract class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "Cart.area"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Shape.area` (abstract) may now return `null`; `Cart.area` still conforms; no new errors."
+ },
+ "B08": {
+  "primaryFile": "src/classes.ts",
+  "tests": "A decorator is removed from a method.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "add",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": "decorator `@logged` removed"
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "logged"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.add`: `@logged` decorator removed; body unchanged. `logged` is now unused."
+ },
+ "B09": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Auto-accessor (`accessor` keyword) initializer.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "label",
+    "kind": "property (accessor)",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": "\"cart\" → \"basket\""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.label` (auto-accessor) default changed to \"basket\"."
+ },
+ "B10": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Generator method with a computed name.",
+  "rules": [
+   "computed member names"
+  ],
+  "components": [
+   {
+    "component": "[Symbol.iterator]",
+    "kind": "generator method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart[Symbol.iterator]` now yields items in reverse order."
+ },
+ "B11": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Method inside a class expression assigned to a const.",
+  "rules": [
+   "class expression named by its variable"
+  ],
+  "components": [
+   {
+    "component": "run",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Anon"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Anon",
+    "kind": "class (expression)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Anon.run` (class expression method) now returns 2."
+ },
+ "B12": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Property of an anonymous class returned from a mixin function.",
+  "rules": [
+   "rule 6 (class declared in a function)"
+  ],
+  "components": [
+   {
+    "component": "ts",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "Timestamped",
+     "(anonymous class)"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "(anonymous class)",
+    "kind": "class (expression)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [
+     "Timestamped"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Timestamped",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Mixin `Timestamped`: the returned class's `ts` property now adds 1."
+ },
+ "B13": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A 4th overload signature is added and the implementation signature widened.",
+  "rules": [
+   "rule 8 (overloads = one component with parts)"
+  ],
+  "components": [
+   {
+    "component": "pick",
+    "kind": "function (overloaded)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "part added: overload 3 `(x: boolean): boolean`; implementation now `string | number | boolean`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`pick` gains a `boolean` overload; implementation widened accordingly."
+ },
+ "B14": {
+  "primaryFile": "src/types.ts",
+  "tests": "Member added to the second block of a merged interface.",
+  "rules": [
+   "rule 8 (merged declaration parts)"
+  ],
+  "components": [
+   {
+    "component": "phone",
+    "kind": "property",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "User"
+    ],
+    "file": "src/types.ts",
+    "detail": "in declaration part 2"
+   },
+   {
+    "component": "User",
+    "kind": "interface (merged)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": "part 2 changed"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`User` (merged interface) gains optional `phone` in its second declaration block."
+ },
+ "B15": {
+  "primaryFile": "src/types.ts",
+  "tests": "Method signature inside an interface.",
+  "rules": [
+   "signatureChanged"
+  ],
+  "components": [
+   {
+    "component": "greet",
+    "kind": "method signature",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "User"
+    ],
+    "file": "src/types.ts",
+    "detail": "`loud?: boolean` added"
+   },
+   {
+    "component": "User",
+    "kind": "interface (merged)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`User.greet` gains an optional `loud` parameter."
+ },
+ "B16": {
+  "primaryFile": "src/types.ts",
+  "tests": "Call signature inside an interface.",
+  "rules": [
+   "unnamed members"
+  ],
+  "components": [
+   {
+    "component": "call signature #1",
+    "kind": "call signature",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Callable"
+    ],
+    "file": "src/types.ts",
+    "detail": ""
+   },
+   {
+    "component": "Callable",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Callable`'s call signature gains optional `radix`."
+ },
+ "B17": {
+  "primaryFile": "src/types.ts",
+  "tests": "Union type alias gains a member.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "Status",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": "adds \"auto\""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Status` now also allows \"auto\"."
+ },
+ "B18": {
+  "primaryFile": "src/types.ts",
+  "tests": "Conditional type alias changes its constraint.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "Unwrap",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": "`Promise` → `PromiseLike`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Unwrap<T>` now unwraps any `PromiseLike`."
+ },
+ "B19": {
+  "primaryFile": "src/types.ts",
+  "tests": "Enum member added.",
+  "rules": [
+   "valueChanged / added member"
+  ],
+  "components": [
+   {
+    "component": "Yellow",
+    "kind": "enum member",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "Color"
+    ],
+    "file": "src/types.ts",
+    "detail": ""
+   },
+   {
+    "component": "Color",
+    "kind": "enum",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Color` gains `Yellow = 4`."
+ },
+ "B20": {
+  "primaryFile": "src/types.ts",
+  "tests": "Const enum member value changes; the next member's implicit value changes without its text changing.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "Up",
+    "kind": "enum member",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "Dir"
+    ],
+    "file": "src/types.ts",
+    "detail": "1 → 10"
+   },
+   {
+    "component": "Dir",
+    "kind": "const enum",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Optimal output also reports the implicit change to `Dir.Down` (2 → 11)."
+  ],
+  "optimal": "`Dir.Up` changes from 1 to 10; `Dir.Down` implicitly changes from 2 to 11 although its line is untouched."
+ },
+ "B21": {
+  "primaryFile": "src/types.ts",
+  "tests": "Variable inside a nested namespace.",
+  "rules": [
+   "nested containers"
+  ],
+  "components": [
+   {
+    "component": "k",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "Geo",
+     "Inner"
+    ],
+    "file": "src/types.ts",
+    "detail": ""
+   },
+   {
+    "component": "Inner",
+    "kind": "namespace",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [
+     "Geo"
+    ],
+    "file": "src/types.ts",
+    "detail": ""
+   },
+   {
+    "component": "Geo",
+    "kind": "namespace",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Geo.Inner.k` changes from 1 to 2."
+ },
+ "B22": {
+  "primaryFile": "src/types.ts",
+  "tests": "Member of a namespace merged with a function of the same name.",
+  "rules": [
+   "rule 8 (merged declarations)"
+  ],
+  "components": [
+   {
+    "component": "version",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "tool"
+    ],
+    "file": "src/types.ts",
+    "detail": ""
+   },
+   {
+    "component": "tool",
+    "kind": "function + namespace (merged)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/types.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`tool.version` changes from 1 to 2 (`tool` is a function merged with a namespace)."
+ },
+ "B23": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Arrow function stored in an exported const.",
+  "rules": [
+   "arrow const = function"
+  ],
+  "components": [
+   {
+    "component": "fmt",
+    "kind": "function (arrow)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`fmt` (arrow function) now trims its output."
+ },
+ "B24": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Named function expression stored in a const (inner name `named`).",
+  "rules": [
+   "named by the variable"
+  ],
+  "components": [
+   {
+    "component": "legacyFn",
+    "kind": "function (expression)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "inner name `named`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`legacyFn` now triples instead of doubling."
+ },
+ "B25": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Method in an exported object literal.",
+  "rules": [
+   "rule 4 (object-literal members)"
+  ],
+  "components": [
+   {
+    "component": "get",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "api"
+    ],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "api",
+    "kind": "variable (object)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "api.post",
+   "api.version"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`api.get` builds the URL with a template literal."
+ },
+ "B26": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Getter in an object literal.",
+  "rules": [
+   "rule 4"
+  ],
+  "components": [
+   {
+    "component": "version",
+    "kind": "accessor (get)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "api"
+    ],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "api",
+    "kind": "variable (object)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`api.version` getter now returns 2."
+ },
+ "B27": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Computed-key property holding an arrow function.",
+  "rules": [
+   "rule 4",
+   "computed names"
+  ],
+  "components": [
+   {
+    "component": "[\"computed\" + \"Key\"]",
+    "kind": "property (function)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "api"
+    ],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "api",
+    "kind": "variable (object)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`api[\"computed\" + \"Key\"]` now returns 2."
+ },
+ "B28": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Destructured export: only one bound name's source value changes.",
+  "rules": [
+   "binding-level attribution"
+  ],
+  "components": [
+   {
+    "component": "beta",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "bound to `b`: 2 → 3"
+   }
+  ],
+  "unchanged": [
+   "alpha"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "A tool that cannot attribute to the individual binding should at least report the statement; reporting `alpha` as changed is a false positive."
+  ],
+  "optimal": "`beta` (destructured export) changes from 2 to 3; `alpha` is unchanged."
+ },
+ "B29": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Second declarator in a multi-declarator `let`.",
+  "rules": [
+   "declarator-level attribution"
+  ],
+  "components": [
+   {
+    "component": "step",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "2 → 3"
+   }
+  ],
+  "unchanged": [
+   "counterVar"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`step` changes from 2 to 3; `counterVar` is unchanged."
+ },
+ "B30": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Object checked with `satisfies`.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "config",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "mode \"dev\" → \"prod\""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`config.mode` changes to \"prod\" (still satisfies `Record<string, string>`)."
+ },
+ "B31": {
+  "primaryFile": "src/defaults/fn.ts",
+  "tests": "Anonymous default-exported function.",
+  "rules": [
+   "name `default`"
+  ],
+  "components": [
+   {
+    "component": "default",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/defaults/fn.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Default export (anonymous function) of src/defaults/fn.ts now returns \"anonymous\"."
+ },
+ "B32": {
+  "primaryFile": "src/defaults/cls.ts",
+  "tests": "Method of an anonymous default-exported class.",
+  "rules": [
+   "name `default`"
+  ],
+  "components": [
+   {
+    "component": "run",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "default"
+    ],
+    "file": "src/defaults/cls.ts",
+    "detail": ""
+   },
+   {
+    "component": "default",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/defaults/cls.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Default-exported class in src/defaults/cls.ts: `run` now returns 2."
+ },
+ "B33": {
+  "primaryFile": "src/defaults/obj.ts",
+  "tests": "Property of a default-exported object literal.",
+  "rules": [
+   "name `default`",
+   "rule 4"
+  ],
+  "components": [
+   {
+    "component": "name",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "default"
+    ],
+    "file": "src/defaults/obj.ts",
+    "detail": ""
+   },
+   {
+    "component": "default",
+    "kind": "object",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/defaults/obj.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Default-exported object in src/defaults/obj.ts: `name` is now \"config\"."
+ },
+ "B34": {
+  "primaryFile": "src/index.ts",
+  "tests": "Barrel file re-exports one more name.",
+  "rules": [
+   "public-API change at file level"
+  ],
+  "components": [],
+  "unchanged": [
+   "LIMIT (src/variables.ts)"
+  ],
+  "fileLevel": [
+   {
+    "file": "src/index.ts",
+    "change": "reExportAdded",
+    "detail": "`LIMIT` from ./variables"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/index.ts now also re-exports `LIMIT` from ./variables — the package's public API grows by one name."
+ },
+ "B35": {
+  "primaryFile": "src/augment.ts",
+  "tests": "Member added inside a module augmentation (`declare module \"./types\"`).",
+  "rules": [
+   "augmentation containers"
+  ],
+  "components": [
+   {
+    "component": "avatarUrl",
+    "kind": "property",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "declare module \"./types\"",
+     "User"
+    ],
+    "file": "src/augment.ts",
+    "detail": ""
+   },
+   {
+    "component": "User",
+    "kind": "interface (augmentation)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [
+     "declare module \"./types\""
+    ],
+    "file": "src/augment.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Augmentation of `./types` adds optional `User.avatarUrl`."
+ },
+ "B36": {
+  "primaryFile": "src/augment.ts",
+  "tests": "Member added inside `declare global`.",
+  "rules": [
+   "augmentation containers"
+  ],
+  "components": [
+   {
+    "component": "buildId",
+    "kind": "property",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "declare global",
+     "Window"
+    ],
+    "file": "src/augment.ts",
+    "detail": ""
+   },
+   {
+    "component": "Window",
+    "kind": "interface (global augmentation)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [
+     "declare global"
+    ],
+    "file": "src/augment.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Global augmentation adds `Window.buildId`."
+ },
+ "B37": {
+  "primaryFile": "src/ambient.d.ts",
+  "tests": "Ambient function declaration in a .d.ts file.",
+  "rules": [
+   "declaration files"
+  ],
+  "components": [
+   {
+    "component": "track",
+    "kind": "function (ambient)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/ambient.d.ts",
+    "detail": "optional `data` parameter"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Ambient `track` gains an optional `data` parameter."
+ },
+ "B38": {
+  "primaryFile": "src/view.tsx",
+  "tests": "JSX inside a function component (no React installed in this project).",
+  "rules": [
+   "rule 14 (returns JSX → component)"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/view.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView` (src/view.tsx) now renders `count * 2`."
+ },
+ "B39": {
+  "primaryFile": "src/view.tsx",
+  "tests": "JSX inside an arrow component.",
+  "rules": [
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "Badge",
+    "kind": "component (arrow)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/view.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Badge` (src/view.tsx) renders `<strong>` instead of `<span>`."
+ },
+ "B40": {
+  "primaryFile": "test/cart.test.ts",
+  "tests": "Body of a test callback.",
+  "rules": [
+   "rule 5 (callbacks at top level)"
+  ],
+  "components": [
+   {
+    "component": "it(\"adds\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "describe(\"Cart\")"
+    ],
+    "file": "test/cart.test.ts",
+    "detail": ""
+   },
+   {
+    "component": "describe(\"Cart\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "test/cart.test.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Test `Cart › adds` now adds \"y\" instead of \"x\"."
+ },
+ "B41": {
+  "primaryFile": "src/routes.ts",
+  "tests": "Callback passed to a top-level call (route handler).",
+  "rules": [
+   "rule 5"
+  ],
+  "components": [
+   {
+    "component": "get(\"/orders\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/routes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "get(\"/users\")"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Route handler `get(\"/orders\")` now formats with a colon."
+ },
+ "B42": {
+  "primaryFile": "src/startup.ts",
+  "tests": "Body of a top-level async IIFE.",
+  "rules": [
+   "rule 15 (top-level statements are file-level)"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/startup.ts",
+    "change": "topLevelStatementChanged",
+    "detail": "async IIFE, lines 5–8"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Top-level async IIFE in src/startup.ts now loads \"startup\" instead of \"boot\" (runs at import time)."
+ },
+ "B43": {
+  "primaryFile": "src/startup.ts",
+  "tests": "Labelled loop at top level.",
+  "rules": [
+   "rule 15"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/startup.ts",
+    "change": "topLevelStatementChanged",
+    "detail": "labelled loop `outer`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Top-level loop `outer:` in src/startup.ts now breaks on the first iteration."
+ },
+ "B44": {
+  "primaryFile": "src/strings.ts",
+  "tests": "Edit inside a multi-line template literal whose lines start at column 0.",
+  "rules": [
+   "attribution inside template literals"
+  ],
+  "components": [
+   {
+    "component": "sql",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/strings.ts",
+    "detail": "SQL `WHERE active = 1` → `0`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Attribution must be `sql`. Column-0 text inside the template is not a declaration (git diff -W gets this wrong)."
+  ],
+  "optimal": "`sql` now selects inactive users (`WHERE active = 0`)."
+ },
+ "B45": {
+  "primaryFile": "src/strings.ts",
+  "tests": "Tagged template expression.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "tagged",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/strings.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`tagged` now interpolates 2 instead of 1."
+ },
+ "B46": {
+  "primaryFile": "js/plain.js",
+  "tests": "JSDoc `@typedef` in a JavaScript file (a type alias node).",
+  "rules": [
+   "rule 1 (JS type tags are code)"
+  ],
+  "components": [
+   {
+    "component": "Item",
+    "kind": "type (JSDoc @typedef)",
+    "change": "modified",
+    "flags": [
+     "typeChanged",
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "js/plain.js",
+    "detail": "optional `note` field added"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "JSDoc type `Item` gains an optional `note`; no new errors."
+ },
+ "B47": {
+  "primaryFile": "js/plain.js",
+  "tests": "Body of a JSDoc-typed JavaScript function.",
+  "rules": [
+   "JS functions"
+  ],
+  "components": [
+   {
+    "component": "label",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "js/plain.js",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`label` (JavaScript) now trims the label."
+ },
+ "B48": {
+  "primaryFile": "legacy/util.ts",
+  "tests": "`export =` points at a new function (CommonJS project).",
+  "rules": [
+   "second project",
+   "export assignment"
+  ],
+  "components": [
+   {
+    "component": "helperV2",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "legacy/util.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "helper"
+  ],
+  "fileLevel": [
+   {
+    "file": "legacy/util.ts",
+    "change": "exportAssignmentChanged",
+    "detail": "`helper` → `helperV2`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "legacy/util.ts adds `helperV2` and `export =` now exports it instead of `helper`."
+ },
+ "B49": {
+  "primaryFile": "legacy/old.ts",
+  "tests": "`import x = require()` binding renamed.",
+  "rules": [
+   "import-equals"
+  ],
+  "components": [
+   {
+    "component": "v",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "legacy/old.ts",
+    "detail": "calls `helperFn()`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "legacy/old.ts",
+    "change": "importChanged",
+    "detail": "`helper` → `helperFn`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "legacy/old.ts renames its `import = require` binding to `helperFn`; `v` updated accordingly."
+ },
+ "B50": {
+  "primaryFile": "legacy/lib.d.ts",
+  "tests": "`export as namespace` (UMD global) renamed.",
+  "rules": [
+   "file-level declaration"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "legacy/lib.d.ts",
+    "change": "umdGlobalChanged",
+    "detail": "`Lib` → `LibV2`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "legacy/lib.d.ts now exposes its UMD global as `LibV2`."
+ },
+ "B51": {
+  "primaryFile": "src/functions.ts",
+  "tests": "`using` declaration inside a function.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "withResource",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "dispose logs"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`withResource`: the disposable now logs on dispose."
+ },
+ "B52": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Nested function declaration.",
+  "rules": [
+   "rule 6"
+  ],
+  "components": [
+   {
+    "component": "inner",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "outer"
+    ],
+    "file": "src/functions.ts",
+    "detail": ""
+   },
+   {
+    "component": "outer",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "internalHelper",
+   "outer › viaArrow"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`outer › inner` (nested function) now adds 1."
+ },
+ "B53": {
+  "primaryFile": "test/cart.test.ts",
+  "tests": "A second test with the same label is added.",
+  "rules": [
+   "rule 5 (duplicate labels get ordinals)"
+  ],
+  "components": [
+   {
+    "component": "it(\"adds\")#2",
+    "kind": "callback",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "describe(\"Cart\")"
+    ],
+    "file": "test/cart.test.ts",
+    "detail": ""
+   },
+   {
+    "component": "describe(\"Cart\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "test/cart.test.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "it(\"adds\") (first)"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "A second `it(\"adds\")` test is added to `describe(\"Cart\")`; the existing one is unchanged and keeps its identity."
+ },
+ "B54": {
+  "primaryFile": "test/cart.test.ts",
+  "tests": "A test label changes from a string to a template literal.",
+  "rules": [
+   "rule 5 (non-literal labels)"
+  ],
+  "components": [
+   {
+    "component": "it(`adds ${1}`)",
+    "kind": "callback",
+    "change": "renamed",
+    "flags": [
+     "nonLiteralLabel"
+    ],
+    "container": [
+     "describe(\"Cart\")"
+    ],
+    "file": "test/cart.test.ts",
+    "detail": "renamed from it(\"adds\"); body identical"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Test `it(\"adds\")` is relabelled with a template literal; body identical."
+ },
+ "B55": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Change inside a callback passed to `.map` within a function.",
+  "rules": [
+   "rule 5 (callbacks inside function bodies stay in the function)"
+  ],
+  "components": [
+   {
+    "component": "doubled",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The `.map` callback must not appear as its own component."
+  ],
+  "optimal": "`doubled` now triples each value (change inside its `.map` callback)."
+ },
+ "B56": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Arrow function bound to a local const inside a function.",
+  "rules": [
+   "rule 6 (local function values are components)"
+  ],
+  "components": [
+   {
+    "component": "viaArrow",
+    "kind": "function (arrow)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "outer"
+    ],
+    "file": "src/functions.ts",
+    "detail": ""
+   },
+   {
+    "component": "outer",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "outer › inner"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`outer › viaArrow` now doubles the result of `inner()`."
+ },
+ "B57": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Body of a function wrapped by a higher-order call (`withRetry`).",
+  "rules": [
+   "rule 10"
+  ],
+  "components": [
+   {
+    "component": "fetchUser",
+    "kind": "function (async arrow)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "wrappers: [withRetry]"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`fetchUser` (wrapped by `withRetry`) now formats names with a dash."
+ },
+ "B58": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Wrapper removed from a definition; inner function unchanged.",
+  "rules": [
+   "rule 10 (wrapper change = modifiersChanged)"
+  ],
+  "components": [
+   {
+    "component": "fetchUser",
+    "kind": "function (async arrow)",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "wrappers [withRetry] → []"
+   }
+  ],
+  "unchanged": [
+   "withRetry"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`fetchUser` is no longer wrapped by `withRetry`; its body is unchanged. `withRetry` is now unused."
+ },
+ "DOC01": {
+  "primaryFile": "src/documented.ts",
+  "tests": "`@deprecated` added.",
+  "rules": [
+   "deprecationChanged"
+  ],
+  "components": [
+   {
+    "component": "power",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "deprecationChanged"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": "@deprecated added"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`power` is now marked `@deprecated` (use `**`); code unchanged."
+ },
+ "DOC02": {
+  "primaryFile": "src/documented.ts",
+  "tests": "`@deprecated` removed.",
+  "rules": [
+   "deprecationChanged"
+  ],
+  "components": [
+   {
+    "component": "oldSquare",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "deprecationChanged"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": "@deprecated removed"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`oldSquare` is no longer deprecated; code unchanged."
+ },
+ "DOC04": {
+  "primaryFile": "src/documented.ts",
+  "tests": "Parameter renamed in code and in its `@param` tag.",
+  "rules": [
+   "no docStale when names match"
+  ],
+  "components": [
+   {
+    "component": "power",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "bodyChanged",
+     "docChanged"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": "`exp` → `exponent` in signature, body and @param"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The `@returns` and `@throws` prose still mention `exp`; reporting that as a hint is optional."
+  ],
+  "optimal": "`power`: parameter `exp` renamed to `exponent` consistently (signature, body, `@param`)."
+ },
+ "DOC05": {
+  "primaryFile": "src/documented.ts",
+  "tests": "Only `@returns` text changes.",
+  "rules": [
+   "docChanged only"
+  ],
+  "components": [
+   {
+    "component": "power",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`power`: `@returns` wording changed; code unchanged."
+ },
+ "DOC06": {
+  "primaryFile": "src/documented.ts",
+  "tests": "Method body changes while its doc is untouched.",
+  "rules": [
+   "docMaybeStale"
+  ],
+  "components": [
+   {
+    "component": "add",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged",
+     "docMaybeStale"
+    ],
+    "container": [
+     "Basket"
+    ],
+    "file": "src/documented.ts",
+    "detail": ""
+   },
+   {
+    "component": "Basket",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Basket.add` now adds 2 per call; its TSDoc (\"Adds one unit\") was not updated — possibly stale."
+ },
+ "DOC07": {
+  "primaryFile": "src/documented.ts",
+  "tests": "`@internal` added.",
+  "rules": [
+   "visibilityIntentChanged"
+  ],
+  "components": [
+   {
+    "component": "wrap",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "visibilityIntentChanged"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`wrap` is now marked `@internal`; code unchanged."
+ },
+ "DOC08": {
+  "primaryFile": "src/documented.ts",
+  "tests": "Doc block deleted from an exported function.",
+  "rules": [
+   "undocumented"
+  ],
+  "components": [
+   {
+    "component": "wrap",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "undocumented"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`wrap` lost its TSDoc and is now an undocumented export."
+ },
+ "DOC09": {
+  "primaryFile": "src/documented.ts",
+  "tests": "New exported function without documentation.",
+  "rules": [
+   "undocumented"
+  ],
+  "components": [
+   {
+    "component": "cube",
+    "kind": "function",
+    "change": "added",
+    "flags": [
+     "undocumented"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`cube` added — exported and undocumented."
+ },
+ "DOC10": {
+  "primaryFile": "src/documented.ts",
+  "tests": "`@defaultValue` of an interface member changes.",
+  "rules": [
+   "member doc"
+  ],
+  "components": [
+   {
+    "component": "round",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [
+     "PowerOptions"
+    ],
+    "file": "src/documented.ts",
+    "detail": "@defaultValue false → true"
+   },
+   {
+    "component": "PowerOptions",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`PowerOptions.round` documented default changes to `true`; type unchanged."
+ },
+ "DOC11": {
+  "primaryFile": "src/documented.ts",
+  "tests": "Doc on an enum member.",
+  "rules": [
+   "member doc"
+  ],
+  "components": [
+   {
+    "component": "Metric",
+    "kind": "enum member",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [
+     "Unit"
+    ],
+    "file": "src/documented.ts",
+    "detail": ""
+   },
+   {
+    "component": "Unit",
+    "kind": "enum",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Unit.Metric` doc reworded."
+ },
+ "DOC12": {
+  "primaryFile": "src/documented.ts",
+  "tests": "`@typeParam` names a type parameter that does not exist.",
+  "rules": [
+   "docStale (type parameters)"
+  ],
+  "components": [
+   {
+    "component": "wrap",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "docStale"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": "@typeParam U has no matching type parameter"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "TypeScript parses `@typeParam` as an unrecognised tag; the name must be read from the tag text."
+  ],
+  "optimal": "`wrap` documents a type parameter `U` that does not exist — doc is stale."
+ },
+ "DOC13": {
+  "primaryFile": "src/documented.ts",
+  "tests": "`{@link}` target changes.",
+  "rules": [
+   "doc links"
+  ],
+  "components": [
+   {
+    "component": "PowerOptions",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": "{@link power} → {@link wrap}"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "power",
+    "measuredOnBase": [
+     "src/documented.ts:45 (declaration)",
+     "src/documented.ts:64 ({@link power} in oldSquare's doc)",
+     "src/documented.ts:78 ({@link power} in PowerOptions' doc — this PR retargets it to wrap)"
+    ],
+    "note": "TypeScript counts {@link} targets as references."
+   }
+  ],
+  "notes": [],
+  "optimal": "`PowerOptions` doc now links to `wrap` instead of `power`."
+ },
+ "DOC14": {
+  "primaryFile": "src/functions.ts",
+  "tests": "`//` comment directly above a function.",
+  "rules": [
+   "docKind line"
+  ],
+  "components": [
+   {
+    "component": "display",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "line comment doc"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`display`: line-comment doc reworded; code unchanged."
+ },
+ "DOC15": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Body changes; doc and inner comment untouched.",
+  "rules": [
+   "docMaybeStale"
+  ],
+  "components": [
+   {
+    "component": "square",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged",
+     "docMaybeStale"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Optimal output notes the inner comment now contradicts the code."
+  ],
+  "optimal": "`square` now uses `**`; its doc and the inner comment (\"multiply rather than Math.pow\") were not updated."
+ },
+ "DOC16": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Inner comment and code change together.",
+  "rules": [
+   "commentChanged"
+  ],
+  "components": [
+   {
+    "component": "square",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged",
+     "commentChanged",
+     "docMaybeStale"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`square` now uses `**`, with its inner comment updated; the TSDoc block is unchanged."
+ },
+ "DOC17": {
+  "primaryFile": "src/functions.ts",
+  "tests": "JSDoc type braces added in a .ts file.",
+  "rules": [
+   "docStyleMismatch"
+  ],
+  "components": [
+   {
+    "component": "square",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "docStyleMismatch"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "@param {number} n"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`square` doc adds a `{number}` type brace — redundant in TypeScript (style mismatch)."
+ },
+ "C01": {
+  "primaryFile": "src/startup.ts",
+  "tests": "Import-only change.",
+  "rules": [
+   "file-level"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/startup.ts",
+    "change": "importChanged",
+    "detail": "adds `plain` from ./functions"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/startup.ts now also imports `plain` (unused)."
+ },
+ "C02": {
+  "primaryFile": "src/math.ts",
+  "tests": "New file with two documented functions.",
+  "rules": [
+   "added"
+  ],
+  "components": [
+   {
+    "component": "clamp",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/math.ts",
+    "detail": ""
+   },
+   {
+    "component": "lerp",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/math.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/math.ts",
+    "change": "added",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "New file src/math.ts adds `clamp` and `lerp` (both documented)."
+ },
+ "C03": {
+  "primaryFile": "src/defaults/obj.ts",
+  "tests": "File deleted.",
+  "rules": [
+   "deleted"
+  ],
+  "components": [
+   {
+    "component": "default",
+    "kind": "object",
+    "change": "deleted",
+    "flags": [],
+    "container": [],
+    "file": "src/defaults/obj.ts",
+    "detail": ""
+   },
+   {
+    "component": "name",
+    "kind": "property",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "default"
+    ],
+    "file": "src/defaults/obj.ts",
+    "detail": ""
+   },
+   {
+    "component": "run",
+    "kind": "method",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "default"
+    ],
+    "file": "src/defaults/obj.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/defaults/obj.ts",
+    "change": "deleted",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/defaults/obj.ts deleted with its default-exported object; nothing referenced it."
+ },
+ "C04": {
+  "primaryFile": "src/tabbed.ts",
+  "tests": "File renamed without content change.",
+  "rules": [
+   "moved with file"
+  ],
+  "components": [
+   {
+    "component": "tabbed",
+    "kind": "function",
+    "change": "moved",
+    "flags": [
+     "fileRenamed"
+    ],
+    "container": [],
+    "file": "src/tabbed.ts",
+    "detail": "src/tabs.ts → src/tabbed.ts"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/tabbed.ts",
+    "change": "renamed",
+    "detail": "from src/tabs.ts"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/tabs.ts renamed to src/tabbed.ts; contents unchanged."
+ },
+ "C05": {
+  "primaryFile": "src/boot.ts",
+  "tests": "File renamed and one function edited.",
+  "rules": [
+   "moved + modified"
+  ],
+  "components": [
+   {
+    "component": "isReady",
+    "kind": "function",
+    "change": "moved",
+    "flags": [
+     "fileRenamed",
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/boot.ts",
+    "detail": "from src/startup.ts; body changed"
+   },
+   {
+    "component": "ready",
+    "kind": "variable",
+    "change": "moved",
+    "flags": [
+     "fileRenamed"
+    ],
+    "container": [],
+    "file": "src/boot.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/boot.ts",
+    "change": "renamed",
+    "detail": "from src/startup.ts; top-level IIFE and labelled loop moved unchanged"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/startup.ts renamed to src/boot.ts; `isReady` now compares strictly to `true`."
+ },
+ "C06": {
+  "primaryFile": "tsconfig.json",
+  "tests": "Compiler configuration change (`noUnusedLocals`).",
+  "rules": [
+   "configChanged"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "tsconfig.json",
+    "change": "configChanged",
+    "detail": "noUnusedLocals: true"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Root tsconfig enables `noUnusedLocals`; no new errors in the fixture."
+ },
+ "C07": {
+  "primaryFile": "package.json",
+  "tests": "Package manifest change.",
+  "rules": [
+   "configChanged"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "package.json",
+    "change": "configChanged",
+    "detail": "scripts.typecheck added"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Root package.json adds a `typecheck` script."
+ },
+ "C08": {
+  "primaryFile": "src/generated/api.generated.ts",
+  "tests": "Change to a generated file.",
+  "rules": [
+   "generated files are flagged, not analysed"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/generated/api.generated.ts",
+    "change": "generated",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Generated file src/generated/api.generated.ts changed (marked DO NOT EDIT) — reported, not analysed."
+ },
+ "C09": {
+  "primaryFile": "vendor/lib.ts",
+  "tests": "Change under an excluded vendor path.",
+  "rules": [
+   "excluded paths"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "vendor/lib.ts",
+    "change": "excluded",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "vendor/lib.ts changed — excluded path, not analysed."
+ },
+ "C10": {
+  "primaryFile": "docs/README.md",
+  "tests": "Non-TypeScript file.",
+  "rules": [
+   "listed, not analysed"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "docs/README.md",
+    "change": "nonSource",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "docs/README.md changed (documentation file)."
+ },
+ "C11": {
+  "primaryFile": "assets/logo.png",
+  "tests": "Binary file added.",
+  "rules": [
+   "binary"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "assets/logo.png",
+    "change": "binaryAdded",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Binary file assets/logo.png added."
+ },
+ "D01": {
+  "primaryFile": "src/unicode.ts",
+  "tests": "Function after a line containing multi-byte characters (é, ï, 🍣, ✓).",
+  "rules": [
+   "position units"
+  ],
+  "components": [
+   {
+    "component": "après",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/unicode.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Declaration name position: line 3, column 17 (1-based). Absolute offset of the name: 57 in UTF-8 bytes, 51 in UTF-16 code units, 50 in code points. The output should state which unit it uses."
+  ],
+  "optimal": "`après` now adds 2."
+ },
+ "D02": {
+  "primaryFile": "src/crlf.ts",
+  "tests": "File with CRLF line endings.",
+  "rules": [
+   "line numbers with CRLF"
+  ],
+  "components": [
+   {
+    "component": "crlf",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/crlf.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Changed line is line 2; `\\r` must not shift line or column numbers."
+  ],
+  "optimal": "`crlf` now returns 2 (line 2 of a CRLF file)."
+ },
+ "D03": {
+  "primaryFile": "src/tabs.ts",
+  "tests": "Tab-indented file.",
+  "rules": [
+   "tabs"
+  ],
+  "components": [
+   {
+    "component": "tabbed",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/tabs.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`tabbed` now returns `t + 1`."
+ },
+ "D04": {
+  "primaryFile": "src/nonewline.ts",
+  "tests": "Append to a file that has no final newline.",
+  "rules": [
+   "no newline at end of file"
+  ],
+  "components": [
+   {
+    "component": "after",
+    "kind": "variable",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/nonewline.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "noNewline"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The diff shows the old last line `}` removed and re-added (\\ No newline at end of file). `noNewline` must not be reported as modified."
+  ],
+  "optimal": "`after` added to src/nonewline.ts; `noNewline` is unchanged."
+ },
+ "D05": {
+  "primaryFile": "src/bom.ts",
+  "tests": "File starting with a UTF-8 byte-order mark; change on line 1.",
+  "rules": [
+   "BOM"
+  ],
+  "components": [
+   {
+    "component": "withBom",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/bom.ts",
+    "detail": "explicit return type `number`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Name offset: 19 in UTF-8 bytes (BOM is 3 bytes), 17 in UTF-16 units. Line 1."
+  ],
+  "optimal": "`withBom` gains an explicit `number` return type."
+ },
+ "D06": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Syntax error introduced (unclosed brace).",
+  "rules": [
+   "parse errors do not crash; output marked degraded"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged",
+     "parseErrors"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The parser's error recovery may misattribute later declarations; the report should mark the file as degraded rather than claim precise results."
+  ],
+  "optimal": "src/functions.ts no longer parses (unclosed `{` in `plain`); results for this file are degraded."
+ },
+ "D07": {
+  "primaryFile": "src/empty.ts",
+  "tests": "Empty file added.",
+  "rules": [
+   "no crash"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/empty.ts",
+    "change": "added",
+    "detail": "empty"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Empty file src/empty.ts added — no declarations."
+ },
+ "D08": {
+  "primaryFile": "src/notes.ts",
+  "tests": "Comments-only file added.",
+  "rules": [
+   "no crash"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/notes.ts",
+    "change": "added",
+    "detail": "comments only"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Comments-only file src/notes.ts added — no declarations."
+ },
+ "D09": {
+  "primaryFile": "src/big.ts",
+  "tests": "Large file: 5,000 functions added.",
+  "rules": [
+   "scale, time limits"
+  ],
+  "components": [
+   {
+    "component": "f0 … f4999",
+    "kind": "function ×5000",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/big.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/big.ts",
+    "change": "added",
+    "detail": "5,000 functions, ~150 KB"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/big.ts added with 5,000 functions (`f0` … `f4999`)."
+ },
+ "D10": {
+  "primaryFile": "js/untyped.js",
+  "tests": "JavaScript file without JSDoc and with `// @ts-nocheck`.",
+  "rules": [
+   "weak types"
+  ],
+  "components": [
+   {
+    "component": "scale",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged",
+     "weakTypes"
+    ],
+    "container": [],
+    "file": "js/untyped.js",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`scale` (untyped JavaScript, `@ts-nocheck`) now adds 0; types are unknown, so callers are unchecked."
+ },
+ "M01": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Rename an export and update every importer in the same PR.",
+  "rules": [
+   "rename + file-level import updates"
+  ],
+  "components": [
+   {
+    "component": "formatValue",
+    "kind": "function (arrow)",
+    "change": "renamed",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "from `fmt`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/consumers.ts",
+    "change": "importChanged",
+    "detail": "`fmt as f` → `formatValue as f`"
+   },
+   {
+    "file": "src/index.ts",
+    "change": "reExportChanged",
+    "detail": "`fmt as format` → `formatValue as format`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "`fmt` renamed to `formatValue`; both importers updated; public barrel name `format` unchanged; no new errors."
+ },
+ "M02": {
+  "primaryFile": "src/store.ts",
+  "tests": "Interface parameter type changed with implementations and callers updated.",
+  "rules": [
+   "coordinated change"
+  ],
+  "components": [
+   {
+    "component": "get",
+    "kind": "method signature",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Store"
+    ],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "Store",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "get",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "DbStore"
+    ],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "DbStore",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "get",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "MemStore"
+    ],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "MemStore",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "handle",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "direct",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Store.get` now takes a string id; `DbStore`, `MemStore`, `handle` and `direct` updated to match; no new errors."
+ },
+ "M03": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "React: required prop added and every usage updated.",
+  "rules": [
+   "coordinated change",
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "currency",
+    "kind": "property",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "CartViewProps"
+    ],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "documented"
+   },
+   {
+    "component": "CartViewProps",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   },
+   {
+    "component": "App",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/App.tsx",
+    "detail": ""
+   },
+   {
+    "component": "it(\"adds a sample item\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "describe(\"CartView\")"
+    ],
+    "file": "packages/web/src/components/CartView.test.tsx",
+    "detail": ""
+   },
+   {
+    "component": "describe(\"CartView\")",
+    "kind": "callback",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.test.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartViewProps` gains a required `currency`; both usages (`App` and the CartView test) pass it; no new errors."
+ },
+ "M04": {
+  "primaryFile": "packages/web/src/hooks/useCart.ts",
+  "tests": "React: type moved to a new file, original module re-exports it.",
+  "rules": [
+   "move across files"
+  ],
+  "components": [
+   {
+    "component": "CartItem",
+    "kind": "interface",
+    "change": "moved",
+    "flags": [],
+    "container": [],
+    "file": "packages/web/src/hooks/types.ts",
+    "detail": "from hooks/useCart.ts"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "packages/web/src/hooks/types.ts",
+    "change": "added",
+    "detail": ""
+   },
+   {
+    "file": "packages/web/src/hooks/useCart.ts",
+    "change": "importChanged",
+    "detail": "imports and re-exports `CartItem` from ./types"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartItem` moved to hooks/types.ts; hooks/useCart.ts imports and re-exports it, so importers are unaffected."
+ },
+ "S1": {
+  "primaryFile": "src/user.ts",
+  "tests": "Interface property type change that breaks a caller which never names the interface.",
+  "rules": [
+   "type checker vs references"
+  ],
+  "components": [
+   {
+    "component": "name",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [
+     "Profile"
+    ],
+    "file": "src/user.ts",
+    "detail": "`string` → `string[]`"
+   },
+   {
+    "component": "Profile",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/user.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Profile",
+    "measuredOnBase": [
+     "src/user.ts:1 (declaration)",
+     "src/app.ts:1 (import { Profile as P })",
+     "src/app.ts:3 (return type `P`)"
+    ],
+    "note": "src/app.ts:13 is not a reference to Profile, yet it breaks."
+   }
+  ],
+  "notes": [
+   "References alone miss src/app.ts:13; only the new-error comparison finds it."
+  ],
+  "optimal": "`Profile.name` becomes `string[]`; `loadProfile` (src/app.ts:4) and the `greet(p)` call (src/app.ts:13) now fail to compile. The second break does not mention `Profile`."
+ },
+ "S2": {
+  "primaryFile": "src/store.ts",
+  "tests": "Interface method parameter type change.",
+  "rules": [
+   "implementations and calls through the interface"
+  ],
+  "components": [
+   {
+    "component": "get",
+    "kind": "method signature",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Store"
+    ],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "Store",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Store.get` now takes a string; both implementations (`DbStore.get`, `MemStore.get`) and the call through the interface in `handle` fail to compile."
+ },
+ "S3": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Delete a function that is still used.",
+  "rules": [
+   "deleted + base references"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "deleted",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "plain",
+    "measuredOnBase": [
+     "src/functions.ts:1 (declaration)",
+     "src/consumers.ts:5 (fns.plain)",
+     "src/consumers.ts:10 (m.plain, dynamic import)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`plain` deleted while still used: src/consumers.ts:5 (`fns.plain`) and :10 (`m.plain` via dynamic import) fail; the barrel's `export *` silently stops exporting it."
+ },
+ "S4": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Rename an export without updating importers.",
+  "rules": [
+   "renamed + broken imports"
+  ],
+  "components": [
+   {
+    "component": "formatValue",
+    "kind": "function (arrow)",
+    "change": "renamed",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "from `fmt`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "fmt",
+    "measuredOnBase": [
+     "src/variables.ts:4 (declaration)",
+     "src/consumers.ts:1 (import { fmt as f })",
+     "src/consumers.ts:4 (f(1) via alias)",
+     "src/index.ts:3 (export { fmt as format })"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`fmt` renamed to `formatValue` but importers were not updated: src/consumers.ts:1 and src/index.ts:3 fail."
+ },
+ "S5": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Type-parameter constraint change on a function referenced only as a value.",
+  "rules": [
+   "referenced but not broken"
+  ],
+  "components": [
+   {
+    "component": "identity",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "`T extends object` → `T extends string`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "identity",
+    "measuredOnBase": [
+     "src/functions.ts:22 (declaration)",
+     "src/consumers.ts:6 ([fns.identity], used as a value)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`identity` now requires a string type argument; its only reference (src/consumers.ts:6, used as a value) still compiles."
+ },
+ "S6": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Method made private while called from a test.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "add",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": "now `private`"
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Cart.add",
+    "measuredOnBase": [
+     "src/classes.ts:36 (declaration)",
+     "test/cart.test.ts:9 (c.add(\"x\"))"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`Cart.add` is now private; test/cart.test.ts:9 fails."
+ },
+ "S7": {
+  "primaryFile": "src/store.ts",
+  "tests": "Body change in a class implementing an interface; is the call through the interface found?",
+  "rules": [
+   "references through interfaces"
+  ],
+  "components": [
+   {
+    "component": "get",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "DbStore"
+    ],
+    "file": "src/store.ts",
+    "detail": ""
+   },
+   {
+    "component": "DbStore",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/store.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "DbStore.get",
+    "measuredOnBase": [
+     "src/store.ts:2 (Store.get — interface member)",
+     "src/store.ts:6 (DbStore.get — declaration)",
+     "src/store.ts:12 (MemStore.get — sibling implementation)",
+     "src/store.ts:18 (s.get(1) — call through the Store interface)",
+     "src/store.ts:22 (new DbStore().get(2) — direct call)"
+    ],
+    "note": "TypeScript 7 returns the whole interface-member family. Optimal output separates the direct call (22), the call through the interface (18), and sibling declarations (2, 12)."
+   }
+  ],
+  "notes": [
+   "Measured: references to DbStore.get include the call through the interface (src/store.ts:18)."
+  ],
+  "optimal": "`DbStore.get` now formats ids with a colon; no new errors."
+ },
+ "S8": {
+  "primaryFile": "src/classes.ts",
+  "tests": "Constructor parameter property removed (also: B02).",
+  "rules": [
+   "parameter properties are class properties"
+  ],
+  "components": [
+   {
+    "component": "constructor",
+    "kind": "constructor",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "owner",
+    "kind": "property (parameter property)",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart`'s constructor drops `public owner?`, which also removes the `Cart.owner` property; nothing used it, so no new errors."
+ },
+ "S9": {
+  "primaryFile": "js/plain.js",
+  "tests": "JSDoc `@typedef` field type change in JavaScript breaks a TypeScript caller (also: DOC18).",
+  "rules": [
+   "rule 1 (JS type tags are code)"
+  ],
+  "components": [
+   {
+    "component": "Item",
+    "kind": "type (JSDoc @typedef)",
+    "change": "modified",
+    "flags": [
+     "typeChanged",
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "js/plain.js",
+    "detail": "`id: number` → `id: string`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Item",
+    "measuredOnBase": [
+     "js/plain.js:2 (@typedef)",
+     "js/plain.js:6 (@param {Item})"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "JSDoc type `Item.id` becomes a string; the TypeScript call in src/loose.ts:5 now fails."
+ },
+ "S10": {
+  "primaryFile": "js/plain.js",
+  "tests": "JSDoc `@param` type change in JavaScript (also: DOC19).",
+  "rules": [
+   "rule 1"
+  ],
+  "components": [
+   {
+    "component": "label",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "docChanged"
+    ],
+    "container": [],
+    "file": "js/plain.js",
+    "detail": "`@param {Item}` → `{string}`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "label",
+    "measuredOnBase": [
+     "js/plain.js:9 (declaration)",
+     "src/loose.ts:2 (import)",
+     "src/loose.ts:5 (label({...}))"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`label` now declares a string parameter: its own body (js/plain.js:10, `item.label`) and the TypeScript caller (src/loose.ts:5) fail."
+ },
+ "S11": {
+  "primaryFile": "src/documented.ts",
+  "tests": "Parameter renamed in code but not in `@param` (also: DOC03).",
+  "rules": [
+   "docStale (parameters)"
+  ],
+  "components": [
+   {
+    "component": "power",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "bodyChanged",
+     "docStale"
+    ],
+    "container": [],
+    "file": "src/documented.ts",
+    "detail": "`@param exp` no longer matches any parameter; `exponent` undocumented"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`power`: parameter `exp` renamed to `exponent` but its `@param exp` was not updated — the doc is stale. The compiler reports nothing; only the doc check catches this."
+ },
+ "R01": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Required prop added without updating usages.",
+  "rules": [
+   "rule 14",
+   "errors at JSX usage sites"
+  ],
+  "components": [
+   {
+    "component": "currency",
+    "kind": "property",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "CartViewProps"
+    ],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   },
+   {
+    "component": "CartViewProps",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "CartView",
+    "measuredOnBase": [
+     "packages/web/src/components/CartView.tsx:5 ({@link CartView} in CartViewProps' doc)",
+     "packages/web/src/components/CartView.tsx:18 (declaration)",
+     "packages/web/src/App.tsx:2 (import)",
+     "packages/web/src/App.tsx:41 (<CartView … />)",
+     "packages/web/src/components/CartView.test.tsx:1 (import)",
+     "packages/web/src/components/CartView.test.tsx:9 (<CartView initial={[]} />)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`CartViewProps` gains a required `currency`; both usages fail: packages/web/src/App.tsx:41 and the CartView test (line 9)."
+ },
+ "R02": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Prop made optional; the component body now passes a possibly-undefined value.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "initial",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [
+     "CartViewProps"
+    ],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "now optional"
+   },
+   {
+    "component": "CartViewProps",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartViewProps.initial` becomes optional; `CartView` itself now fails at line 19 (`useCart(initial)`)."
+ },
+ "R03": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Component renamed without updating imports.",
+  "rules": [
+   "renamed component"
+  ],
+  "components": [
+   {
+    "component": "CartPanel",
+    "kind": "component",
+    "change": "renamed",
+    "flags": [],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "from `CartView`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "CartView",
+    "measuredOnBase": [
+     "packages/web/src/components/CartView.tsx:5 ({@link CartView} in CartViewProps' doc)",
+     "packages/web/src/components/CartView.tsx:18 (declaration)",
+     "packages/web/src/App.tsx:2 (import)",
+     "packages/web/src/App.tsx:41 (<CartView … />)",
+     "packages/web/src/components/CartView.test.tsx:1 (import)",
+     "packages/web/src/components/CartView.test.tsx:9 (<CartView initial={[]} />)"
+    ]
+   }
+  ],
+  "notes": [
+   "The {@link CartView} in CartViewProps' doc (CartView.tsx:5) is a reference; after the rename it no longer resolves. Reporting that is optional."
+  ],
+  "optimal": "`CartView` renamed to `CartPanel`; imports in App.tsx:2 and the test (line 1) fail."
+ },
+ "R04": {
+  "primaryFile": "packages/web/src/hooks/useCart.ts",
+  "tests": "Required parameter added to a custom hook.",
+  "rules": [
+   "rule 14 (hook)"
+  ],
+  "components": [
+   {
+    "component": "useCart",
+    "kind": "hook",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/hooks/useCart.ts",
+    "detail": "`max: number` added"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "useCart",
+    "measuredOnBase": [
+     "packages/web/src/hooks/useCart.ts:43 (declaration)",
+     "packages/web/src/components/CartView.tsx:3 (import)",
+     "packages/web/src/components/CartView.tsx:19 (call)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "Hook `useCart` requires a new `max` argument; its caller `CartView` (line 19) fails."
+ },
+ "R05": {
+  "primaryFile": "packages/web/src/hooks/useCart.ts",
+  "tests": "Hook return shape changes (inferred return type).",
+  "rules": [
+   "bodyChanged → inferred type change"
+  ],
+  "components": [
+   {
+    "component": "useCart",
+    "kind": "hook",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/hooks/useCart.ts",
+    "detail": "returns `sum` instead of `total`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Hook `useCart` returns `sum` instead of `total`; `CartView` (line 19) destructures `total` and fails."
+ },
+ "R06": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Effect dependency list changes only.",
+  "rules": [
+   "rule 11 (effectDepsChanged)"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged",
+     "effectDepsChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "`CartView › useEffect#1` deps `[title, total]` → `[title]`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView`: the first `useEffect` no longer depends on `total`, so the title will not update when the total changes. The compiler reports nothing."
+ },
+ "R07": {
+  "primaryFile": "packages/web/src/hooks/useCart.ts",
+  "tests": "Hook returns an object instead of a tuple.",
+  "rules": [
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "useCounter",
+    "kind": "hook",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/hooks/useCart.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "useCounter › increment"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Hook `useCounter` returns an object instead of a tuple; `Swatch` in App.tsx (line 23) destructures it as an array and fails."
+ },
+ "R08": {
+  "primaryFile": "packages/web/src/context/Theme.tsx",
+  "tests": "Context value type changes.",
+  "rules": [
+   "rule 14 (context)"
+  ],
+  "components": [
+   {
+    "component": "dense",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [
+     "Theme"
+    ],
+    "file": "packages/web/src/context/Theme.tsx",
+    "detail": ""
+   },
+   {
+    "component": "Theme",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/context/Theme.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Theme.dense` becomes `\"yes\" | \"no\"`; the context default (Theme.tsx:10) and the provider value in App.tsx (line 35) fail."
+ },
+ "R09": {
+  "primaryFile": "packages/web/src/hooks/useCart.ts",
+  "tests": "Union gains a member; an unchanged exhaustive switch now fails.",
+  "rules": [
+   "unchanged component breaks"
+  ],
+  "components": [
+   {
+    "component": "CartAction",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/hooks/useCart.ts",
+    "detail": "adds `{ type: \"undo\" }`"
+   }
+  ],
+  "unchanged": [
+   "cartReducer (code unchanged, now has an error)"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartAction` gains `undo`; the unchanged `cartReducer` exhaustiveness check (useCart.ts:32) now fails."
+ },
+ "R10": {
+  "primaryFile": "packages/web/src/components/Legacy.tsx",
+  "tests": "Class component prop type change.",
+  "rules": [
+   "class components"
+  ],
+  "components": [
+   {
+    "component": "step",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [
+     "CounterProps"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   },
+   {
+    "component": "CounterProps",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CounterProps.step` becomes a string; `<Counter step={2} />` (App.tsx:45) and `Counter.increment`'s arithmetic (Legacy.tsx:25) fail."
+ },
+ "R11": {
+  "primaryFile": "packages/web/src/components/List.tsx",
+  "tests": "Generic component constraint change.",
+  "rules": [
+   "generic components"
+  ],
+  "components": [
+   {
+    "component": "List",
+    "kind": "component (generic)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/List.tsx",
+    "detail": "`T extends { id: number }`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`List`'s constraint becomes `{ id: number }`; App.tsx:44 (two errors) and the unchanged `ListProps<T>` reference (List.tsx:14) fail."
+ },
+ "R12": {
+  "primaryFile": "packages/web/src/components/Header.tsx",
+  "tests": "`FC`-typed component stops accepting children.",
+  "rules": [
+   "typed arrow components"
+  ],
+  "components": [
+   {
+    "component": "Header",
+    "kind": "component (arrow, FC)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Header.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Header` no longer accepts `children`; App.tsx:37 (children passed) fails."
+ },
+ "R13": {
+  "primaryFile": "packages/web/src/components/Button.tsx",
+  "tests": "`forwardRef` component rewritten as a plain function component.",
+  "rules": [
+   "rule 10 (wrapper removed)"
+  ],
+  "components": [
+   {
+    "component": "Button",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Button.tsx",
+    "detail": "wrappers [forwardRef] → []; `ref` parameter removed"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Button` no longer forwards a ref (wrapper `forwardRef` removed); no caller passed a ref, so no new errors."
+ },
+ "R14": {
+  "primaryFile": "packages/web/src/components/Button.tsx",
+  "tests": "React 19 `ref` prop type change.",
+  "rules": [
+   "ref as prop"
+  ],
+  "components": [
+   {
+    "component": "Input",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Button.tsx",
+    "detail": "`ref?: Ref<HTMLInputElement>`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Input`'s `ref` prop now expects an input element; App.tsx:43 (passes an `InputHandle` ref) and `useImperativeHandle` (Button.tsx:26) fail."
+ },
+ "R15": {
+  "primaryFile": "packages/web/src/app/actions.ts",
+  "tests": "Server action signature change (`\"use server\"` file).",
+  "rules": [
+   "server actions"
+  ],
+  "components": [
+   {
+    "component": "saveCart",
+    "kind": "function (server action)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/app/actions.ts",
+    "detail": "first parameter removed"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Server action `saveCart` drops its previous-state parameter; `useActionState` in ClientCart.tsx:8 fails."
+ },
+ "R16": {
+  "primaryFile": "packages/web/src/components/Badge.tsx",
+  "tests": "Delete a memo-wrapped component still in use.",
+  "rules": [
+   "rule 10"
+  ],
+  "components": [
+   {
+    "component": "Pill",
+    "kind": "component",
+    "change": "deleted",
+    "flags": [],
+    "container": [],
+    "file": "packages/web/src/components/Badge.tsx",
+    "detail": "wrappers [memo]"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Pill",
+    "measuredOnBase": [
+     "packages/web/src/components/Badge.tsx:10 (declaration)",
+     "packages/web/src/App.tsx:3 (import)",
+     "packages/web/src/App.tsx:39 (<Pill text=\"sale\" />)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`Pill` deleted while App.tsx imports it (line 3) — compile error."
+ },
+ "R17": {
+  "primaryFile": "packages/web/src/components/Tabs.tsx",
+  "tests": "Compound component (expando) prop rename.",
+  "rules": [
+   "rule 12"
+  ],
+  "components": [
+   {
+    "component": "Panel",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "bodyChanged"
+    ],
+    "container": [
+     "Tabs"
+    ],
+    "file": "packages/web/src/components/Tabs.tsx",
+    "detail": "prop `title` → `heading`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Tabs.Panel`'s `title` prop is renamed `heading`; App.tsx:47 fails."
+ },
+ "R18": {
+  "primaryFile": "packages/web/src/components/withLogger.tsx",
+  "tests": "Higher-order component constraint change.",
+  "rules": [
+   "HOCs"
+  ],
+  "components": [
+   {
+    "component": "withLogger",
+    "kind": "function (HOC)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/withLogger.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`withLogger` now requires an `extra: number` prop; wrapping `Badge` (App.tsx:19) and rendering `LoggedBadge` (App.tsx:52) fail."
+ },
+ "R19": {
+  "primaryFile": "packages/web/src/App.tsx",
+  "tests": "`lazy` import path changed to a missing module.",
+  "rules": [
+   "rule 10 (lazy wrapper)"
+  ],
+  "components": [
+   {
+    "component": "Heavy",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/App.tsx",
+    "detail": "wrappers [lazy]; import path → ./components/Heavier"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Lazy component `Heavy` now imports a module that does not exist (App.tsx:18)."
+ },
+ "R20": {
+  "primaryFile": "packages/web/src/components/Heavy.tsx",
+  "tests": "Default export becomes a named export; `lazy` needs a default.",
+  "rules": [
+   "exportChanged"
+  ],
+  "components": [
+   {
+    "component": "Heavy",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "exportChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Heavy.tsx",
+    "detail": "default → named"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Heavy` is now a named export; `lazy(() => import(...))` in App.tsx:18 requires a default export and fails."
+ },
+ "R21": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "`\"use client\"` directive added.",
+  "rules": [
+   "rule 14 (directiveChanged)"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "packages/web/src/components/CartView.tsx",
+    "change": "directiveChanged",
+    "detail": "\"use client\" added"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "components/CartView.tsx is now a client module (`\"use client\"`)."
+ },
+ "R22": {
+  "primaryFile": "packages/web/src/components/Badge.tsx",
+  "tests": "`displayName` expando assignment.",
+  "rules": [
+   "rule 12"
+  ],
+  "components": [
+   {
+    "component": "displayName",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "Badge"
+    ],
+    "file": "packages/web/src/components/Badge.tsx",
+    "detail": "\"Badge\" → \"ShopBadge\""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Badge.displayName` is now \"ShopBadge\" (affects DevTools labels)."
+ },
+ "R23": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Comment inside JSX.",
+  "rules": [
+   "rule 2 (commentChanged)"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "commentChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView`: JSX comment reworded; no code change."
+ },
+ "R24": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Inline JSX event handler.",
+  "rules": [
+   "rule 5 (inline callbacks stay in the component)"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "close button now toggles"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView`: the close button now toggles `open` instead of closing."
+ },
+ "R25": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "Named local handler (arrow in a const) inside a component.",
+  "rules": [
+   "rule 6"
+  ],
+  "components": [
+   {
+    "component": "handleAdd",
+    "kind": "function (arrow)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "CartView"
+    ],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   },
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView › handleAdd` now adds \"sample-2\"."
+ },
+ "R26": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "List `key` expression.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "key `i.sku` → `i.qty`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView`: list items are keyed by quantity instead of SKU (keys may now collide)."
+ },
+ "R27": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "CSS-module class name typo (not type-checked).",
+  "rules": [
+   "compiler blind spot"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": "`styles.cart` → `styles.cartt`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Optimal output cross-checks the class name against the CSS module; not required by the rules."
+  ],
+  "optimal": "`CartView` references CSS class `cartt`, which does not exist in CartView.module.css; the compiler cannot see this."
+ },
+ "R28": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "JSX text.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView`: empty-state text is now \"Nothing here\"."
+ },
+ "R29": {
+  "primaryFile": "packages/web/src/components/Badge.tsx",
+  "tests": "`memo` wrapper removed.",
+  "rules": [
+   "rule 10"
+  ],
+  "components": [
+   {
+    "component": "Badge",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Badge.tsx",
+    "detail": "wrappers [memo] → []"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Badge` is no longer memoized; its render function is unchanged."
+ },
+ "R30": {
+  "primaryFile": "packages/web/src/components/Modal.tsx",
+  "tests": "Portal target may be null.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "Modal",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Modal.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Modal` portals into `#modal`, which may be missing (`null`); Modal.tsx:6 fails."
+ },
+ "R31": {
+  "primaryFile": "packages/web/src/components/Nested.tsx",
+  "tests": "Component declared inside a component.",
+  "rules": [
+   "rule 6",
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "Row",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "bodyChanged"
+    ],
+    "container": [
+     "Outer"
+    ],
+    "file": "packages/web/src/components/Nested.tsx",
+    "detail": "prop `name` → `label`"
+   },
+   {
+    "component": "Outer",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Nested.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Outer › Row` renames its prop to `label`; `Outer`'s own `<Row name={n} />` (Nested.tsx:9) fails."
+ },
+ "R32": {
+  "primaryFile": "packages/web/src/components/Icon.tsx",
+  "tests": "Default prop value change.",
+  "rules": [
+   "signatureChanged"
+  ],
+  "components": [
+   {
+    "component": "Icon",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Icon.tsx",
+    "detail": "default size 16 → 20"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Icon`'s default size is now 20."
+ },
+ "R33": {
+  "primaryFile": "packages/web/src/app/Page.tsx",
+  "tests": "Async server component made synchronous.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "Page",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/app/Page.tsx",
+    "detail": "`async` removed"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Server component `Page` is no longer async and uses a static list."
+ },
+ "R34": {
+  "primaryFile": "packages/web/src/context/Theme.tsx",
+  "tests": "React 19 `<Context value>` changed to `<Context.Provider value>`.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "ThemeProvider",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/context/Theme.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`ThemeProvider` uses `ThemeContext.Provider` instead of the React 19 shorthand; behaviour unchanged."
+ },
+ "R35": {
+  "primaryFile": "packages/web/src/hooks/useResource.ts",
+  "tests": "Hook internal type change with no callers affected.",
+  "rules": [
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "useField",
+    "kind": "hook",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/hooks/useResource.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`useField`'s optimistic updater now takes a number; no caller passes a value, so no new errors."
+ },
+ "R36": {
+  "primaryFile": "packages/web/src/components/CartView.tsx",
+  "tests": "TSDoc removed from an exported component.",
+  "rules": [
+   "undocumented"
+  ],
+  "components": [
+   {
+    "component": "CartView",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "docChanged",
+     "undocumented"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/CartView.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`CartView` lost its TSDoc and is now an undocumented export."
+ },
+ "R37": {
+  "primaryFile": "packages/web/src/components/Legacy.tsx",
+  "tests": "Arrow function in a class field.",
+  "rules": [
+   "rule 13 (class-field arrows are methods)"
+  ],
+  "components": [
+   {
+    "component": "increment",
+    "kind": "method (field)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Counter"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   },
+   {
+    "component": "Counter",
+    "kind": "component (class)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Counter.increment` now adds twice the step."
+ }
+}

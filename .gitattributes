@@ -1,0 +1,2 @@
+src/crlf.ts -text
+src/bom.ts -text

@@ -1,0 +1,236 @@
+[
+ {
+  "id": "DOC01",
+  "title": "add @deprecated to power",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": " * @throws RangeError if `exp` is negative or not an integer\n */",
+    "new": " * @throws RangeError if `exp` is negative or not an integer\n * @deprecated Use the `**` operator instead.\n */"
+   }
+  ]
+ },
+ {
+  "id": "DOC02",
+  "title": "remove @deprecated from oldSquare",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": " * @deprecated Use {@link power} with `exp = 2` instead.\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "DOC03",
+  "title": "rename power param exp in code only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "export function power(base: number, exp: number): number {\n  if (exp < 0 || !Number.isInteger(exp)) throw new RangeError(\"bad exponent\");\n  return base ** exp;",
+    "new": "export function power(base: number, exponent: number): number {\n  if (exponent < 0 || !Number.isInteger(exponent)) throw new RangeError(\"bad exponent\");\n  return base ** exponent;"
+   }
+  ]
+ },
+ {
+  "id": "DOC04",
+  "title": "rename power param exp in code and @param",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "export function power(base: number, exp: number): number {\n  if (exp < 0 || !Number.isInteger(exp)) throw new RangeError(\"bad exponent\");\n  return base ** exp;",
+    "new": "export function power(base: number, exponent: number): number {\n  if (exponent < 0 || !Number.isInteger(exponent)) throw new RangeError(\"bad exponent\");\n  return base ** exponent;"
+   },
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": " * @param exp - a non-negative integer exponent",
+    "new": " * @param exponent - a non-negative integer exponent"
+   }
+  ]
+ },
+ {
+  "id": "DOC05",
+  "title": "power @returns text only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": " * @returns `base` raised to `exp`",
+    "new": " * @returns `base` to the power `exp`"
+   }
+  ]
+ },
+ {
+  "id": "DOC06",
+  "title": "Basket.add body, doc untouched",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "    const next = (this.counts.get(sku) ?? 0) + 1;",
+    "new": "    const next = (this.counts.get(sku) ?? 0) + 2;"
+   }
+  ]
+ },
+ {
+  "id": "DOC07",
+  "title": "add @internal to wrap",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": " * @returns a one-element array containing `value`\n */",
+    "new": " * @returns a one-element array containing `value`\n * @internal\n */"
+   }
+  ]
+ },
+ {
+  "id": "DOC08",
+  "title": "delete wrap's doc block",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "/**\n * Wraps a value in a single-element array.\n *\n * @typeParam T - the element type\n * @param value - the value to wrap\n * @returns a one-element array containing `value`\n */\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "DOC09",
+  "title": "add exported function cube with no doc",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "export type NumFn = (n: number) => number;\n",
+    "new": "export type NumFn = (n: number) => number;\n\nexport function cube(n: number): number {\n  return n * n * n;\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "DOC10",
+  "title": "PowerOptions.round @defaultValue false -> true",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "   * @defaultValue false",
+    "new": "   * @defaultValue true"
+   }
+  ]
+ },
+ {
+  "id": "DOC11",
+  "title": "Unit.Metric doc",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "  /** Metric units. */",
+    "new": "  /** Metric (SI) units. */"
+   }
+  ]
+ },
+ {
+  "id": "DOC12",
+  "title": "add @typeParam U to wrap without a U",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": " * @typeParam T - the element type\n",
+    "new": " * @typeParam T - the element type\n * @typeParam U - unused\n"
+   }
+  ]
+ },
+ {
+  "id": "DOC13",
+  "title": "{@link power} -> {@link wrap} in PowerOptions doc",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "/** Settings accepted by {@link power}-based helpers. */",
+    "new": "/** Settings accepted by {@link wrap}-based helpers. */"
+   }
+  ]
+ },
+ {
+  "id": "DOC14",
+  "title": "// comment above display",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "// Formats a number for display with two decimals.",
+    "new": "// Formats a number for display with exactly two decimals."
+   }
+  ]
+ },
+ {
+  "id": "DOC15",
+  "title": "square body only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  return n * n;\n}",
+    "new": "  return n ** 2;\n}"
+   }
+  ]
+ },
+ {
+  "id": "DOC16",
+  "title": "square inner comment and code",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  // multiply rather than Math.pow for speed\n  return n * n;",
+    "new": "  // use the exponent operator for clarity\n  return n ** 2;"
+   }
+  ]
+ },
+ {
+  "id": "DOC17",
+  "title": "type braces in a .ts doc (@param {number} n)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": " * @param n the value to square",
+    "new": " * @param {number} n the value to square"
+   }
+  ]
+ },
+ {
+  "id": "DOC18",
+  "title": "JSDoc @typedef id number -> string",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/plain.js",
+    "old": "{{ id: number, label: string }}",
+    "new": "{{ id: string, label: string }}"
+   }
+  ]
+ },
+ {
+  "id": "DOC19",
+  "title": "JSDoc @param {Item} -> {string}",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/plain.js",
+    "old": " * @param {Item} item",
+    "new": " * @param {string} item"
+   }
+  ]
+ }
+]

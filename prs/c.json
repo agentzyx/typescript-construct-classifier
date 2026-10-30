@@ -1,0 +1,134 @@
+[
+ {
+  "id": "C01",
+  "title": "import-only change in startup.ts",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/startup.ts",
+    "old": "import { load } from \"./functions\";",
+    "new": "import { load, plain } from \"./functions\";"
+   }
+  ]
+ },
+ {
+  "id": "C02",
+  "title": "new file src/math.ts with 2 functions",
+  "ops": [
+   {
+    "op": "create",
+    "file": "src/math.ts",
+    "content": "/**\n * Clamps a number to a range.\n *\n * @param n - the value\n * @param lo - lower bound\n * @param hi - upper bound\n */\nexport function clamp(n: number, lo: number, hi: number): number {\n  return Math.min(hi, Math.max(lo, n));\n}\n\n/**\n * Linear interpolation.\n *\n * @param a - start\n * @param b - end\n * @param t - fraction between 0 and 1\n */\nexport function lerp(a: number, b: number, t: number): number {\n  return a + (b - a) * t;\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "C03",
+  "title": "delete src/defaults/obj.ts",
+  "ops": [
+   {
+    "op": "delete",
+    "file": "src/defaults/obj.ts"
+   }
+  ]
+ },
+ {
+  "id": "C04",
+  "title": "rename src/tabs.ts -> src/tabbed.ts (unchanged)",
+  "ops": [
+   {
+    "op": "rename",
+    "from": "src/tabs.ts",
+    "to": "src/tabbed.ts"
+   }
+  ]
+ },
+ {
+  "id": "C05",
+  "title": "rename src/startup.ts -> src/boot.ts and edit isReady",
+  "ops": [
+   {
+    "op": "rename",
+    "from": "src/startup.ts",
+    "to": "src/boot.ts"
+   },
+   {
+    "op": "replace",
+    "file": "src/boot.ts",
+    "old": "export function isReady() {\n  return ready;",
+    "new": "export function isReady() {\n  return ready === true;"
+   }
+  ]
+ },
+ {
+  "id": "C06",
+  "title": "tsconfig: enable noUnusedLocals",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "tsconfig.json",
+    "old": "\"strict\": true,",
+    "new": "\"strict\": true, \"noUnusedLocals\": true,"
+   }
+  ]
+ },
+ {
+  "id": "C07",
+  "title": "package.json: add scripts",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "package.json",
+    "old": "  \"type\": \"module\",\n",
+    "new": "  \"type\": \"module\",\n  \"scripts\": {\n    \"typecheck\": \"tsc -p .\"\n  },\n"
+   }
+  ]
+ },
+ {
+  "id": "C08",
+  "title": "generated file change",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/generated/api.generated.ts",
+    "old": "export const generated = 1;",
+    "new": "export const generated = 2;"
+   }
+  ]
+ },
+ {
+  "id": "C09",
+  "title": "vendor change",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "vendor/lib.ts",
+    "old": "export const vendored = 1;",
+    "new": "export const vendored = 2;"
+   }
+  ]
+ },
+ {
+  "id": "C10",
+  "title": "README change",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "docs/README.md",
+    "old": "# Fixture\n",
+    "new": "# Fixture\n\nTest repository.\n"
+   }
+  ]
+ },
+ {
+  "id": "C11",
+  "title": "binary file added (assets/logo.png)",
+  "ops": [
+   {
+    "op": "create",
+    "file": "assets/logo.png",
+    "content_b64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+   }
+  ]
+ }
+]

@@ -1,0 +1,167 @@
+A01   plain: change a body line                                    none
+A02   plain: add a parameter                                       none
+A03   load: change return type                                     none
+A04   add exported function half (with TSDoc)                      none
+A05   delete isString                                              none
+A06   rename withThis -> withContext, same body                    none
+A07   move counter to new file src/gen.ts                          none
+A08   swap order of load and counter                               none
+A09   comment added inside plain body                              none
+A10   re-indent plain body (whitespace only)                       none
+A11   add TSDoc above load                                         none
+A12   remove export from isString                                  none
+A13   make plain async                                             none
+A14   one hunk spanning end of plain and start of load             none
+A15   two separate hunks inside report                             none
+A16   first and last line of routes.ts                             none
+B01   Cart.area body                                               none
+B02   constructor: remove public owner                             none
+B03   get size only                                                none
+B04   set size only                                                none
+B05   static block                                                 none
+B06   #hidden body                                                 none
+B07   Shape.area return type -> number | null                      none
+B08   remove @logged decorator                                     none
+B09   accessor label initializer                                   none
+B10   *[Symbol.iterator] body                                      none
+B11   Anon.run body                                                none
+B12   mixin ts property                                            none
+B13   add 4th pick overload (and widen implementation)             none
+B14   member added to second User block                            none
+B15   User.greet signature                                         none
+B16   Callable call signature                                      none
+B17   Status adds auto                                             none
+B18   Unwrap uses PromiseLike                                      none
+B19   enum Color adds Yellow                                       none
+B20   const enum Dir value                                         none
+B21   Geo.Inner.k                                                  none
+B22   tool.version (function + namespace merge)                    none
+B23   fmt body                                                     none
+B24   legacyFn body                                                none
+B25   api.get body                                                 none
+B26   api.version getter                                           none
+B27   api computed-key property                                    none
+B28   destructured export b: 2 -> 3                                none
+B29   step = 2 -> 3 (second declarator)                            none
+B30   satisfies object                                             none
+B31   default anonymous function body                              none
+B32   default anonymous class method                               none
+B33   default object literal                                       none
+B34   barrel re-exports LIMIT                                      none
+B35   module augmentation member                                   none
+B36   declare global member                                        none
+B37   ambient track signature                                      none
+B38   view.tsx CartView JSX                                        none
+B39   view.tsx Badge JSX                                           none
+B40   inside it("adds")                                            none
+B41   /orders route callback                                       none
+B42   async IIFE body                                              none
+B43   labelled loop                                                none
+B44   SQL template WHERE active = 1 -> 0                           none
+B45   tagged template                                              none
+B46   JS @typedef gains optional field                             none
+B47   JS label body                                                none
+B48   legacy export = new target                                   none
+B49   legacy import = require renamed binding                      none
+B50   legacy export as namespace                                   none
+B51   using declaration                                            none
+B52   nested function inner body                                   none
+B53   second it("adds") with same label                            none
+B54   it label becomes a template literal                          none
+B55   inside doubled's .map callback                               none
+B56   local arrow viaArrow in outer (rule 6)                       none
+B57   inside wrapped fetchUser (rule 10)                           none
+B58   remove withRetry wrapper from fetchUser (rule 10)            none
+DOC01 add @deprecated to power                                     none
+DOC02 remove @deprecated from oldSquare                            none
+DOC03 rename power param exp in code only                          none
+DOC04 rename power param exp in code and @param                    none
+DOC05 power @returns text only                                     none
+DOC06 Basket.add body, doc untouched                               none
+DOC07 add @internal to wrap                                        none
+DOC08 delete wrap's doc block                                      none
+DOC09 add exported function cube with no doc                       none
+DOC10 PowerOptions.round @defaultValue false -> true               none
+DOC11 Unit.Metric doc                                              none
+DOC12 add @typeParam U to wrap without a U                         none
+DOC13 {@link power} -> {@link wrap} in PowerOptions doc            none
+DOC14 // comment above display                                     none
+DOC15 square body only                                             none
+DOC16 square inner comment and code                                none
+DOC17 type braces in a .ts doc (@param {number} n)                 none
+DOC18 JSDoc @typedef id number -> string                           src/loose.ts:5 TS2322
+DOC19 JSDoc @param {Item} -> {string}                              js/plain.js:10 TS2339 src/loose.ts:5 TS2345
+C01   import-only change in startup.ts                             none
+C02   new file src/math.ts with 2 functions                        none
+C03   delete src/defaults/obj.ts                                   none
+C04   rename src/tabs.ts -> src/tabbed.ts (unchanged)              none
+C05   rename src/startup.ts -> src/boot.ts and edit isReady        none
+C06   tsconfig: enable noUnusedLocals                              none
+C07   package.json: add scripts                                    none
+C08   generated file change                                        none
+C09   vendor change                                                none
+C10   README change                                                none
+C11   binary file added (assets/logo.png)                          none
+D01   après body (after the emoji line)                            none
+D02   CRLF file body                                               none
+D03   tab-indented file body                                       none
+D04   append to file with no final newline                         none
+D05   BOM file first line                                          none
+D06   syntax error: unclosed brace in plain                        src/functions.ts:97 TS1005
+D07   add empty file                                               none
+D08   add comments-only file                                       none
+D09   add a 5,000-function file                                    none
+D10   untyped JS scale body                                        none
+M01   rename fmt -> formatValue and update importers               none
+M02   Store.get id: string everywhere                              none
+M03   React: add required currency prop and update usages          none
+M04   React: move CartItem to types.ts and update imports          none
+S1    Profile.name string -> string[]                              src/app.ts:4 TS2322 src/app.ts:13 TS2345
+S2    Store.get(id: number) -> (id: string)                        src/store.ts:6 TS2416 src/store.ts:12 TS2416 src/store.ts:18 TS2345
+S3    delete function plain                                        src/consumers.ts:5 TS2339 src/consumers.ts:10 TS2339
+S4    rename fmt -> formatValue                                    src/consumers.ts:1 TS2305 src/index.ts:3 TS2305
+S5    identity constraint object -> string                         none
+S6    Cart.add made private                                        test/cart.test.ts:9 TS2341
+S7    DbStore.get body only                                        none
+S8    Cart constructor owner param removed                         none
+S9    JSDoc @typedef id number -> string                           src/loose.ts:5 TS2322
+S10   JSDoc @param {Item} -> {string}                              js/plain.js:10 TS2339 src/loose.ts:5 TS2345
+S11   rename power param exp in code only                          none
+R01   CartViewProps: add required prop currency                    packages/web/src/App.tsx:41 TS2741 packages/web/src/components/CartView.test.tsx:9 TS2741
+R02   CartViewProps: initial becomes optional                      packages/web/src/components/CartView.tsx:19 TS2345
+R03   rename CartView -> CartPanel (definition only)               packages/web/src/App.tsx:2 TS2305 packages/web/src/components/CartView.test.tsx:1 TS2305
+R04   useCart: add required parameter max                          packages/web/src/components/CartView.tsx:19 TS2554
+R05   useCart: return total renamed to sum                         packages/web/src/components/CartView.tsx:19 TS2339
+R06   CartView effect deps [title, total] -> [title]               none
+R07   useCounter returns object instead of tuple                   packages/web/src/App.tsx:23 TS2488
+R08   Theme.dense boolean -> "yes" | "no"                          packages/web/src/App.tsx:35 TS2322 packages/web/src/context/Theme.tsx:10 TS2322
+R09   CartAction: add { type: "undo" } (exhaustive switch)         packages/web/src/hooks/useCart.ts:32 TS2322
+R10   Counter props step: number -> string                         packages/web/src/App.tsx:45 TS2769 packages/web/src/components/Legacy.tsx:25 TS2345
+R11   List constraint id: string -> id: number                     packages/web/src/App.tsx:44 TS2322 packages/web/src/App.tsx:44 TS2339 packages/web/src/components/List.tsx:14 TS2344
+R12   Header no longer accepts children                            packages/web/src/App.tsx:37 TS2322
+R13   Button: forwardRef -> plain function component               none
+R14   Input ref prop Ref<InputHandle> -> Ref<HTMLInputElement>     packages/web/src/App.tsx:43 TS2322 packages/web/src/components/Button.tsx:26 TS2740
+R15   server action saveCart drops previous-state param            packages/web/src/app/ClientCart.tsx:8 TS2769
+R16   delete Pill                                                  packages/web/src/App.tsx:3 TS2305
+R17   Tabs.Panel prop title -> heading                             packages/web/src/App.tsx:47 TS2322
+R18   withLogger constraint requires extra: number                 packages/web/src/App.tsx:19 TS2345 packages/web/src/App.tsx:52 TS2322
+R19   lazy import path -> ./components/Heavier                     packages/web/src/App.tsx:18 TS2307
+R20   Heavy: default export -> named export                        packages/web/src/App.tsx:18 TS2322
+R21   add "use client" to CartView.tsx                             none
+R22   Badge.displayName changed                                    none
+R23   JSX comment text changed                                     none
+R24   inline onClick handler body changed                          none
+R25   named local handler handleAdd body changed                   none
+R26   list key i.sku -> i.qty                                      none
+R27   CSS module class typo styles.cart -> styles.cartt            none
+R28   JSX text Empty -> Nothing here                               none
+R29   Badge: remove memo wrapper                                   none
+R30   Modal portal target may be null                              packages/web/src/components/Modal.tsx:6 TS2345
+R31   nested Row prop name -> label                                packages/web/src/components/Nested.tsx:9 TS2322
+R32   Icon default size 16 -> 20                                   none
+R33   Page: async server component -> sync                         none
+R34   ThemeProvider: React 19 <Ctx value> -> <Ctx.Provider value>  none
+R35   useField optimistic reducer param type string -> number      none
+R36   remove TSDoc from CartView (exported component)              none
+R37   Counter.increment class-field arrow body (rule 13)           none
+base clean after run: True

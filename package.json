@@ -1,0 +1,11 @@
+{
+  "name": "ts-construct-fixture",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

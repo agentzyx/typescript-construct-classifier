@@ -1,0 +1,121 @@
+[
+ {
+  "id": "D01",
+  "title": "après body (after the emoji line)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/unicode.ts",
+    "old": "  return x + 1;",
+    "new": "  return x + 2;"
+   }
+  ]
+ },
+ {
+  "id": "D02",
+  "title": "CRLF file body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/crlf.ts",
+    "old": "  return 1;\r\n",
+    "new": "  return 2;\r\n"
+   }
+  ]
+ },
+ {
+  "id": "D03",
+  "title": "tab-indented file body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/tabs.ts",
+    "old": "\treturn t;",
+    "new": "\treturn t + 1;"
+   }
+  ]
+ },
+ {
+  "id": "D04",
+  "title": "append to file with no final newline",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/nonewline.ts",
+    "old": "  return 1;\n}",
+    "new": "  return 1;\n}\n\nexport const after = 1;"
+   }
+  ]
+ },
+ {
+  "id": "D05",
+  "title": "BOM file first line",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/bom.ts",
+    "old": "﻿export function withBom() {",
+    "new": "﻿export function withBom(): number {"
+   }
+  ]
+ },
+ {
+  "id": "D06",
+  "title": "syntax error: unclosed brace in plain",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const sum = a + b;\n  return sum;",
+    "new": "  const sum = a + b;\n  if (sum > 0) {\n  return sum;"
+   }
+  ]
+ },
+ {
+  "id": "D07",
+  "title": "add empty file",
+  "ops": [
+   {
+    "op": "create",
+    "file": "src/empty.ts",
+    "content": ""
+   }
+  ]
+ },
+ {
+  "id": "D08",
+  "title": "add comments-only file",
+  "ops": [
+   {
+    "op": "create",
+    "file": "src/notes.ts",
+    "content": "// Notes only.\n/* nothing to export */\n"
+   }
+  ]
+ },
+ {
+  "id": "D09",
+  "title": "add a 5,000-function file",
+  "ops": [
+   {
+    "op": "create",
+    "file": "src/big.ts",
+    "generate": {
+     "functions": 5000
+    }
+   }
+  ]
+ },
+ {
+  "id": "D10",
+  "title": "untyped JS scale body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/untyped.js",
+    "old": "  return v * k;",
+    "new": "  return v * k + 0;"
+   }
+  ]
+ }
+]

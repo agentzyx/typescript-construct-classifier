@@ -1,0 +1,7 @@
+.cart {
+  display: flex;
+}
+
+.empty {
+  opacity: 0.5;
+}

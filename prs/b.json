@@ -1,0 +1,704 @@
+[
+ {
+  "id": "B01",
+  "title": "Cart.area body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "  area() {\n    return this.items.length;\n  }",
+    "new": "  area() {\n    return this.items.length * 2;\n  }"
+   }
+  ]
+ },
+ {
+  "id": "B02",
+  "title": "constructor: remove public owner",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "constructor(private items: string[] = [], public owner?: string)",
+    "new": "constructor(private items: string[] = [])"
+   }
+  ]
+ },
+ {
+  "id": "B03",
+  "title": "get size only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "  get size() {\n    return this.items.length;\n  }",
+    "new": "  get size() {\n    return this.items.length + 0;\n  }"
+   }
+  ]
+ },
+ {
+  "id": "B04",
+  "title": "set size only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "    this.items.length = v;",
+    "new": "    this.items.length = Math.max(0, v);"
+   }
+  ]
+ },
+ {
+  "id": "B05",
+  "title": "static block",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "    Cart.count = 1;",
+    "new": "    Cart.count = 2;"
+   }
+  ]
+ },
+ {
+  "id": "B06",
+  "title": "#hidden body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "    return this.#secret;",
+    "new": "    return this.#secret.toUpperCase();"
+   }
+  ]
+ },
+ {
+  "id": "B07",
+  "title": "Shape.area return type -> number | null",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "  abstract area(): number;",
+    "new": "  abstract area(): number | null;"
+   }
+  ]
+ },
+ {
+  "id": "B08",
+  "title": "remove @logged decorator",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "  @logged\n  add(item: string) {",
+    "new": "  add(item: string) {"
+   }
+  ]
+ },
+ {
+  "id": "B09",
+  "title": "accessor label initializer",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "  accessor label = \"cart\";",
+    "new": "  accessor label = \"basket\";"
+   }
+  ]
+ },
+ {
+  "id": "B10",
+  "title": "*[Symbol.iterator] body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "    yield* this.items;",
+    "new": "    yield* [...this.items].reverse();"
+   }
+  ]
+ },
+ {
+  "id": "B11",
+  "title": "Anon.run body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "export const Anon = class {\n  run() {\n    return 1;",
+    "new": "export const Anon = class {\n  run() {\n    return 2;"
+   }
+  ]
+ },
+ {
+  "id": "B12",
+  "title": "mixin ts property",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "    ts = Date.now();",
+    "new": "    ts = Date.now() + 1;"
+   }
+  ]
+ },
+ {
+  "id": "B13",
+  "title": "add 4th pick overload (and widen implementation)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function pick(x: number): number;\n",
+    "new": "export function pick(x: number): number;\nexport function pick(x: boolean): boolean;\n"
+   },
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function pick(x: string | number) {",
+    "new": "export function pick(x: string | number | boolean) {"
+   }
+  ]
+ },
+ {
+  "id": "B14",
+  "title": "member added to second User block",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "export interface User {\n  email?: string;\n}",
+    "new": "export interface User {\n  email?: string;\n  phone?: string;\n}"
+   }
+  ]
+ },
+ {
+  "id": "B15",
+  "title": "User.greet signature",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "  greet(msg: string): string;",
+    "new": "  greet(msg: string, loud?: boolean): string;"
+   }
+  ]
+ },
+ {
+  "id": "B16",
+  "title": "Callable call signature",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "  (x: number): string;",
+    "new": "  (x: number, radix?: number): string;"
+   }
+  ]
+ },
+ {
+  "id": "B17",
+  "title": "Status adds auto",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "export type Status = \"on\" | \"off\";",
+    "new": "export type Status = \"on\" | \"off\" | \"auto\";"
+   }
+  ]
+ },
+ {
+  "id": "B18",
+  "title": "Unwrap uses PromiseLike",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "T extends Promise<infer U> ? U : T;",
+    "new": "T extends PromiseLike<infer U> ? U : T;"
+   }
+  ]
+ },
+ {
+  "id": "B19",
+  "title": "enum Color adds Yellow",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "  Blue = 3,\n}",
+    "new": "  Blue = 3,\n  Yellow = 4,\n}"
+   }
+  ]
+ },
+ {
+  "id": "B20",
+  "title": "const enum Dir value",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "  Up = 1,\n  Down,",
+    "new": "  Up = 10,\n  Down,"
+   }
+  ]
+ },
+ {
+  "id": "B21",
+  "title": "Geo.Inner.k",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "    export const k = 1;",
+    "new": "    export const k = 2;"
+   }
+  ]
+ },
+ {
+  "id": "B22",
+  "title": "tool.version (function + namespace merge)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/types.ts",
+    "old": "  export const version = 1;",
+    "new": "  export const version = 2;"
+   }
+  ]
+ },
+ {
+  "id": "B23",
+  "title": "fmt body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "  return String(x);\n};",
+    "new": "  return String(x).trim();\n};"
+   }
+  ]
+ },
+ {
+  "id": "B24",
+  "title": "legacyFn body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "  return n * 2;\n};",
+    "new": "  return n * 3;\n};"
+   }
+  ]
+ },
+ {
+  "id": "B25",
+  "title": "api.get body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "    return fetch(this.base + url);",
+    "new": "    return fetch(`${this.base}${url}`);"
+   }
+  ]
+ },
+ {
+  "id": "B26",
+  "title": "api.version getter",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "  get version() {\n    return 1;",
+    "new": "  get version() {\n    return 2;"
+   }
+  ]
+ },
+ {
+  "id": "B27",
+  "title": "api computed-key property",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "  [\"computed\" + \"Key\"]: () => 1,",
+    "new": "  [\"computed\" + \"Key\"]: () => 2,"
+   }
+  ]
+ },
+ {
+  "id": "B28",
+  "title": "destructured export b: 2 -> 3",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "= { a: 1, b: 2 };",
+    "new": "= { a: 1, b: 3 };"
+   }
+  ]
+ },
+ {
+  "id": "B29",
+  "title": "step = 2 -> 3 (second declarator)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "export let counterVar = 0, step = 2;",
+    "new": "export let counterVar = 0, step = 3;"
+   }
+  ]
+ },
+ {
+  "id": "B30",
+  "title": "satisfies object",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "{ mode: \"dev\" } satisfies",
+    "new": "{ mode: \"prod\" } satisfies"
+   }
+  ]
+ },
+ {
+  "id": "B31",
+  "title": "default anonymous function body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/defaults/fn.ts",
+    "old": "  return \"anon\";",
+    "new": "  return \"anonymous\";"
+   }
+  ]
+ },
+ {
+  "id": "B32",
+  "title": "default anonymous class method",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/defaults/cls.ts",
+    "old": "    return 1;",
+    "new": "    return 2;"
+   }
+  ]
+ },
+ {
+  "id": "B33",
+  "title": "default object literal",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/defaults/obj.ts",
+    "old": "  name: \"cfg\",",
+    "new": "  name: \"config\","
+   }
+  ]
+ },
+ {
+  "id": "B34",
+  "title": "barrel re-exports LIMIT",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/index.ts",
+    "old": "export { fmt as format, api } from \"./variables\";",
+    "new": "export { fmt as format, api, LIMIT } from \"./variables\";"
+   }
+  ]
+ },
+ {
+  "id": "B35",
+  "title": "module augmentation member",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/augment.ts",
+    "old": "    nickname?: string;",
+    "new": "    nickname?: string;\n    avatarUrl?: string;"
+   }
+  ]
+ },
+ {
+  "id": "B36",
+  "title": "declare global member",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/augment.ts",
+    "old": "    appVersion: string;",
+    "new": "    appVersion: string;\n    buildId: string;"
+   }
+  ]
+ },
+ {
+  "id": "B37",
+  "title": "ambient track signature",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/ambient.d.ts",
+    "old": "declare function track(event: string): void;",
+    "new": "declare function track(event: string, data?: Record<string, unknown>): void;"
+   }
+  ]
+ },
+ {
+  "id": "B38",
+  "title": "view.tsx CartView JSX",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/view.tsx",
+    "old": "{props.count}</div>",
+    "new": "{props.count * 2}</div>"
+   }
+  ]
+ },
+ {
+  "id": "B39",
+  "title": "view.tsx Badge JSX",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/view.tsx",
+    "old": "  return <span>{label}</span>;",
+    "new": "  return <strong>{label}</strong>;"
+   }
+  ]
+ },
+ {
+  "id": "B40",
+  "title": "inside it(\"adds\")",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "test/cart.test.ts",
+    "old": "    c.add(\"x\");",
+    "new": "    c.add(\"y\");"
+   }
+  ]
+ },
+ {
+  "id": "B41",
+  "title": "/orders route callback",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/routes.ts",
+    "old": "  return \"orders \" + req.url;",
+    "new": "  return \"orders: \" + req.url;"
+   }
+  ]
+ },
+ {
+  "id": "B42",
+  "title": "async IIFE body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/startup.ts",
+    "old": "  await load(\"boot\");",
+    "new": "  await load(\"startup\");"
+   }
+  ]
+ },
+ {
+  "id": "B43",
+  "title": "labelled loop",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/startup.ts",
+    "old": "  if (i > 1) break outer;",
+    "new": "  if (i > 0) break outer;"
+   }
+  ]
+ },
+ {
+  "id": "B44",
+  "title": "SQL template WHERE active = 1 -> 0",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/strings.ts",
+    "old": "WHERE active = 1",
+    "new": "WHERE active = 0"
+   }
+  ]
+ },
+ {
+  "id": "B45",
+  "title": "tagged template",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/strings.ts",
+    "old": "tag`a${1}b`",
+    "new": "tag`a${2}b`"
+   }
+  ]
+ },
+ {
+  "id": "B46",
+  "title": "JS @typedef gains optional field",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/plain.js",
+    "old": "{{ id: number, label: string }}",
+    "new": "{{ id: number, label: string, note?: string }}"
+   }
+  ]
+ },
+ {
+  "id": "B47",
+  "title": "JS label body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/plain.js",
+    "old": "  return item.label;",
+    "new": "  return item.label.trim();"
+   }
+  ]
+ },
+ {
+  "id": "B48",
+  "title": "legacy export = new target",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "legacy/util.ts",
+    "old": "export = helper;",
+    "new": "function helperV2() {\n  return 2;\n}\nexport = helperV2;"
+   }
+  ]
+ },
+ {
+  "id": "B49",
+  "title": "legacy import = require renamed binding",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "legacy/old.ts",
+    "old": "import helper = require(\"./util\");\nexport const v = helper();",
+    "new": "import helperFn = require(\"./util\");\nexport const v = helperFn();"
+   }
+  ]
+ },
+ {
+  "id": "B50",
+  "title": "legacy export as namespace",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "legacy/lib.d.ts",
+    "old": "export as namespace Lib;",
+    "new": "export as namespace LibV2;"
+   }
+  ]
+ },
+ {
+  "id": "B51",
+  "title": "using declaration",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  using res = { [Symbol.dispose]() {} };",
+    "new": "  using res = { [Symbol.dispose]() { console.log(\"disposed\"); } };"
+   }
+  ]
+ },
+ {
+  "id": "B52",
+  "title": "nested function inner body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "    return internalHelper();",
+    "new": "    return internalHelper() + 1;"
+   }
+  ]
+ },
+ {
+  "id": "B53",
+  "title": "second it(\"adds\") with same label",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "test/cart.test.ts",
+    "old": "    c.add(\"x\");\n  });\n",
+    "new": "    c.add(\"x\");\n  });\n\n  it(\"adds\", () => {\n    new Cart().add(\"z\");\n  });\n"
+   }
+  ]
+ },
+ {
+  "id": "B54",
+  "title": "it label becomes a template literal",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "test/cart.test.ts",
+    "old": "  it(\"adds\", () => {",
+    "new": "  it(`adds ${1}`, () => {"
+   }
+  ]
+ },
+ {
+  "id": "B55",
+  "title": "inside doubled's .map callback",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "    return x * 2;\n  });",
+    "new": "    return x * 3;\n  });"
+   }
+  ]
+ },
+ {
+  "id": "B56",
+  "title": "local arrow viaArrow in outer (rule 6)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const viaArrow = () => inner();",
+    "new": "  const viaArrow = () => inner() * 2;"
+   }
+  ]
+ },
+ {
+  "id": "B57",
+  "title": "inside wrapped fetchUser (rule 10)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "  return { id, name: \"user\" + id };",
+    "new": "  return { id, name: \"user-\" + id };"
+   }
+  ]
+ },
+ {
+  "id": "B58",
+  "title": "remove withRetry wrapper from fetchUser (rule 10)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "export const fetchUser = withRetry(async (id: number) => {\n  return { id, name: \"user\" + id };\n});",
+    "new": "export const fetchUser = async (id: number) => {\n  return { id, name: \"user\" + id };\n};"
+   }
+  ]
+ }
+]
