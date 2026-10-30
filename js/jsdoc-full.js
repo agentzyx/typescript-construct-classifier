@@ -42,8 +42,13 @@ export function last(items) {
  * @returns {number}
  */
 /**
- * @param {string | number} value
- * @returns {string | number}
+ * @overload
+ * @param {boolean} value
+ * @returns {boolean}
+ */
+/**
+ * @param {string | number | boolean} value
+ * @returns {string | number | boolean}
  */
 export function echo(value) {
   return value;
