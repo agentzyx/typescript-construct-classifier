@@ -11,7 +11,12 @@ export interface Money {
  * @returns the amount with its currency code, e.g. `12.50 EUR`
  */
 export function formatPrice(money: Money): string {
-  return `${(money.cents / 100).toFixed(2)} ${money.currency}`;
+  return `${toMajor(money.cents)} ${money.currency}`;
+}
+
+/** Converts minor units to a major-unit string. */
+export function toMajor(cents: number): string {
+  return (cents / 100).toFixed(2);
 }
 
 /** Currencies the shop accepts. */
