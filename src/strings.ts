@@ -2,7 +2,7 @@ export function sql() {
   const q = `
 SELECT id
 FROM users
-WHERE active = 1
+WHERE active = 0
 `;
   return q;
 }
