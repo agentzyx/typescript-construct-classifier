@@ -39,7 +39,7 @@ export function CartView({ initial, title = "Cart" }: CartViewProps) {
       <h2 className={styles.cart}>{title}</h2>
       <button onClick={() => setOpen(false)}>close</button>
       {items.length === 0 ? (
-        <p className={styles.empty}>Empty</p>
+        <p className={styles.empty}>Nothing here</p>
       ) : (
         <ul>
           {items.map((i) => (
