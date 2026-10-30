@@ -7,13 +7,13 @@ export interface ButtonProps {
 }
 
 /** A button that forwards its ref (pre-React-19 style). */
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({ label, onPress }, ref) {
+export function Button({ label, onPress }: ButtonProps) {
   return (
-    <button ref={ref} onClick={onPress}>
+    <button onClick={onPress}>
       {label}
     </button>
   );
-});
+}
 
 /** Imperative handle exposed by {@link Input}. */
 export interface InputHandle {
