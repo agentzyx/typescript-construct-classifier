@@ -8,7 +8,7 @@ let ready = false;
 })();
 
 outer: for (const i of [1, 2]) {
-  if (i > 1) break outer;
+  if (i > 0) break outer;
 }
 
 export function isReady() {
