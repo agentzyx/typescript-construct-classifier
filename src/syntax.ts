@@ -33,7 +33,7 @@ declare enum Ambient {
 }
 export const ambientOne: Ambient = 1;
 
-export interface Box<in out T> {
+export interface Box<out T> {
   value: T;
   get size(): number;
   set size(v: number);
