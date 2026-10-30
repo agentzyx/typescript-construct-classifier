@@ -3,7 +3,7 @@
 /**
  * A point in 2D.
  * @typedef {object} Point
- * @property {number} x - horizontal position
+ * @property {string} x - horizontal position
  * @property {number} y - vertical position
  * @property {string=} label - optional label
  */
