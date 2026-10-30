@@ -17,7 +17,7 @@ export class Cart extends Shape {
   accessor label = "cart";
 
   static {
-    Cart.count = 1;
+    Cart.count = 2;
   }
 
   constructor(private items: string[] = [], public owner?: string) {
