@@ -3,7 +3,7 @@ function logged<T>(value: T, _context: ClassMethodDecoratorContext): T {
 }
 
 export abstract class Shape {
-  abstract area(): number;
+  abstract area(): number | null;
 
   describe() {
     return `area ${this.area()}`;
