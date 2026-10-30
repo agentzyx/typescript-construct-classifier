@@ -3,7 +3,7 @@ export function CartView(props: { count: number }) {
 }
 
 export const Badge = ({ label }: { label: string }) => {
-  return <span>{label}</span>;
+  return <strong>{label}</strong>;
 };
 
 export const page = <CartView count={1} />;
