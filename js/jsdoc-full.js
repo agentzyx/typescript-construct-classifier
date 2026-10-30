@@ -51,7 +51,7 @@ export function echo(value) {
 
 /**
  * Accepts loosely typed values (JSDoc type syntax).
- * @param {?number} maybe - nullable
+ * @param {number} maybe - nullable
  * @param {!Object} required - non-nullable
  * @param {...number} rest - variadic
  * @returns {*}
