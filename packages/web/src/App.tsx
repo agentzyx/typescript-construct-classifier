@@ -11,7 +11,7 @@ import { withLogger } from "./components/withLogger";
 import { Outer } from "./components/Nested";
 import { Icon } from "./components/Icon";
 import { ThemeProvider, useThemeColor } from "./context/Theme";
-import { useCounter } from "./hooks/useCart";
+import { useTally as useCounter } from "./hooks/useCart";
 import { ClientCart } from "./app/ClientCart";
 import Page from "./app/Page";
 
