@@ -88,7 +88,7 @@ export function report(values: number[]) {
     `min: ${min}`,
     `max: ${max}`,
     `mean: ${mean}`,
-    `median: ${median}`,
+    `middle: ${median}`,
     `range: ${range}`,
   ];
   return lines.join("\n");
