@@ -7,6 +7,6 @@
  * @param form - submitted form data
  * @returns a status message
  */
-export async function saveCart(_previous: string, form: FormData): Promise<string> {
+export async function saveCart(form: FormData): Promise<string> {
   return `saved ${form.get("sku") ?? ""}`;
 }
