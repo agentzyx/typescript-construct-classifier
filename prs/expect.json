@@ -5241,7 +5241,21 @@
   ],
   "unchanged": [],
   "fileLevel": [],
-  "references": [],
+  "references": [
+   {
+    "symbol": "Tabs",
+    "measuredOnBase": [
+     "packages/web/src/components/Tabs.tsx:4 (declaration)",
+     "packages/web/src/components/Tabs.tsx:8 ({@link Tabs})",
+     "packages/web/src/components/Tabs.tsx:9 (Tabs.Panel = …)",
+     "packages/web/src/App.tsx:8 (import)",
+     "packages/web/src/App.tsx:46 (<Tabs>)",
+     "packages/web/src/App.tsx:47 (<Tabs.Panel …>…</Tabs.Panel>)",
+     "packages/web/src/App.tsx:48 (</Tabs>, closing tag)"
+    ],
+    "note": "References include JSX closing tags (line 48 holds only `</Tabs>`). Measured on the batch-2 base."
+   }
+  ],
   "notes": [],
   "optimal": "`Tabs.Panel`'s `title` prop is renamed `heading`; App.tsx:47 fails.",
   "publicApi": {
@@ -8136,7 +8150,10 @@
    }
   ],
   "references": [],
-  "notes": [],
+  "notes": [
+   "Measured on GitHub (PR #233): the raw diff endpoint (`Accept: application/vnd.github.diff`) refuses this PR with HTTP 406 — \"the diff exceeded the maximum number of files (300)\". The PR files API returns 30 files per page by default; all 301 are listed only when paginating. `changed_files` is 301.",
+   "Optimal output lists all 301 files; a pipeline that reads the raw diff must fall back to the paginated files API or a local clone."
+  ],
   "optimal": "301 new files under src/many/ (`f000.ts` … `f300.ts`), one function each.",
   "publicApi": {
    ".:src/many/f000.d.ts": [

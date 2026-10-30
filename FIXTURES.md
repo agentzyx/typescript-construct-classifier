@@ -98,8 +98,10 @@ Clarifications (each closes an ambiguity found by cross-checking the answer key 
 - **A change of declaration form is `modifiersChanged`**, with the form in `detail`: function declaration ↔ `const` arrow function (K06), class component ↔ function component (K07).
 - **CommonJS**: `require(…)` bindings, including destructuring, are file-level imports, not variable components; `module.exports = { … }` and `exports.x = …` are the export list, so adding or removing a name there is `exportChanged` on that declaration (J12, J13).
 - **Indentation and line endings lie outside a single-line declaration's text**: a single-line declaration or member whose line only changed indentation or line ending is unchanged, not cosmetic; multi-line ones are cosmetic (G15, G16).
+- **References include JSX closing tags** (measured: `</Tabs>` at `packages/web/src/App.tsx:48` is a reference to `Tabs`).
 - **References cross workspace packages only from the consumer's project**: references to `formatPrice` queried from `packages/shared` find only its declaration; from `packages/web` they include `Price.tsx:9` (measured, W01). A pipeline must query every workspace project.
 - **Compare with the PR's own base**: a stacked PR (base: another PR's branch) or a stale PR (cut from an older `main`) is judged on its diff from its merge base, never from the current tip of `main` (G01, G04, G05).
+- **GitHub limits a pipeline must handle** (measured): the files API omits `patch` for a 20,000-line file (D09, #109); the raw diff endpoint refuses PRs with more than 300 files (HTTP 406) and the files API pages at 30 by default (G13, #233).
 - **Multi-commit PRs are judged on their net change**; intermediate commits, including a change and its revert, are not part of the expected output (G02, G03).
 
 `change-matcher` order of checks (one component can carry several flags):
@@ -278,7 +280,6 @@ Each PR's description is rendered by `python3 tools/render_prs.py body <ID> --ba
 
 - Callback naming (B53, B54) is specified only.
 - Position units of the pipeline under test (bytes vs UTF-16) — D01 and D05 give the exact expected offsets for each unit.
-- Whether references include JSX closing tags (`</Tabs>`).
 
 ## Decisions log
 
