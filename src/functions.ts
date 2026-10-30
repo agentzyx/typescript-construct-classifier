@@ -7,12 +7,6 @@ export async function load(id: string): Promise<string> {
   return id;
 }
 
-export function* counter(n: number) {
-  for (let i = 0; i < n; i++) {
-    yield i;
-  }
-}
-
 export function pick(x: string): string;
 export function pick(x: number): number;
 export function pick(x: string | number) {
