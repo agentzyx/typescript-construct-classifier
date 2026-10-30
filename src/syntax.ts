@@ -103,7 +103,6 @@ export function control(values: Record<string, number>): number {
 
 export function expressions(input: { a: number; b?: number }) {
   const copy: { a: number; b?: number } = { ...input };
-  delete copy.b;
   void copy.a;
   const [, second] = [1, 2];
   const cast = <number>(<unknown>second);
