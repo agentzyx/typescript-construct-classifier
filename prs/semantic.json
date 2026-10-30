@@ -1,13 +1,91 @@
 [
- {"id":"S1","title":"Profile.name string -> string[]","file":"src/user.ts","old":"  name: string;","new":"  name: string[];"},
- {"id":"S2","title":"Store.get(id: number) -> (id: string)","file":"src/store.ts","old":"  get(id: number): string;","new":"  get(id: string): string;"},
- {"id":"S3","title":"delete function plain","file":"src/functions.ts","old":"export function plain(a: number, b: number): number {\n  const sum = a + b;\n  return sum;\n}\n","new":""},
- {"id":"S4","title":"rename fmt -> formatValue","file":"src/variables.ts","old":"export const fmt =","new":"export const formatValue ="},
- {"id":"S5","title":"identity constraint object -> string","file":"src/functions.ts","old":"identity<T extends object>","new":"identity<T extends string>"},
- {"id":"S6","title":"Cart.add made private","file":"src/classes.ts","old":"  @logged\n  add(item: string) {","new":"  @logged\n  private add(item: string) {"},
- {"id":"S7","title":"DbStore.get body only","file":"src/store.ts","old":"    return \"db\" + id;","new":"    return \"db:\" + id;"},
- {"id":"S8","title":"Cart constructor owner param removed","file":"src/classes.ts","old":"constructor(private items: string[] = [], public owner?: string)","new":"constructor(private items: string[] = [])"},
- {"id":"S9","title":"JSDoc @typedef id number -> string","file":"js/plain.js","old":"{{ id: number, label: string }}","new":"{{ id: string, label: string }}"},
- {"id":"S10","title":"JSDoc @param {Item} -> {string}","file":"js/plain.js","old":" * @param {Item} item","new":" * @param {string} item"},
- {"id":"S11","title":"rename power param exp in code only","file":"src/documented.ts","old":"export function power(base: number, exp: number): number {\n  if (exp < 0 || !Number.isInteger(exp)) throw new RangeError(\"bad exponent\");\n  return base ** exp;","new":"export function power(base: number, exponent: number): number {\n  if (exponent < 0 || !Number.isInteger(exponent)) throw new RangeError(\"bad exponent\");\n  return base ** exponent;"}
+ {
+  "id": "S1",
+  "title": "Profile.name string -> string[]",
+  "file": "src/user.ts",
+  "old": "  name: string;",
+  "new": "  name: string[];"
+ },
+ {
+  "id": "S2",
+  "title": "Store.get(id: number) -> (id: string)",
+  "file": "src/store.ts",
+  "old": "  get(id: number): string;",
+  "new": "  get(id: string): string;"
+ },
+ {
+  "id": "S3",
+  "title": "delete function plain",
+  "file": "src/functions.ts",
+  "old": "export function plain(a: number, b: number): number {\n  const sum = a + b;\n  return sum;\n}\n",
+  "new": ""
+ },
+ {
+  "id": "S4",
+  "title": "rename fmt -> formatValue",
+  "file": "src/variables.ts",
+  "old": "export const fmt =",
+  "new": "export const formatValue ="
+ },
+ {
+  "id": "S5",
+  "title": "identity constraint object -> string",
+  "file": "src/functions.ts",
+  "old": "identity<T extends object>",
+  "new": "identity<T extends string>"
+ },
+ {
+  "id": "S6",
+  "title": "Cart.add made private",
+  "file": "src/classes.ts",
+  "old": "  @logged\n  add(item: string) {",
+  "new": "  @logged\n  private add(item: string) {"
+ },
+ {
+  "id": "S7",
+  "title": "DbStore.get body only",
+  "file": "src/store.ts",
+  "old": "    return \"db\" + id;",
+  "new": "    return \"db:\" + id;"
+ },
+ {
+  "id": "S8",
+  "title": "Cart constructor owner param removed",
+  "file": "src/classes.ts",
+  "old": "constructor(private items: string[] = [], public owner?: string)",
+  "new": "constructor(private items: string[] = [])"
+ },
+ {
+  "id": "S9",
+  "title": "JSDoc @typedef id number -> string",
+  "file": "js/plain.js",
+  "old": "{{ id: number, label: string }}",
+  "new": "{{ id: string, label: string }}"
+ },
+ {
+  "id": "S10",
+  "title": "JSDoc @param {Item} -> {string}",
+  "file": "js/plain.js",
+  "old": " * @param {Item} item",
+  "new": " * @param {string} item"
+ },
+ {
+  "id": "S11",
+  "title": "rename power param exp in code only",
+  "file": "src/documented.ts",
+  "old": "export function power(base: number, exp: number): number {\n  if (exp < 0 || !Number.isInteger(exp)) throw new RangeError(\"bad exponent\");\n  return base ** exp;",
+  "new": "export function power(base: number, exponent: number): number {\n  if (exponent < 0 || !Number.isInteger(exponent)) throw new RangeError(\"bad exponent\");\n  return base ** exponent;"
+ },
+ {
+  "id": "S12",
+  "title": "useCounter renamed to useTally without updating importers",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/hooks/useCart.ts",
+    "old": "export function useCounter(start = 0) {",
+    "new": "export function useTally(start = 0) {"
+   }
+  ]
+ }
 ]

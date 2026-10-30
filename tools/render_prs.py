@@ -10,7 +10,9 @@ import json, pathlib, re, subprocess, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PRS = ROOT / "prs"
 CATEGORIES = {"A": "Kinds of change", "B": "Every construct", "DOC": "Documentation", "C": "File level",
-              "D": "Encoding and robustness", "M": "Multi-file changes", "S": "Semantic impact", "R": "React"}
+              "D": "Encoding and robustness", "M": "Multi-file changes", "S": "Semantic impact", "R": "React",
+              "E": "Remaining syntax", "J": "JavaScript, JSDoc and file types", "W": "Workspace packages and aliases",
+              "G": "Git and PR mechanics", "K": "Refactors", "X": "Configuration and dependencies"}
 PUBLISHED_AS = {"B02": "S8", "DOC03": "S11", "DOC18": "S9", "DOC19": "S10"}
 TOOLCHAIN = "TypeScript 7.0.2 (`tsc -p .`, `tsc -p legacy`, `tsc -p packages/web`, `tsc -p packages/shared`)"
 
@@ -45,9 +47,9 @@ def code(s):
     return "`" + s.replace("`", "ˋ") + "`" if "`" in s else f"`{s}`"
 
 
-def render_change(pr):
+def render_ops(ops):
     out = []
-    for op in ops_of(pr):
+    for op in ops:
         kind = op["op"]
         if kind == "replace":
             out.append(f"`{op['file']}`")
@@ -68,11 +70,31 @@ def render_change(pr):
             out.append(f"Delete `{op['file']}`.")
         elif kind == "rename":
             out.append(f"Rename `{op['from']}` → `{op['to']}`.")
+        elif kind == "gitmv":
+            out.append(f"Rename `{op['from']}` → `{op['to']}` (`git mv`; letter case only).")
+        elif kind == "chmod":
+            out.append(f"Change the file mode of `{op['file']}` to `{op['mode']}`; content unchanged.")
+        elif kind == "symlink":
+            out.append(f"Add symlink `{op['file']}` → `{op['target']}`.")
+        elif kind == "createMany":
+            out.append(f"Create {op['count']} files under `{op['dir']}/` (`f000.ts` … `f{op['count'] - 1:03d}.ts`), one function each.")
     return "\n\n".join(out)
 
 
+def render_change(pr):
+    if pr.get("allowEmpty"):
+        return "One commit with no file changes."
+    if pr.get("commits"):
+        n = len(pr["commits"])
+        return "\n\n".join(f"**Commit {i}/{n}**\n\n" + render_ops(ops) for i, ops in enumerate(pr["commits"], 1))
+    out = render_ops(ops_of(pr))
+    if len(out) > 20000:
+        out = out[:20000].rsplit("\n", 1)[0] + "\n```\n\n(the edit is longer; the complete text is in `" + pr["source"] + "`)"
+    return out
+
+
 def changed_lines(base, head):
-    diff = subprocess.run(["git", "-C", str(ROOT), "diff", "--unified=0", "-M", "--no-color", base, head],
+    diff = subprocess.run(["git", "-C", str(ROOT), "-c", "core.quotePath=false", "diff", "--unified=0", "-M", "--no-color", base, head],
                           capture_output=True, text=True, check=True).stdout
     rows, current = [], {}
     for line in diff.splitlines():
@@ -87,6 +109,10 @@ def changed_lines(base, head):
             current["status"], current["from"] = "renamed", line[len("rename from "):]
         elif line.startswith("Binary files"):
             current["status"] += " (binary)"
+        elif line.startswith("new mode "):
+            current["status"] = f"mode → {line.split()[-1]}"
+        elif line.startswith("new file mode 120000"):
+            current["status"] = "added (symlink)"
         elif line.startswith("@@"):
             m = re.match(r"@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@", line)
             assert m, line
@@ -142,8 +168,14 @@ def render_body(pr_id, base, head):
         out.append("")
     if e["notes"]:
         out += ["**Notes**", ""] + [f"- {n}" for n in e["notes"]] + [""]
-    out += ["## Changed lines", "", "| File | Status | Base lines removed | Head lines added |", "|---|---|---|---|"]
-    for row in changed_lines(base, head):
+    rows = changed_lines(base, head)
+    out += ["## Changed lines", ""]
+    if pr.get("base", "").startswith("pr/") or pr.get("base") == "A":
+        out += [f"This PR's base is not the current `main`: it is `{base}` ({'branch `' + pr['base'] + '`' if pr['base'].startswith('pr/') else 'an earlier commit of `main`'}). Lines below are relative to that base.", ""]
+    if not rows:
+        out += ["No files change.", ""]
+    out += ["| File | Status | Base lines removed | Head lines added |", "|---|---|---|---|"] if rows else []
+    for row in rows:
         status = row["status"] + (f" from `{row['from']}`" if row["from"] else "")
         out.append(f"| `{row['file']}` | {status} | {ranges(row['removed'])} | {ranges(row['added'])} |")
     out += ["", "---", "",

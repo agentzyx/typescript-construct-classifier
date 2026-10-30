@@ -14,9 +14,11 @@ Test repository for the Swamp PR-analysis behaviors:
 
 - TypeScript **7.0.2**, pinned as a root `devDependency` (`node_modules/.bin/tsc` after install).
 - npm workspace: root `package.json` declares `"workspaces": ["packages/*"]`; `package-lock.json` is committed.
-  Install with `npm ci --ignore-scripts` (no install scripts run). The root declares `typescript`; `packages/web` declares the React packages.
-- Three TypeScript projects, each with its own `tsconfig.json`:
-  `.` (root: `src`, `test`, `js`; `"types": []`, excludes `packages`), `legacy` (CommonJS), `packages/web` (React, `"jsx": "react-jsx"`).
+  Install with `npm ci --ignore-scripts` (no install scripts run). The root declares `typescript`; `packages/web` declares the React packages and the
+  workspace package `@fixture/shared`.
+- Four TypeScript projects, each with its own `tsconfig.json`:
+  `.` (root: `src`, `test`, `js`; `"types": []`, `"resolveJsonModule": true`, excludes `packages`), `legacy` (CommonJS), `packages/web` (React,
+  `"jsx": "react-jsx"`, path alias `@/*` → `./src/*`), `packages/shared` (`@fixture/shared`, imported by `packages/web`).
 - Base compiles with **zero errors** in all three: `tsc -p .`, `tsc -p legacy`, `tsc -p packages/web` (measured 2026-10-30).
 - `.gitattributes` keeps `src/crlf.ts` and `src/bom.ts` byte-exact (`-text`); without it the CRLF/BOM cases stop testing anything.
 - PR edits are stored as data in `prs/*.json` (`id`, `title`, `file`, `old`, `new`; `old` must occur exactly once).
@@ -91,6 +93,14 @@ Clarifications (each closes an ambiguity found by cross-checking the answer key 
 - **`export *` propagates**: adding, removing, renaming or changing an exported declaration in a module re-exported with `export * from` changes the re-exporting module's public API; optimal output says so (A04, A05, A06, A07, A12, S3).
 - **Inferred exported types are impact**: a change can alter the exported type of an unchanged declaration elsewhere (A13: `viaNamespace` in `src/consumers.ts` becomes `Promise<number>`); optimal output reports it.
 - **Parse errors degrade the file**: with a syntax error, the parser's recovery can restructure every later declaration (D06: later functions nest inside `plain`); optimal output marks the file degraded instead of reporting the resulting adds and deletes.
+- **Exported import aliases are components**: `export import InnerAlias = Geo.Inner` is a component of kind `alias`; a non-exported `import X = Ns.Y` is a file-level import (E14).
+- **A member moved to another container in the same file is `moved`**, with the container change in `detail` (K05: static `create` from `Animal` to `Container`).
+- **A change of declaration form is `modifiersChanged`**, with the form in `detail`: function declaration ↔ `const` arrow function (K06), class component ↔ function component (K07).
+- **CommonJS**: `require(…)` bindings, including destructuring, are file-level imports, not variable components; `module.exports = { … }` and `exports.x = …` are the export list, so adding or removing a name there is `exportChanged` on that declaration (J12, J13).
+- **Indentation and line endings lie outside a single-line declaration's text**: a single-line declaration or member whose line only changed indentation or line ending is unchanged, not cosmetic; multi-line ones are cosmetic (G15, G16).
+- **References cross workspace packages only from the consumer's project**: references to `formatPrice` queried from `packages/shared` find only its declaration; from `packages/web` they include `Price.tsx:9` (measured, W01). A pipeline must query every workspace project.
+- **Compare with the PR's own base**: a stacked PR (base: another PR's branch) or a stale PR (cut from an older `main`) is judged on its diff from its merge base, never from the current tip of `main` (G01, G04, G05).
+- **Multi-commit PRs are judged on their net change**; intermediate commits, including a change and its revert, are not part of the expected output (G02, G03).
 
 `change-matcher` order of checks (one component can carry several flags):
 
@@ -133,6 +143,16 @@ Clarifications (each closes an ambiguity found by cross-checking the answer key 
 | `js/untyped.js` | JavaScript with no JSDoc (`// @ts-nocheck`) |
 | `legacy/` (own `tsconfig`, CommonJS) | `export =`, `import = require`, `export as namespace` |
 | `vendor/lib.ts`, `docs/README.md` | excluded path, non-TypeScript file |
+| `src/syntax.ts` | control flow (`try`/`catch`/`finally`, `while`, `do`, `for…in`, `continue`, `debugger`, empty statement), `delete`/`void`/spread/array holes/`<T>` casts/`import.meta`/`new.target`, regex and bigint literals, named/optional/rest tuples, intersection, `typeof` and `import("…")` types, `unique symbol`, `declare enum`, `in`/`out` variance, interface accessors, interface `extends`, abstract and `protected` members, static and optional methods, method and constructor overloads, generic class, `this` type, value + type with one name, `import X = Ns.Y` and `export import`, `/// <reference>`, top-level `await`, `await using`, `const` type parameter, JSON import with `with { type: "json" }`, decorator factory, column-0 `--ticks;`/`++ticks;` |
+| `src/data.json` | JSON module imported by `src/syntax.ts` |
+| `src/esm.mts`, `src/cjs.cts` | `.mts` and `.cts` files |
+| `js/jsdoc-full.js` | JSDoc `@import`, `@typedef` with `@property`, `@template`, `@overload`, `@satisfies`, `@implements`, `@extends`, `@this`, `@readonly`/`@private`/`@protected`/`@public`, `@override`, `@see` (plain, `{@linkcode}`, `{@linkplain}`), JSDoc type syntax (`?T`, `!T`, `T=`, `...T`, `*`) |
+| `js/widget.jsx` | JSX in a `.jsx` file |
+| `js/legacy-cjs.cjs`, `js/uses-cjs.cjs` | CommonJS `module.exports` and `require` |
+| `packages/shared/src/index.ts` | workspace package `@fixture/shared`: interface, function, constant |
+| `packages/web/src/components/Price.tsx` | imports `@fixture/shared` (another package) and `@/hooks/useCart` (path alias) |
+
+Base commit history (for PRs that do not branch from the current `main`): `63efc66` is the `main` before the batch-2 additions (stale-base PRs G01 and G06 branch from it); later commits changed `display` and added `clampZero` in `src/functions.ts`.
 
 ### React package — `packages/web`
 
@@ -236,6 +256,12 @@ Each PR's description is rendered by `python3 tools/render_prs.py body <ID> --ba
 | M | coordinated multi-file changes |
 | S | semantic impact: breaks found only by the type checker, references |
 | R | React |
+| E | every remaining TypeScript syntax kind (measured coverage: all except `intrinsic` and `with`, which these projects cannot contain) |
+| J | JavaScript: full JSDoc tag set, `.jsx`, CommonJS `.cjs`, `.mts`/`.cts` |
+| W | workspace packages (a change in one package breaking another) and path aliases |
+| G | git and PR mechanics: stale base, stacked PRs (including one that fixes its base's errors), multi-commit, commit + revert, merge conflict, case-only rename, mode change, symlink, empty PR, quoted paths, diff-header lookalike lines, 301 files, whitespace/line-ending/reformat-only, draft and closed PRs |
+| K | refactors: extract, inline, split and merge files, move between classes, declaration-form changes, rename + edit, overload order, annotation-only, member swap |
+| X | configuration and dependencies: compiler options that create errors in untouched code, a dependency-only change, an `export *` name conflict |
 
 ## Which PRs test which behavior
 
@@ -244,9 +270,9 @@ Each PR's description is rendered by `python3 tools/render_prs.py body <ID> --ba
 | `pr-diff` | all, especially C and D |
 | `ts-definitions` | `main` (per-file lists), D, and the doc fields from `src/documented.ts` |
 | `change-matcher` | A, B, C, DOC |
-| `ts-details` | S, R, M, B07, B13, B15 |
+| `ts-details` | S, R, M, W, X, E19, E33, J03–J08, B07, B13, B15 |
 | `pr-checkout` | R (needs `npm ci --ignore-scripts` in both worktrees, workspace layout) |
-| whole workflow | everything, plus multi-file PRs (rename a function and update its callers) |
+| whole workflow | everything; G covers how PRs are fetched and checked out (G06 has no CI by design: GitHub cannot build a merge commit for a conflicting PR) |
 
 ## Not yet verified
 
@@ -264,3 +290,4 @@ Each PR's description is rendered by `python3 tools/render_prs.py body <ID> --ba
 | 12 (expando assignments) | 2026-10-30 | assistant recommendation, open to override |
 | 13 (class-field arrows are methods) | 2026-10-30 | assistant recommendation, open to override |
 | 14 (React kinds, directives) | 2026-10-30 | assistant recommendation, open to override |
+| 15 and the clarifications (aliases, moves between containers, declaration form, CommonJS, line-scope cosmetics, cross-package references, PR base, net change) | 2026-10-30 | assistant, from the answer-key cross-check |

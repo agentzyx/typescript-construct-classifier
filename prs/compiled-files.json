@@ -1,19 +1,26 @@
 {
  "base": {
   ".": [
+   "js/jsdoc-full.js",
+   "js/legacy-cjs.cjs",
    "js/plain.js",
    "js/untyped.js",
+   "js/uses-cjs.cjs",
+   "js/widget.jsx",
    "src/ambient.d.ts",
    "src/app.ts",
    "src/augment.ts",
    "src/bom.ts",
+   "src/cjs.cts",
    "src/classes.ts",
    "src/consumers.ts",
    "src/crlf.ts",
+   "src/data.json",
    "src/defaults/cls.ts",
    "src/defaults/fn.ts",
    "src/defaults/obj.ts",
    "src/documented.ts",
+   "src/esm.mts",
    "src/functions.ts",
    "src/generated/api.generated.ts",
    "src/index.ts",
@@ -23,6 +30,7 @@
    "src/startup.ts",
    "src/store.ts",
    "src/strings.ts",
+   "src/syntax.ts",
    "src/tabs.ts",
    "src/types.ts",
    "src/unicode.ts",
@@ -37,6 +45,7 @@
    "legacy/util.ts"
   ],
   "packages/web": [
+   "packages/shared/src/index.ts",
    "packages/web/src/App.tsx",
    "packages/web/src/app/ClientCart.tsx",
    "packages/web/src/app/Page.tsx",
@@ -52,6 +61,7 @@
    "packages/web/src/components/List.tsx",
    "packages/web/src/components/Modal.tsx",
    "packages/web/src/components/Nested.tsx",
+   "packages/web/src/components/Price.tsx",
    "packages/web/src/components/Tabs.tsx",
    "packages/web/src/components/withLogger.tsx",
    "packages/web/src/context/Theme.tsx",
@@ -59,83 +69,408 @@
    "packages/web/src/hooks/useCart.ts",
    "packages/web/src/hooks/useResource.ts",
    "packages/web/src/main.tsx"
+  ],
+  "packages/shared": [
+   "packages/shared/src/index.ts"
   ]
  },
  "delta": {
-  "A07": {
-   ".": {
-    "add": [
-     "src/gen.ts"
-    ],
-    "remove": []
-   }
-  },
-  "C02": {
-   ".": {
-    "add": [
-     "src/math.ts"
-    ],
-    "remove": []
-   }
-  },
-  "C03": {
+  "G01": {
    ".": {
     "add": [],
     "remove": [
-     "src/defaults/obj.ts"
+     "js/jsdoc-full.js",
+     "js/legacy-cjs.cjs",
+     "js/uses-cjs.cjs",
+     "js/widget.jsx",
+     "src/cjs.cts",
+     "src/data.json",
+     "src/esm.mts",
+     "src/syntax.ts"
     ]
-   }
-  },
-  "C04": {
-   ".": {
-    "add": [
-     "src/tabbed.ts"
-    ],
-    "remove": [
-     "src/tabs.ts"
-    ]
-   }
-  },
-  "C05": {
-   ".": {
-    "add": [
-     "src/boot.ts"
-    ],
-    "remove": [
-     "src/startup.ts"
-    ]
-   }
-  },
-  "D07": {
-   ".": {
-    "add": [
-     "src/empty.ts"
-    ],
-    "remove": []
-   }
-  },
-  "D08": {
-   ".": {
-    "add": [
-     "src/notes.ts"
-    ],
-    "remove": []
-   }
-  },
-  "D09": {
-   ".": {
-    "add": [
-     "src/big.ts"
-    ],
-    "remove": []
-   }
-  },
-  "M04": {
+   },
    "packages/web": {
+    "add": [],
+    "remove": [
+     "packages/shared/src/index.ts",
+     "packages/web/src/components/Price.tsx"
+    ]
+   },
+   "packages/shared": {
+    "add": [],
+    "remove": [
+     "packages/shared/src/index.ts"
+    ]
+   }
+  },
+  "G06": {
+   ".": {
+    "add": [],
+    "remove": [
+     "js/jsdoc-full.js",
+     "js/legacy-cjs.cjs",
+     "js/uses-cjs.cjs",
+     "js/widget.jsx",
+     "src/cjs.cts",
+     "src/data.json",
+     "src/esm.mts",
+     "src/syntax.ts"
+    ]
+   },
+   "packages/web": {
+    "add": [],
+    "remove": [
+     "packages/shared/src/index.ts",
+     "packages/web/src/components/Price.tsx"
+    ]
+   },
+   "packages/shared": {
+    "add": [],
+    "remove": [
+     "packages/shared/src/index.ts"
+    ]
+   }
+  },
+  "G07": {
+   ".": {
     "add": [
-     "packages/web/src/hooks/types.ts"
+     "src/NoNewline.ts"
+    ],
+    "remove": [
+     "src/nonewline.ts"
+    ]
+   }
+  },
+  "G11": {
+   ".": {
+    "add": [
+     "src/with space/na\u00efve file.ts"
     ],
     "remove": []
+   }
+  },
+  "G13": {
+   ".": {
+    "add": [
+     "src/many/f000.ts",
+     "src/many/f001.ts",
+     "src/many/f002.ts",
+     "src/many/f003.ts",
+     "src/many/f004.ts",
+     "src/many/f005.ts",
+     "src/many/f006.ts",
+     "src/many/f007.ts",
+     "src/many/f008.ts",
+     "src/many/f009.ts",
+     "src/many/f010.ts",
+     "src/many/f011.ts",
+     "src/many/f012.ts",
+     "src/many/f013.ts",
+     "src/many/f014.ts",
+     "src/many/f015.ts",
+     "src/many/f016.ts",
+     "src/many/f017.ts",
+     "src/many/f018.ts",
+     "src/many/f019.ts",
+     "src/many/f020.ts",
+     "src/many/f021.ts",
+     "src/many/f022.ts",
+     "src/many/f023.ts",
+     "src/many/f024.ts",
+     "src/many/f025.ts",
+     "src/many/f026.ts",
+     "src/many/f027.ts",
+     "src/many/f028.ts",
+     "src/many/f029.ts",
+     "src/many/f030.ts",
+     "src/many/f031.ts",
+     "src/many/f032.ts",
+     "src/many/f033.ts",
+     "src/many/f034.ts",
+     "src/many/f035.ts",
+     "src/many/f036.ts",
+     "src/many/f037.ts",
+     "src/many/f038.ts",
+     "src/many/f039.ts",
+     "src/many/f040.ts",
+     "src/many/f041.ts",
+     "src/many/f042.ts",
+     "src/many/f043.ts",
+     "src/many/f044.ts",
+     "src/many/f045.ts",
+     "src/many/f046.ts",
+     "src/many/f047.ts",
+     "src/many/f048.ts",
+     "src/many/f049.ts",
+     "src/many/f050.ts",
+     "src/many/f051.ts",
+     "src/many/f052.ts",
+     "src/many/f053.ts",
+     "src/many/f054.ts",
+     "src/many/f055.ts",
+     "src/many/f056.ts",
+     "src/many/f057.ts",
+     "src/many/f058.ts",
+     "src/many/f059.ts",
+     "src/many/f060.ts",
+     "src/many/f061.ts",
+     "src/many/f062.ts",
+     "src/many/f063.ts",
+     "src/many/f064.ts",
+     "src/many/f065.ts",
+     "src/many/f066.ts",
+     "src/many/f067.ts",
+     "src/many/f068.ts",
+     "src/many/f069.ts",
+     "src/many/f070.ts",
+     "src/many/f071.ts",
+     "src/many/f072.ts",
+     "src/many/f073.ts",
+     "src/many/f074.ts",
+     "src/many/f075.ts",
+     "src/many/f076.ts",
+     "src/many/f077.ts",
+     "src/many/f078.ts",
+     "src/many/f079.ts",
+     "src/many/f080.ts",
+     "src/many/f081.ts",
+     "src/many/f082.ts",
+     "src/many/f083.ts",
+     "src/many/f084.ts",
+     "src/many/f085.ts",
+     "src/many/f086.ts",
+     "src/many/f087.ts",
+     "src/many/f088.ts",
+     "src/many/f089.ts",
+     "src/many/f090.ts",
+     "src/many/f091.ts",
+     "src/many/f092.ts",
+     "src/many/f093.ts",
+     "src/many/f094.ts",
+     "src/many/f095.ts",
+     "src/many/f096.ts",
+     "src/many/f097.ts",
+     "src/many/f098.ts",
+     "src/many/f099.ts",
+     "src/many/f100.ts",
+     "src/many/f101.ts",
+     "src/many/f102.ts",
+     "src/many/f103.ts",
+     "src/many/f104.ts",
+     "src/many/f105.ts",
+     "src/many/f106.ts",
+     "src/many/f107.ts",
+     "src/many/f108.ts",
+     "src/many/f109.ts",
+     "src/many/f110.ts",
+     "src/many/f111.ts",
+     "src/many/f112.ts",
+     "src/many/f113.ts",
+     "src/many/f114.ts",
+     "src/many/f115.ts",
+     "src/many/f116.ts",
+     "src/many/f117.ts",
+     "src/many/f118.ts",
+     "src/many/f119.ts",
+     "src/many/f120.ts",
+     "src/many/f121.ts",
+     "src/many/f122.ts",
+     "src/many/f123.ts",
+     "src/many/f124.ts",
+     "src/many/f125.ts",
+     "src/many/f126.ts",
+     "src/many/f127.ts",
+     "src/many/f128.ts",
+     "src/many/f129.ts",
+     "src/many/f130.ts",
+     "src/many/f131.ts",
+     "src/many/f132.ts",
+     "src/many/f133.ts",
+     "src/many/f134.ts",
+     "src/many/f135.ts",
+     "src/many/f136.ts",
+     "src/many/f137.ts",
+     "src/many/f138.ts",
+     "src/many/f139.ts",
+     "src/many/f140.ts",
+     "src/many/f141.ts",
+     "src/many/f142.ts",
+     "src/many/f143.ts",
+     "src/many/f144.ts",
+     "src/many/f145.ts",
+     "src/many/f146.ts",
+     "src/many/f147.ts",
+     "src/many/f148.ts",
+     "src/many/f149.ts",
+     "src/many/f150.ts",
+     "src/many/f151.ts",
+     "src/many/f152.ts",
+     "src/many/f153.ts",
+     "src/many/f154.ts",
+     "src/many/f155.ts",
+     "src/many/f156.ts",
+     "src/many/f157.ts",
+     "src/many/f158.ts",
+     "src/many/f159.ts",
+     "src/many/f160.ts",
+     "src/many/f161.ts",
+     "src/many/f162.ts",
+     "src/many/f163.ts",
+     "src/many/f164.ts",
+     "src/many/f165.ts",
+     "src/many/f166.ts",
+     "src/many/f167.ts",
+     "src/many/f168.ts",
+     "src/many/f169.ts",
+     "src/many/f170.ts",
+     "src/many/f171.ts",
+     "src/many/f172.ts",
+     "src/many/f173.ts",
+     "src/many/f174.ts",
+     "src/many/f175.ts",
+     "src/many/f176.ts",
+     "src/many/f177.ts",
+     "src/many/f178.ts",
+     "src/many/f179.ts",
+     "src/many/f180.ts",
+     "src/many/f181.ts",
+     "src/many/f182.ts",
+     "src/many/f183.ts",
+     "src/many/f184.ts",
+     "src/many/f185.ts",
+     "src/many/f186.ts",
+     "src/many/f187.ts",
+     "src/many/f188.ts",
+     "src/many/f189.ts",
+     "src/many/f190.ts",
+     "src/many/f191.ts",
+     "src/many/f192.ts",
+     "src/many/f193.ts",
+     "src/many/f194.ts",
+     "src/many/f195.ts",
+     "src/many/f196.ts",
+     "src/many/f197.ts",
+     "src/many/f198.ts",
+     "src/many/f199.ts",
+     "src/many/f200.ts",
+     "src/many/f201.ts",
+     "src/many/f202.ts",
+     "src/many/f203.ts",
+     "src/many/f204.ts",
+     "src/many/f205.ts",
+     "src/many/f206.ts",
+     "src/many/f207.ts",
+     "src/many/f208.ts",
+     "src/many/f209.ts",
+     "src/many/f210.ts",
+     "src/many/f211.ts",
+     "src/many/f212.ts",
+     "src/many/f213.ts",
+     "src/many/f214.ts",
+     "src/many/f215.ts",
+     "src/many/f216.ts",
+     "src/many/f217.ts",
+     "src/many/f218.ts",
+     "src/many/f219.ts",
+     "src/many/f220.ts",
+     "src/many/f221.ts",
+     "src/many/f222.ts",
+     "src/many/f223.ts",
+     "src/many/f224.ts",
+     "src/many/f225.ts",
+     "src/many/f226.ts",
+     "src/many/f227.ts",
+     "src/many/f228.ts",
+     "src/many/f229.ts",
+     "src/many/f230.ts",
+     "src/many/f231.ts",
+     "src/many/f232.ts",
+     "src/many/f233.ts",
+     "src/many/f234.ts",
+     "src/many/f235.ts",
+     "src/many/f236.ts",
+     "src/many/f237.ts",
+     "src/many/f238.ts",
+     "src/many/f239.ts",
+     "src/many/f240.ts",
+     "src/many/f241.ts",
+     "src/many/f242.ts",
+     "src/many/f243.ts",
+     "src/many/f244.ts",
+     "src/many/f245.ts",
+     "src/many/f246.ts",
+     "src/many/f247.ts",
+     "src/many/f248.ts",
+     "src/many/f249.ts",
+     "src/many/f250.ts",
+     "src/many/f251.ts",
+     "src/many/f252.ts",
+     "src/many/f253.ts",
+     "src/many/f254.ts",
+     "src/many/f255.ts",
+     "src/many/f256.ts",
+     "src/many/f257.ts",
+     "src/many/f258.ts",
+     "src/many/f259.ts",
+     "src/many/f260.ts",
+     "src/many/f261.ts",
+     "src/many/f262.ts",
+     "src/many/f263.ts",
+     "src/many/f264.ts",
+     "src/many/f265.ts",
+     "src/many/f266.ts",
+     "src/many/f267.ts",
+     "src/many/f268.ts",
+     "src/many/f269.ts",
+     "src/many/f270.ts",
+     "src/many/f271.ts",
+     "src/many/f272.ts",
+     "src/many/f273.ts",
+     "src/many/f274.ts",
+     "src/many/f275.ts",
+     "src/many/f276.ts",
+     "src/many/f277.ts",
+     "src/many/f278.ts",
+     "src/many/f279.ts",
+     "src/many/f280.ts",
+     "src/many/f281.ts",
+     "src/many/f282.ts",
+     "src/many/f283.ts",
+     "src/many/f284.ts",
+     "src/many/f285.ts",
+     "src/many/f286.ts",
+     "src/many/f287.ts",
+     "src/many/f288.ts",
+     "src/many/f289.ts",
+     "src/many/f290.ts",
+     "src/many/f291.ts",
+     "src/many/f292.ts",
+     "src/many/f293.ts",
+     "src/many/f294.ts",
+     "src/many/f295.ts",
+     "src/many/f296.ts",
+     "src/many/f297.ts",
+     "src/many/f298.ts",
+     "src/many/f299.ts",
+     "src/many/f300.ts"
+    ],
+    "remove": []
+   }
+  },
+  "K03": {
+   ".": {
+    "add": [
+     "src/basket.ts"
+    ],
+    "remove": []
+   }
+  },
+  "K04": {
+   ".": {
+    "add": [],
+    "remove": [
+     "src/nonewline.ts"
+    ]
    }
   }
  }

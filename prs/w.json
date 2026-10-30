@@ -1,0 +1,68 @@
+[
+ {
+  "id": "W01",
+  "title": "shared formatPrice: required parameter added (breaks another package)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/shared/src/index.ts",
+    "old": "export function formatPrice(money: Money): string {",
+    "new": "export function formatPrice(money: Money, locale: string): string {"
+   },
+   {
+    "op": "replace",
+    "file": "packages/shared/src/index.ts",
+    "old": "  return `${(money.cents / 100).toFixed(2)} ${money.currency}`;",
+    "new": "  return `${(money.cents / 100).toLocaleString(locale)} ${money.currency}`;"
+   }
+  ]
+ },
+ {
+  "id": "W02",
+  "title": "shared Money field renamed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/shared/src/index.ts",
+    "old": "export interface Money {\n  cents: number;",
+    "new": "export interface Money {\n  amountCents: number;"
+   }
+  ]
+ },
+ {
+  "id": "W03",
+  "title": "shared: new export added",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/shared/src/index.ts",
+    "old": "export const SUPPORTED_CURRENCIES = [\"EUR\", \"USD\"] as const;",
+    "new": "export const SUPPORTED_CURRENCIES = [\"EUR\", \"USD\", \"GBP\"] as const;\n\n/** Whether a currency code is supported. */\nexport function isSupported(code: string): boolean {\n  return (SUPPORTED_CURRENCIES as readonly string[]).includes(code);\n}"
+   }
+  ]
+ },
+ {
+  "id": "W04",
+  "title": "web: alias import rewritten as a relative import",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/Price.tsx",
+    "old": "import { useCounter } from \"@/hooks/useCart\";",
+    "new": "import { useCounter } from \"../hooks/useCart\";"
+   }
+  ]
+ },
+ {
+  "id": "W05",
+  "title": "web tsconfig: alias remapped (config breaks an import)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/tsconfig.json",
+    "old": "\"paths\": { \"@/*\": [\"./src/*\"] }",
+    "new": "\"paths\": { \"@/*\": [\"./src/components/*\"] }"
+   }
+  ]
+ }
+]

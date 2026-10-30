@@ -5856,5 +5856,4072 @@
   "notes": [],
   "optimal": "`Counter.increment` now adds twice the step.",
   "publicApi": {}
+ },
+ "E01": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Change inside a `catch` block.",
+  "rules": [
+   "bodyChanged; construct path through try/catch"
+  ],
+  "components": [
+   {
+    "component": "control",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "catch block: subtracts 2"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`control`: the `catch` block now subtracts 2 when parsing fails.",
+  "publicApi": {}
+ },
+ "E02": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Change to a `continue` condition inside a `for…in` loop.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "control",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "for…in skips keys starting with $"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`control`: the `for…in` loop now skips keys starting with `$` instead of `_`.",
+  "publicApi": {}
+ },
+ "E03": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`while` loop bound.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "control",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`control`: the `while` loop now runs to 5.",
+  "publicApi": {}
+ },
+ "E04": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Method overload added to a class.",
+  "rules": [
+   "rule 8 (overload parts)"
+  ],
+  "components": [
+   {
+    "component": "get",
+    "kind": "method (overloaded)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Container"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "part added: `(fallback: T, strict: boolean): T`; implementation gains `_strict?`"
+   },
+   {
+    "component": "Container",
+    "kind": "class (generic)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Container.get` gains an overload taking `strict`; the implementation signature is widened to match.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "+    get(fallback: T, strict: boolean): T;"
+   ]
+  }
+ },
+ "E05": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Constructor overload changed.",
+  "rules": [
+   "rule 8 (constructor overloads are one component)"
+  ],
+  "components": [
+   {
+    "component": "constructor",
+    "kind": "constructor (overloaded)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Container"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "overload 2: `label` becomes optional"
+   },
+   {
+    "component": "Container",
+    "kind": "class (generic)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Container`'s second constructor overload makes `label` optional.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    constructor(value: T, label: string);",
+    "+    constructor(value: T, label?: string);"
+   ]
+  }
+ },
+ "E06": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Generic class type parameter gains a default.",
+  "rules": [
+   "signatureChanged on the class itself"
+  ],
+  "components": [
+   {
+    "component": "Container",
+    "kind": "class (generic)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`T` → `T = string`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Container<T>` now defaults `T` to `string`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export declare class Container<T> {",
+    "+export declare class Container<T = string> {"
+   ]
+  }
+ },
+ "E07": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Static method body.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "create",
+    "kind": "method (static)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "Animal"
+    ],
+    "file": "src/syntax.ts",
+    "detail": ""
+   },
+   {
+    "component": "Animal",
+    "kind": "abstract class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Animal.create` (static) now returns \"creature\".",
+  "publicApi": {}
+ },
+ "E08": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Optional method becomes abstract.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "speak",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "signatureChanged"
+    ],
+    "container": [
+     "Animal"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "optional → abstract (required)"
+   },
+   {
+    "component": "Animal",
+    "kind": "abstract class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Animal.speak` is now abstract and required; `Animal` has no subclasses, so no new errors.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    speak?(): string;",
+    "+    abstract speak(): string;"
+   ]
+  }
+ },
+ "E09": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Parameter property visibility `protected` → `public`.",
+  "rules": [
+   "parameter properties are class properties",
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "label",
+    "kind": "property (parameter property)",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [
+     "Container"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "protected → public"
+   },
+   {
+    "component": "constructor",
+    "kind": "constructor (overloaded)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [
+     "Container"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "parameter modifier"
+   },
+   {
+    "component": "Container",
+    "kind": "class (generic)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Container.label` (declared by the constructor) becomes public.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    protected label: string;",
+    "+    label: string;"
+   ]
+  }
+ },
+ "E10": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Abstract property type widened.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "sound",
+    "kind": "property (abstract)",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [
+     "Animal"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "`string` → `string | null`"
+   },
+   {
+    "component": "Animal",
+    "kind": "abstract class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Animal.sound` (abstract, protected) may now be `null`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    protected abstract sound: string;",
+    "+    protected abstract sound: string | null;"
+   ]
+  }
+ },
+ "E11": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Interface gains a second base interface.",
+  "rules": [
+   "typeChanged on the interface itself"
+  ],
+  "components": [
+   {
+    "component": "Pet",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "now also extends `Box<number>`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Pet` now also extends `Box<number>`, so it gains `value` and `size`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export interface Pet extends Named {",
+    "+export interface Pet extends Named, Box<number> {"
+   ]
+  }
+ },
+ "E12": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Only the type half of a value and type sharing one name changes.",
+  "rules": [
+   "rule 8 (value + type = one component)"
+  ],
+  "components": [
+   {
+    "component": "Level",
+    "kind": "variable + type (merged)",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "type part: keys instead of values; value part unchanged"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Type `Level` now means the keys (`\"low\" | \"high\"`) instead of the values; the `Level` object is unchanged.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export type Level = (typeof Level)[keyof typeof Level];",
+    "+export type Level = keyof typeof Level;"
+   ]
+  }
+ },
+ "E13": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Only the value half changes; the type half derives from it.",
+  "rules": [
+   "rule 8"
+  ],
+  "components": [
+   {
+    "component": "Level",
+    "kind": "variable + type (merged)",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "value part adds `critical: 3`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The type half's text is unchanged but its meaning changes; optimal output says so."
+  ],
+  "optimal": "Object `Level` gains `critical: 3`; type `Level` (derived with `typeof`) now also includes `3`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "+    readonly critical: 3;"
+   ]
+  }
+ },
+ "E14": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Exported import alias retargeted (`export import X = …`).",
+  "rules": [
+   "exported aliases are components (kind alias)"
+  ],
+  "components": [
+   {
+    "component": "InnerAlias",
+    "kind": "alias",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`Geo.Inner` → `Geo`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Exported alias `InnerAlias` now refers to namespace `Geo` instead of `Geo.Inner`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export import InnerAlias = Geo.Inner;",
+    "+export import InnerAlias = Geo;"
+   ]
+  }
+ },
+ "E15": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Triple-slash reference directive removed.",
+  "rules": [
+   "file-level directive"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/syntax.ts",
+    "change": "referenceDirectiveRemoved",
+    "detail": "./ambient.d.ts"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/syntax.ts no longer has a `/// <reference path=\"./ambient.d.ts\" />` directive; it compiles without it.",
+  "publicApi": {}
+ },
+ "E16": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Top-level `await` statement.",
+  "rules": [
+   "rule 15"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/syntax.ts",
+    "change": "topLevelStatementChanged",
+    "detail": "top-level await"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "The module-level `await` in src/syntax.ts now awaits `Promise.resolve(1)`.",
+  "publicApi": {}
+ },
+ "E17": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`await using` declaration.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "withAsyncResource",
+    "kind": "function (async)",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`withAsyncResource`: the async disposer now logs on close.",
+  "publicApi": {}
+ },
+ "E18": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`const` type-parameter modifier removed.",
+  "rules": [
+   "signatureChanged"
+  ],
+  "components": [
+   {
+    "component": "identityConst",
+    "kind": "function (generic)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`<const T …>` → `<T …>`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`identityConst` no longer infers literal (`const`) types for its argument.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export declare function identityConst<const T extends readonly unknown[]>(items: T): T;",
+    "+export declare function identityConst<T extends readonly unknown[]>(items: T): T;"
+   ]
+  }
+ },
+ "E19": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Ambient (`declare`) enum member value.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "One",
+    "kind": "enum member",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [
+     "Ambient"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "1 → 2"
+   },
+   {
+    "component": "Ambient",
+    "kind": "enum (ambient)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Ambient",
+    "measuredOnBase": [
+     "src/syntax.ts:31 (declaration)",
+     "src/syntax.ts:34 (ambientOne: Ambient)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`Ambient.One` changes from 1 to 2; `ambientOne: Ambient = 1` (src/syntax.ts:34) no longer type-checks.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    One = 1",
+    "+    One = 2"
+   ]
+  }
+ },
+ "E20": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Variance annotation `in out` → `out`.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "Box",
+    "kind": "interface (generic)",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`<in out T>` → `<out T>`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Box<T>` is now declared covariant only; no new errors.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export interface Box<in out T> {",
+    "+export interface Box<out T> {"
+   ]
+  }
+ },
+ "E21": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Getter declared in an interface.",
+  "rules": [
+   "accessor in interface"
+  ],
+  "components": [
+   {
+    "component": "size",
+    "kind": "accessor (get)",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [
+     "Box"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "returns `number | undefined`"
+   },
+   {
+    "component": "Box",
+    "kind": "interface (generic)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Box.size`'s getter may now return `undefined` (the setter still takes `number`).",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    get size(): number;",
+    "+    get size(): number | undefined;"
+   ]
+  }
+ },
+ "E22": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Named tuple element type.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "Pair",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`second?: number` → `second?: bigint`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Pair`'s optional `second` element becomes a `bigint`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export type Pair = [first: string, second?: number, ...rest: boolean[]];",
+    "+export type Pair = [first: string, second?: bigint, ...rest: boolean[]];"
+   ]
+  }
+ },
+ "E23": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Intersection type gains a member.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "Both",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Both` now also requires `c: boolean`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "+} & {",
+    "+    c: boolean;"
+   ]
+  }
+ },
+ "E24": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`typeof` type query target.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "KOf",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`typeof Geo.Inner.k` → `typeof Geo.dist`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`KOf` now describes the function `Geo.dist` instead of the constant `Geo.Inner.k`.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export type KOf = typeof Geo.Inner.k;",
+    "+export type KOf = typeof Geo.dist;"
+   ]
+  }
+ },
+ "E25": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`import(\"…\")` type target.",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "UserFromImport",
+    "kind": "type",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "`User` → `Callable`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`UserFromImport` now refers to `Callable` (the name no longer matches its meaning).",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export type UserFromImport = import(\"./types\").User;",
+    "+export type UserFromImport = import(\"./types\").Callable;"
+   ]
+  }
+ },
+ "E26": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Regular-expression literal flags.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "pattern",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "flags `gi` → `g`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`pattern` is now case-sensitive (`i` flag removed).",
+  "publicApi": {}
+ },
+ "E27": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "BigInt literal.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "big",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "10n → 20n"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`big` changes from `10n` to `20n`.",
+  "publicApi": {}
+ },
+ "E28": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`delete` expression removed.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "expressions",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`expressions` no longer deletes `copy.b`, so the copy keeps `b`.",
+  "publicApi": {}
+ },
+ "E29": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`new.target` guard.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "Legacy",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "throws TypeError with a clearer message"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Legacy` now throws a `TypeError` with a clearer message when called without `new`.",
+  "publicApi": {}
+ },
+ "E30": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`debugger` statement removed.",
+  "rules": [
+   "bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "debugOnly",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`debugOnly` no longer contains a `debugger` statement.",
+  "publicApi": {}
+ },
+ "E31": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Empty statement (`;`) removed.",
+  "rules": [
+   "bodyChanged (not cosmetic: a token is removed)"
+  ],
+  "components": [
+   {
+    "component": "control",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "stray `;` removed"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Under the rules this is `bodyChanged`, not `cosmetic` (a token, not whitespace); optimal output adds that behaviour is unchanged."
+  ],
+  "optimal": "`control`: a stray empty statement is removed; no behaviour change.",
+  "publicApi": {}
+ },
+ "E32": {
+  "primaryFile": "src/view.tsx",
+  "tests": "JSX namespaced attribute (`xlink:href`).",
+  "rules": [
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "SvgUse",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/view.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`SvgUse` now points `xlink:href` at `#logo`.",
+  "publicApi": {}
+ },
+ "E33": {
+  "primaryFile": "src/data.json",
+  "tests": "A JSON file imported with `with { type: \"json\" }` changes; TypeScript code breaks.",
+  "rules": [
+   "non-source change with source impact"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/data.json",
+    "change": "nonSource",
+    "detail": "key `name` → `title`; imported by src/syntax.ts"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/data.json renames `name` to `title`; `dataName = data.name` (src/syntax.ts:19) no longer type-checks.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-export declare const dataName: string;",
+    "+export declare const dataName: any;"
+   ]
+  }
+ },
+ "E34": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Only a decorator's argument changes.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "run",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [
+     "Tagged"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "`@tag(\"v1\")` → `@tag(\"v2\")`"
+   },
+   {
+    "component": "Tagged",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Tagged.run`'s decorator argument changes from \"v1\" to \"v2\"; the method body is unchanged.",
+  "publicApi": {}
+ },
+ "E35": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Two functions swap bodies (names unchanged).",
+  "rules": [
+   "same keys on both sides → modified, not renamed"
+  ],
+  "components": [
+   {
+    "component": "left",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "now adds 1"
+   },
+   {
+    "component": "right",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "now subtracts 1"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Both keys exist on both sides, so both are `modified`; optimal output also notes that the bodies were swapped."
+  ],
+  "optimal": "`left` and `right` swapped behaviour: `left` now adds 1 and `right` subtracts 1.",
+  "publicApi": {}
+ },
+ "E36": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "`unique symbol` description.",
+  "rules": [
+   "valueChanged"
+  ],
+  "components": [
+   {
+    "component": "token",
+    "kind": "variable (unique symbol)",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`token`'s symbol description changes to \"token-v2\".",
+  "publicApi": {}
+ },
+ "J01": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@template` gains a constraint (JS type tags are code).",
+  "rules": [
+   "rule 1 (JS)"
+  ],
+  "components": [
+   {
+    "component": "first",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "docChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "`@template {string} T`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`first` now only accepts arrays of strings (JSDoc `@template {string} T`).",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "- * @template T",
+    "+ * @template {string} T",
+    "-export declare function first<T>(items: T[]): T | undefined;",
+    "+export declare function first<T extends string>(items: T[]): T | undefined;"
+   ]
+  }
+ },
+ "J02": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@overload` added.",
+  "rules": [
+   "rule 1 (JS)",
+   "rule 8"
+  ],
+  "components": [
+   {
+    "component": "echo",
+    "kind": "function (overloaded)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "docChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "adds a `boolean` overload"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`echo` gains a `boolean` overload (JSDoc `@overload`).",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "+export declare function echo(value: boolean): boolean;"
+   ]
+  }
+ },
+ "J03": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "`@property` type inside a JSDoc `@typedef`.",
+  "rules": [
+   "rule 1 (JS)"
+  ],
+  "components": [
+   {
+    "component": "Point",
+    "kind": "type (JSDoc @typedef)",
+    "change": "modified",
+    "flags": [
+     "typeChanged",
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "`x: number` → `x: string`"
+   }
+  ],
+  "unchanged": [
+   "first"
+  ],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Point",
+    "measuredOnBase": [
+     "js/jsdoc-full.js:5 (@typedef)",
+     "js/jsdoc-full.js:63 (@satisfies {Point} on origin)"
+    ]
+   }
+  ],
+  "notes": [
+   "The `@typedef` block sits above `first` with a blank line between; TypeScript attaches it to `first`, but it is not `first`'s doc — reporting `first` is a false positive."
+  ],
+  "optimal": "JSDoc type `Point.x` becomes a string; `origin` (`@satisfies {Point}`, js/jsdoc-full.js:64) no longer type-checks.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "-    x: number;",
+    "+    x: string;",
+    "- * @property {number} x - horizontal position",
+    "+ * @property {string} x - horizontal position"
+   ]
+  }
+ },
+ "J04": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "`@satisfies` target.",
+  "rules": [
+   "rule 1 (JS)"
+  ],
+  "components": [
+   {
+    "component": "origin",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "`@satisfies {Point}` → `@satisfies {{ x: number }}`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`origin` must now satisfy `{ x: number }`; its extra `y` fails the check (js/jsdoc-full.js:64).",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "-/** @satisfies {Point} */",
+    "+/** @satisfies {{ x: number }} */"
+   ]
+  }
+ },
+ "J05": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@import` of a different name.",
+  "rules": [
+   "file-level import"
+  ],
+  "components": [],
+  "unchanged": [
+   "first"
+  ],
+  "fileLevel": [
+   {
+    "file": "js/jsdoc-full.js",
+    "change": "importChanged",
+    "detail": "JSDoc @import: Item → Mapper"
+   }
+  ],
+  "references": [],
+  "notes": [
+   "The `@import` comment is the first comment in the file; TypeScript attaches it to the first declaration (`first`), but it is a file-level import, not `first`'s doc."
+  ],
+  "optimal": "The JSDoc `@import` now brings in `Mapper` instead of `Item`; `itemId`'s `@param {Item}` (js/jsdoc-full.js:105) no longer resolves.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "-/** @import { Item } from \"./plain.js\" */",
+    "-import type { Item } from \"./plain.js\";",
+    "+/** @import { Mapper } from \"./plain.js\" */",
+    "-export declare function itemId(item: Item): number;",
+    "+export declare function itemId(item: Item): any;"
+   ]
+  }
+ },
+ "J06": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@implements` type argument.",
+  "rules": [
+   "rule 1 (JS)"
+  ],
+  "components": [
+   {
+    "component": "Counter",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "`@implements {Iterable<string>}`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Counter` (JS) now claims `Iterable<string>`, but its iterator yields numbers (js/jsdoc-full.js:76).",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "-/** @implements {Iterable<number>} */",
+    "-export declare class Counter implements Iterable<number> {",
+    "+/** @implements {Iterable<string>} */",
+    "+export declare class Counter implements Iterable<string> {"
+   ]
+  }
+ },
+ "J07": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@readonly` removed.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "start",
+    "kind": "property",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "docChanged"
+    ],
+    "container": [
+     "Counter"
+    ],
+    "file": "js/jsdoc-full.js",
+    "detail": "no longer @readonly"
+   },
+   {
+    "component": "Counter",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Counter.start` (JS) is no longer read-only.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "-    /** @readonly */",
+    "-    readonly start = 0;",
+    "+    start: number;"
+   ]
+  }
+ },
+ "J08": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@this` type.",
+  "rules": [
+   "rule 1 (JS)"
+  ],
+  "components": [
+   {
+    "component": "scaleBy",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "docChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "`this.factor` becomes a string"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`scaleBy` now declares `this.factor` as a string, so `n * this.factor` (js/jsdoc-full.js:102) no longer type-checks.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "- * @this {{ factor: number }}",
+    "+ * @this {{ factor: string }}",
+    "-    factor: number;",
+    "+    factor: string;"
+   ]
+  }
+ },
+ "J09": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "`{@linkcode}` target in `@see`.",
+  "rules": [
+   "docChanged"
+  ],
+  "components": [
+   {
+    "component": "first",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "docChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "@see {@linkcode last} → {@linkcode echo}"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`first`'s `@see` now links to `echo`.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "- * @see {@linkcode last} for the opposite end",
+    "+ * @see {@linkcode echo} for the opposite end"
+   ]
+  }
+ },
+ "J10": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "Nullable JSDoc type made non-nullable.",
+  "rules": [
+   "rule 1 (JS)"
+  ],
+  "components": [
+   {
+    "component": "loose",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "docChanged"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": "`?number` → `number`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`loose`'s first parameter no longer accepts `null`.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "- * @param {?number} maybe - nullable",
+    "+ * @param {number} maybe - nullable",
+    "-export declare function loose(maybe: number | null, required: Object, ...rest: number[]): any;",
+    "+export declare function loose(maybe: number, required: Object, ...rest: number[]): any;"
+   ]
+  }
+ },
+ "J11": {
+  "primaryFile": "js/widget.jsx",
+  "tests": "JSX in a `.jsx` file.",
+  "rules": [
+   "rule 14"
+  ],
+  "components": [
+   {
+    "component": "Widget",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "js/widget.jsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Widget` (JavaScript JSX) adds the `primary` class.",
+  "publicApi": {}
+ },
+ "J12": {
+  "primaryFile": "js/legacy-cjs.cjs",
+  "tests": "CommonJS `module.exports` drops a name.",
+  "rules": [
+   "exportChanged (CommonJS)"
+  ],
+  "components": [
+   {
+    "component": "negate",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "exportChanged"
+    ],
+    "container": [],
+    "file": "js/legacy-cjs.cjs",
+    "detail": "removed from module.exports"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "js/legacy-cjs.cjs no longer exports `negate` (still declared, now unused); js/uses-cjs.cjs imports only `add`, so no new errors.",
+  "publicApi": {}
+ },
+ "J13": {
+  "primaryFile": "js/uses-cjs.cjs",
+  "tests": "CommonJS `require` destructuring and use.",
+  "rules": [
+   "file-level import + bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "addOne",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "js/uses-cjs.cjs",
+    "detail": "now negates the result"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "js/uses-cjs.cjs",
+    "change": "importChanged",
+    "detail": "require destructuring adds `negate`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "`addOne` now returns `negate(add(n, 1))`, importing `negate` with `require`.",
+  "publicApi": {}
+ },
+ "J14": {
+  "primaryFile": "src/esm.mts",
+  "tests": "`.mts` file.",
+  "rules": [
+   "file types"
+  ],
+  "components": [
+   {
+    "component": "esmOnly",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/esm.mts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`esmOnly` (`.mts`) now triples.",
+  "publicApi": {}
+ },
+ "J15": {
+  "primaryFile": "src/cjs.cts",
+  "tests": "`.cts` file.",
+  "rules": [
+   "file types"
+  ],
+  "components": [
+   {
+    "component": "cjsOnly",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/cjs.cts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`cjsOnly` (`.cts`) now adds 3.",
+  "publicApi": {}
+ },
+ "J16": {
+  "primaryFile": "js/jsdoc-full.js",
+  "tests": "JSDoc `@override` removed.",
+  "rules": [
+   "modifiersChanged"
+  ],
+  "components": [
+   {
+    "component": "greet",
+    "kind": "method",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "docChanged"
+    ],
+    "container": [
+     "Derived"
+    ],
+    "file": "js/jsdoc-full.js",
+    "detail": "@override removed"
+   },
+   {
+    "component": "Derived",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "js/jsdoc-full.js",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Derived.greet` (JS) loses its `@override` tag; code unchanged.",
+  "publicApi": {
+   ".:js/jsdoc-full.d.ts": [
+    "-    /** @override */"
+   ]
+  }
+ },
+ "W01": {
+  "primaryFile": "packages/shared/src/index.ts",
+  "tests": "A shared workspace package changes a signature; another package breaks.",
+  "rules": [
+   "cross-package impact"
+  ],
+  "components": [
+   {
+    "component": "formatPrice",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "signatureChanged",
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/shared/src/index.ts",
+    "detail": "requires `locale`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "formatPrice (queried from packages/shared)",
+    "measuredOnBase": [
+     "packages/shared/src/index.ts:13 (declaration only)"
+    ],
+    "note": "Queried from the defining package's project, TypeScript finds no usages: packages/web is a different project."
+   },
+   {
+    "symbol": "formatPrice (queried from packages/web)",
+    "measuredOnBase": [
+     "packages/web/src/components/Price.tsx:1 (import)",
+     "packages/web/src/components/Price.tsx:9 (call)",
+     "packages/shared/src/index.ts:13 (declaration)"
+    ],
+    "note": "Cross-package usages are found only from the consuming project; a pipeline must query every workspace project."
+   }
+  ],
+  "notes": [
+   "Measured: references from packages/shared alone miss the usage in packages/web that this PR breaks."
+  ],
+  "optimal": "`formatPrice` in @fixture/shared now requires a `locale`; `Price` in packages/web (Price.tsx:9) — another package — no longer compiles.",
+  "publicApi": {
+   "packages/shared:index.d.ts": [
+    "-export declare function formatPrice(money: Money): string;",
+    "+export declare function formatPrice(money: Money, locale: string): string;"
+   ]
+  }
+ },
+ "W02": {
+  "primaryFile": "packages/shared/src/index.ts",
+  "tests": "Interface field renamed inside the shared package.",
+  "rules": [
+   "rename detection for members"
+  ],
+  "components": [
+   {
+    "component": "amountCents",
+    "kind": "property",
+    "change": "renamed",
+    "flags": [],
+    "container": [
+     "Money"
+    ],
+    "file": "packages/shared/src/index.ts",
+    "detail": "from `cents`"
+   },
+   {
+    "component": "Money",
+    "kind": "interface",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "packages/shared/src/index.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "Money.cents",
+    "measuredOnBase": [
+     "packages/shared/src/index.ts:3 (declaration)",
+     "packages/shared/src/index.ts:14 (money.cents in formatPrice)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "`Money.cents` is renamed `amountCents`; `formatPrice` in the same package (index.ts:14) still reads `money.cents` and fails.",
+  "publicApi": {
+   "packages/shared:index.d.ts": [
+    "-    cents: number;",
+    "+    amountCents: number;"
+   ]
+  }
+ },
+ "W03": {
+  "primaryFile": "packages/shared/src/index.ts",
+  "tests": "New export added to the shared package.",
+  "rules": [
+   "added + valueChanged"
+  ],
+  "components": [
+   {
+    "component": "SUPPORTED_CURRENCIES",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "valueChanged"
+    ],
+    "container": [],
+    "file": "packages/shared/src/index.ts",
+    "detail": "adds GBP"
+   },
+   {
+    "component": "isSupported",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "packages/shared/src/index.ts",
+    "detail": "documented"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "@fixture/shared adds GBP and a new `isSupported` helper; no consumers change.",
+  "publicApi": {
+   "packages/shared:index.d.ts": [
+    "-export declare const SUPPORTED_CURRENCIES: readonly [\"EUR\", \"USD\"];",
+    "+export declare const SUPPORTED_CURRENCIES: readonly [\"EUR\", \"USD\", \"GBP\"];",
+    "+/** Whether a currency code is supported. */",
+    "+export declare function isSupported(code: string): boolean;"
+   ]
+  }
+ },
+ "W04": {
+  "primaryFile": "packages/web/src/components/Price.tsx",
+  "tests": "Alias import rewritten as an equivalent relative import.",
+  "rules": [
+   "file-level import"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "packages/web/src/components/Price.tsx",
+    "change": "importChanged",
+    "detail": "`@/hooks/useCart` → `../hooks/useCart` (same file)"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Price.tsx imports `useCounter` by a relative path instead of the `@/` alias; same module, no behaviour change.",
+  "publicApi": {}
+ },
+ "W05": {
+  "primaryFile": "packages/web/tsconfig.json",
+  "tests": "Path alias remapped in tsconfig; an import breaks with no code change.",
+  "rules": [
+   "configChanged"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "packages/web/tsconfig.json",
+    "change": "configChanged",
+    "detail": "paths `@/*` → `./src/components/*`"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "packages/web's `@/*` alias now points at `src/components/*`, so `@/hooks/useCart` (Price.tsx:2) no longer resolves.",
+  "publicApi": {}
+ },
+ "S12": {
+  "primaryFile": "packages/web/src/hooks/useCart.ts",
+  "tests": "Hook renamed without updating importers (one imports through the `@/` alias).",
+  "rules": [
+   "renamed"
+  ],
+  "components": [
+   {
+    "component": "useTally",
+    "kind": "hook",
+    "change": "renamed",
+    "flags": [],
+    "container": [],
+    "file": "packages/web/src/hooks/useCart.ts",
+    "detail": "from `useCounter`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [
+   {
+    "symbol": "useCounter",
+    "measuredOnBase": [
+     "packages/web/src/hooks/useCart.ts:56 (declaration)",
+     "packages/web/src/App.tsx:14 (import)",
+     "packages/web/src/App.tsx:23 (call)",
+     "packages/web/src/components/Price.tsx:2 (import through @/ alias)",
+     "packages/web/src/components/Price.tsx:6 (call)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "Hook `useCounter` is renamed `useTally` but its importers were not updated: App.tsx:14 and Price.tsx:2 (through the `@/` alias) fail.",
+  "publicApi": {
+   "packages/web:hooks/useCart.d.ts": [
+    "-export declare function useCounter(start?: number): readonly [number, () => void];",
+    "+export declare function useTally(start?: number): readonly [number, () => void];"
+   ]
+  }
+ },
+ "G01": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Stale base: the branch was cut from an older `main`; `main` has moved on since.",
+  "rules": [
+   "merge-base diff"
+  ],
+  "components": [
+   {
+    "component": "plain",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "The PR's base commit is 63efc66, not the current tip of `main`. Correct diffs use the merge base. A two-dot diff against the tip of `main` would wrongly include everything `main` added since (src/syntax.ts, the shared package, `display`, `clampZero`, …) as reversed changes."
+  ],
+  "optimal": "`plain` now adds 1 to the sum. This is the PR's only change.",
+  "publicApi": {}
+ },
+ "G02": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Three commits: add a function, adjust it, document it.",
+  "rules": [
+   "net change of the PR, not per commit"
+  ],
+  "components": [
+   {
+    "component": "triple",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "documented"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Intermediate commit states are not part of the expected output."
+  ],
+  "optimal": "`triple` added with TSDoc (net result of three commits).",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+/**",
+    "+ * Triples a number.",
+    "+ *",
+    "+ * @param n - the value",
+    "+ */",
+    "+export declare function triple(n: number): number;"
+   ]
+  }
+ },
+ "G03": {
+  "primaryFile": "src/functions.ts",
+  "tests": "A commit, its revert, and a third commit in one PR.",
+  "rules": [
+   "net change"
+  ],
+  "components": [
+   {
+    "component": "identity",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "returns a frozen object"
+   }
+  ],
+  "unchanged": [
+   "load"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`identity` now freezes its argument. `load` was changed and reverted inside the PR, so it is unchanged.",
+  "publicApi": {}
+ },
+ "G04": {
+  "primaryFile": "packages/web/src/App.tsx",
+  "tests": "Stacked PR (base: `pr/S12`) that fixes the base PR's errors.",
+  "rules": [
+   "diff against the PR's own base",
+   "errors resolved"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "packages/web/src/App.tsx",
+    "change": "importChanged",
+    "detail": "useTally as useCounter"
+   },
+   {
+    "file": "packages/web/src/components/Price.tsx",
+    "change": "importChanged",
+    "detail": "useTally as useCounter"
+   }
+  ],
+  "references": [],
+  "notes": [
+   "This PR's base is the branch `pr/S12`, not `main`. Relative to its base, two errors are fixed and none are introduced."
+  ],
+  "optimal": "Both importers now import `useTally as useCounter`; the two errors introduced by S12 (App.tsx:14, Price.tsx:2) are resolved.",
+  "publicApi": {}
+ },
+ "G05": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Stacked PR (base: `pr/E01`) changing the same function again.",
+  "rules": [
+   "diff against the PR's own base"
+  ],
+  "components": [
+   {
+    "component": "control",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": "finally block"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`control`: the `finally` block now adds 1. E01's catch-block change belongs to the base PR, not this one.",
+  "publicApi": {}
+ },
+ "G06": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Merge conflict: the branch changes lines that `main` has since changed differently.",
+  "rules": [
+   "conflicting PR"
+  ],
+  "components": [
+   {
+    "component": "display",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "`toFixed(3)`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "GitHub cannot build a merge commit for a conflicting PR, so `pull_request` workflows do not run; this PR has no CI check by design."
+  ],
+  "optimal": "`display` now formats with three decimals. This conflicts with `main`, which changed the same line to `toFixed(2).padStart(8)`.",
+  "publicApi": {}
+ },
+ "G07": {
+  "primaryFile": "src/NoNewline.ts",
+  "tests": "Case-only file rename.",
+  "rules": [
+   "moved with file"
+  ],
+  "components": [
+   {
+    "component": "noNewline",
+    "kind": "function",
+    "change": "moved",
+    "flags": [
+     "fileRenamed"
+    ],
+    "container": [],
+    "file": "src/NoNewline.ts",
+    "detail": "src/nonewline.ts → src/NoNewline.ts"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/NoNewline.ts",
+    "change": "renamed",
+    "detail": "from src/nonewline.ts (case only)"
+   }
+  ],
+  "references": [],
+  "notes": [
+   "On case-insensitive filesystems (macOS default) a checkout may keep the old spelling."
+  ],
+  "optimal": "src/nonewline.ts is renamed src/NoNewline.ts (letter case only); contents unchanged.",
+  "publicApi": {
+   ".:src/NoNewline.d.ts": [
+    "+export declare function noNewline(): number;"
+   ],
+   ".:src/nonewline.d.ts": [
+    "-export declare function noNewline(): number;"
+   ]
+  }
+ },
+ "G08": {
+  "primaryFile": "src/tabs.ts",
+  "tests": "File mode change only (no content change).",
+  "rules": [
+   "file-level"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/tabs.ts",
+    "change": "modeChanged",
+    "detail": "100644 → 100755"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "src/tabs.ts becomes executable (mode 100644 → 100755); no content change.",
+  "publicApi": {}
+ },
+ "G09": {
+  "primaryFile": "docs/LATEST.md",
+  "tests": "Symlink added.",
+  "rules": [
+   "file-level"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "docs/LATEST.md",
+    "change": "symlinkAdded",
+    "detail": "→ ../README.md"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "docs/LATEST.md is added as a symlink to ../README.md.",
+  "publicApi": {}
+ },
+ "G10": {
+  "primaryFile": "",
+  "tests": "PR with a commit but no file changes.",
+  "rules": [
+   "empty PR"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "A pipeline must handle zero changed files without failing."
+  ],
+  "optimal": "The PR changes no files.",
+  "publicApi": {}
+ },
+ "G11": {
+  "primaryFile": "src/with space/naïve file.ts",
+  "tests": "New file whose path contains a space and non-ASCII characters.",
+  "rules": [
+   "path quoting in diffs"
+  ],
+  "components": [
+   {
+    "component": "oddPath",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/with space/naïve file.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/with space/naïve file.ts",
+    "change": "added",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [
+   "`git diff` quotes this path and escapes the non-ASCII bytes (`\"src/with space/na\\303\\257ve file.ts\"`); a parser must unquote it."
+  ],
+  "optimal": "New file `src/with space/naïve file.ts` adds `oddPath`.",
+  "publicApi": {
+   ".:src/with space/naïve file.d.ts": [
+    "+/** Lives at a path with a space and non-ASCII characters. */",
+    "+export declare function oddPath(): string;"
+   ]
+  }
+ },
+ "G12": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "Column-0 code lines that look like diff file headers once prefixed.",
+  "rules": [
+   "diff parsing"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/syntax.ts",
+    "change": "topLevelStatementChanged",
+    "detail": "`--ticks;` → `++ticks;`"
+   }
+  ],
+  "references": [],
+  "notes": [
+   "The unified diff contains the lines `---ticks;` and `+++ticks;`; a parser that treats any line starting with `---`/`+++` as a file header misreads this hunk."
+  ],
+  "optimal": "In src/syntax.ts the top-level statement `--ticks;` becomes `++ticks;`.",
+  "publicApi": {}
+ },
+ "G13": {
+  "primaryFile": "src/many",
+  "tests": "301 new files in one PR.",
+  "rules": [
+   "scale; GitHub file-list limits"
+  ],
+  "components": [
+   {
+    "component": "f000 … f300",
+    "kind": "function ×301",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/many",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/many",
+    "change": "added",
+    "detail": "301 files"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "301 new files under src/many/ (`f000.ts` … `f300.ts`), one function each.",
+  "publicApi": {
+   ".:src/many/f000.d.ts": [
+    "+export declare function f000(): number;"
+   ],
+   ".:src/many/f001.d.ts": [
+    "+export declare function f001(): number;"
+   ],
+   ".:src/many/f002.d.ts": [
+    "+export declare function f002(): number;"
+   ],
+   ".:src/many/f003.d.ts": [
+    "+export declare function f003(): number;"
+   ],
+   ".:src/many/f004.d.ts": [
+    "+export declare function f004(): number;"
+   ],
+   ".:src/many/f005.d.ts": [
+    "+export declare function f005(): number;"
+   ],
+   ".:src/many/f006.d.ts": [
+    "+export declare function f006(): number;"
+   ],
+   ".:src/many/f007.d.ts": [
+    "+export declare function f007(): number;"
+   ],
+   ".:src/many/f008.d.ts": [
+    "+export declare function f008(): number;"
+   ],
+   ".:src/many/f009.d.ts": [
+    "+export declare function f009(): number;"
+   ],
+   ".:src/many/f010.d.ts": [
+    "+export declare function f010(): number;"
+   ],
+   ".:src/many/f011.d.ts": [
+    "+export declare function f011(): number;"
+   ],
+   ".:src/many/f012.d.ts": [
+    "+export declare function f012(): number;"
+   ],
+   ".:src/many/f013.d.ts": [
+    "+export declare function f013(): number;"
+   ],
+   ".:src/many/f014.d.ts": [
+    "+export declare function f014(): number;"
+   ],
+   ".:src/many/f015.d.ts": [
+    "+export declare function f015(): number;"
+   ],
+   ".:src/many/f016.d.ts": [
+    "+export declare function f016(): number;"
+   ],
+   ".:src/many/f017.d.ts": [
+    "+export declare function f017(): number;"
+   ],
+   ".:src/many/f018.d.ts": [
+    "+export declare function f018(): number;"
+   ],
+   ".:src/many/f019.d.ts": [
+    "+export declare function f019(): number;"
+   ],
+   ".:src/many/f020.d.ts": [
+    "+export declare function f020(): number;"
+   ],
+   ".:src/many/f021.d.ts": [
+    "+export declare function f021(): number;"
+   ],
+   ".:src/many/f022.d.ts": [
+    "+export declare function f022(): number;"
+   ],
+   ".:src/many/f023.d.ts": [
+    "+export declare function f023(): number;"
+   ],
+   ".:src/many/f024.d.ts": [
+    "+export declare function f024(): number;"
+   ],
+   ".:src/many/f025.d.ts": [
+    "+export declare function f025(): number;"
+   ],
+   ".:src/many/f026.d.ts": [
+    "+export declare function f026(): number;"
+   ],
+   ".:src/many/f027.d.ts": [
+    "+export declare function f027(): number;"
+   ],
+   ".:src/many/f028.d.ts": [
+    "+export declare function f028(): number;"
+   ],
+   ".:src/many/f029.d.ts": [
+    "+export declare function f029(): number;"
+   ],
+   ".:src/many/f030.d.ts": [
+    "+export declare function f030(): number;"
+   ],
+   ".:src/many/f031.d.ts": [
+    "+export declare function f031(): number;"
+   ],
+   ".:src/many/f032.d.ts": [
+    "+export declare function f032(): number;"
+   ],
+   ".:src/many/f033.d.ts": [
+    "+export declare function f033(): number;"
+   ],
+   ".:src/many/f034.d.ts": [
+    "+export declare function f034(): number;"
+   ],
+   ".:src/many/f035.d.ts": [
+    "+export declare function f035(): number;"
+   ],
+   ".:src/many/f036.d.ts": [
+    "+export declare function f036(): number;"
+   ],
+   ".:src/many/f037.d.ts": [
+    "+export declare function f037(): number;"
+   ],
+   ".:src/many/f038.d.ts": [
+    "+export declare function f038(): number;"
+   ],
+   ".:src/many/f039.d.ts": [
+    "+export declare function f039(): number;"
+   ],
+   ".:src/many/f040.d.ts": [
+    "+export declare function f040(): number;"
+   ],
+   ".:src/many/f041.d.ts": [
+    "+export declare function f041(): number;"
+   ],
+   ".:src/many/f042.d.ts": [
+    "+export declare function f042(): number;"
+   ],
+   ".:src/many/f043.d.ts": [
+    "+export declare function f043(): number;"
+   ],
+   ".:src/many/f044.d.ts": [
+    "+export declare function f044(): number;"
+   ],
+   ".:src/many/f045.d.ts": [
+    "+export declare function f045(): number;"
+   ],
+   ".:src/many/f046.d.ts": [
+    "+export declare function f046(): number;"
+   ],
+   ".:src/many/f047.d.ts": [
+    "+export declare function f047(): number;"
+   ],
+   ".:src/many/f048.d.ts": [
+    "+export declare function f048(): number;"
+   ],
+   ".:src/many/f049.d.ts": [
+    "+export declare function f049(): number;"
+   ],
+   ".:src/many/f050.d.ts": [
+    "+export declare function f050(): number;"
+   ],
+   ".:src/many/f051.d.ts": [
+    "+export declare function f051(): number;"
+   ],
+   ".:src/many/f052.d.ts": [
+    "+export declare function f052(): number;"
+   ],
+   ".:src/many/f053.d.ts": [
+    "+export declare function f053(): number;"
+   ],
+   ".:src/many/f054.d.ts": [
+    "+export declare function f054(): number;"
+   ],
+   ".:src/many/f055.d.ts": [
+    "+export declare function f055(): number;"
+   ],
+   ".:src/many/f056.d.ts": [
+    "+export declare function f056(): number;"
+   ],
+   ".:src/many/f057.d.ts": [
+    "+export declare function f057(): number;"
+   ],
+   ".:src/many/f058.d.ts": [
+    "+export declare function f058(): number;"
+   ],
+   ".:src/many/f059.d.ts": [
+    "+export declare function f059(): number;"
+   ],
+   ".:src/many/f060.d.ts": [
+    "+export declare function f060(): number;"
+   ],
+   ".:src/many/f061.d.ts": [
+    "+export declare function f061(): number;"
+   ],
+   ".:src/many/f062.d.ts": [
+    "+export declare function f062(): number;"
+   ],
+   ".:src/many/f063.d.ts": [
+    "+export declare function f063(): number;"
+   ],
+   ".:src/many/f064.d.ts": [
+    "+export declare function f064(): number;"
+   ],
+   ".:src/many/f065.d.ts": [
+    "+export declare function f065(): number;"
+   ],
+   ".:src/many/f066.d.ts": [
+    "+export declare function f066(): number;"
+   ],
+   ".:src/many/f067.d.ts": [
+    "+export declare function f067(): number;"
+   ],
+   ".:src/many/f068.d.ts": [
+    "+export declare function f068(): number;"
+   ],
+   ".:src/many/f069.d.ts": [
+    "+export declare function f069(): number;"
+   ],
+   ".:src/many/f070.d.ts": [
+    "+export declare function f070(): number;"
+   ],
+   ".:src/many/f071.d.ts": [
+    "+export declare function f071(): number;"
+   ],
+   ".:src/many/f072.d.ts": [
+    "+export declare function f072(): number;"
+   ],
+   ".:src/many/f073.d.ts": [
+    "+export declare function f073(): number;"
+   ],
+   ".:src/many/f074.d.ts": [
+    "+export declare function f074(): number;"
+   ],
+   ".:src/many/f075.d.ts": [
+    "+export declare function f075(): number;"
+   ],
+   ".:src/many/f076.d.ts": [
+    "+export declare function f076(): number;"
+   ],
+   ".:src/many/f077.d.ts": [
+    "+export declare function f077(): number;"
+   ],
+   ".:src/many/f078.d.ts": [
+    "+export declare function f078(): number;"
+   ],
+   ".:src/many/f079.d.ts": [
+    "+export declare function f079(): number;"
+   ],
+   ".:src/many/f080.d.ts": [
+    "+export declare function f080(): number;"
+   ],
+   ".:src/many/f081.d.ts": [
+    "+export declare function f081(): number;"
+   ],
+   ".:src/many/f082.d.ts": [
+    "+export declare function f082(): number;"
+   ],
+   ".:src/many/f083.d.ts": [
+    "+export declare function f083(): number;"
+   ],
+   ".:src/many/f084.d.ts": [
+    "+export declare function f084(): number;"
+   ],
+   ".:src/many/f085.d.ts": [
+    "+export declare function f085(): number;"
+   ],
+   ".:src/many/f086.d.ts": [
+    "+export declare function f086(): number;"
+   ],
+   ".:src/many/f087.d.ts": [
+    "+export declare function f087(): number;"
+   ],
+   ".:src/many/f088.d.ts": [
+    "+export declare function f088(): number;"
+   ],
+   ".:src/many/f089.d.ts": [
+    "+export declare function f089(): number;"
+   ],
+   ".:src/many/f090.d.ts": [
+    "+export declare function f090(): number;"
+   ],
+   ".:src/many/f091.d.ts": [
+    "+export declare function f091(): number;"
+   ],
+   ".:src/many/f092.d.ts": [
+    "+export declare function f092(): number;"
+   ],
+   ".:src/many/f093.d.ts": [
+    "+export declare function f093(): number;"
+   ],
+   ".:src/many/f094.d.ts": [
+    "+export declare function f094(): number;"
+   ],
+   ".:src/many/f095.d.ts": [
+    "+export declare function f095(): number;"
+   ],
+   ".:src/many/f096.d.ts": [
+    "+export declare function f096(): number;"
+   ],
+   ".:src/many/f097.d.ts": [
+    "+export declare function f097(): number;"
+   ],
+   ".:src/many/f098.d.ts": [
+    "+export declare function f098(): number;"
+   ],
+   ".:src/many/f099.d.ts": [
+    "+export declare function f099(): number;"
+   ],
+   ".:src/many/f100.d.ts": [
+    "+export declare function f100(): number;"
+   ],
+   ".:src/many/f101.d.ts": [
+    "+export declare function f101(): number;"
+   ],
+   ".:src/many/f102.d.ts": [
+    "+export declare function f102(): number;"
+   ],
+   ".:src/many/f103.d.ts": [
+    "+export declare function f103(): number;"
+   ],
+   ".:src/many/f104.d.ts": [
+    "+export declare function f104(): number;"
+   ],
+   ".:src/many/f105.d.ts": [
+    "+export declare function f105(): number;"
+   ],
+   ".:src/many/f106.d.ts": [
+    "+export declare function f106(): number;"
+   ],
+   ".:src/many/f107.d.ts": [
+    "+export declare function f107(): number;"
+   ],
+   ".:src/many/f108.d.ts": [
+    "+export declare function f108(): number;"
+   ],
+   ".:src/many/f109.d.ts": [
+    "+export declare function f109(): number;"
+   ],
+   ".:src/many/f110.d.ts": [
+    "+export declare function f110(): number;"
+   ],
+   ".:src/many/f111.d.ts": [
+    "+export declare function f111(): number;"
+   ],
+   ".:src/many/f112.d.ts": [
+    "+export declare function f112(): number;"
+   ],
+   ".:src/many/f113.d.ts": [
+    "+export declare function f113(): number;"
+   ],
+   ".:src/many/f114.d.ts": [
+    "+export declare function f114(): number;"
+   ],
+   ".:src/many/f115.d.ts": [
+    "+export declare function f115(): number;"
+   ],
+   ".:src/many/f116.d.ts": [
+    "+export declare function f116(): number;"
+   ],
+   ".:src/many/f117.d.ts": [
+    "+export declare function f117(): number;"
+   ],
+   ".:src/many/f118.d.ts": [
+    "+export declare function f118(): number;"
+   ],
+   ".:src/many/f119.d.ts": [
+    "+export declare function f119(): number;"
+   ],
+   ".:src/many/f120.d.ts": [
+    "+export declare function f120(): number;"
+   ],
+   ".:src/many/f121.d.ts": [
+    "+export declare function f121(): number;"
+   ],
+   ".:src/many/f122.d.ts": [
+    "+export declare function f122(): number;"
+   ],
+   ".:src/many/f123.d.ts": [
+    "+export declare function f123(): number;"
+   ],
+   ".:src/many/f124.d.ts": [
+    "+export declare function f124(): number;"
+   ],
+   ".:src/many/f125.d.ts": [
+    "+export declare function f125(): number;"
+   ],
+   ".:src/many/f126.d.ts": [
+    "+export declare function f126(): number;"
+   ],
+   ".:src/many/f127.d.ts": [
+    "+export declare function f127(): number;"
+   ],
+   ".:src/many/f128.d.ts": [
+    "+export declare function f128(): number;"
+   ],
+   ".:src/many/f129.d.ts": [
+    "+export declare function f129(): number;"
+   ],
+   ".:src/many/f130.d.ts": [
+    "+export declare function f130(): number;"
+   ],
+   ".:src/many/f131.d.ts": [
+    "+export declare function f131(): number;"
+   ],
+   ".:src/many/f132.d.ts": [
+    "+export declare function f132(): number;"
+   ],
+   ".:src/many/f133.d.ts": [
+    "+export declare function f133(): number;"
+   ],
+   ".:src/many/f134.d.ts": [
+    "+export declare function f134(): number;"
+   ],
+   ".:src/many/f135.d.ts": [
+    "+export declare function f135(): number;"
+   ],
+   ".:src/many/f136.d.ts": [
+    "+export declare function f136(): number;"
+   ],
+   ".:src/many/f137.d.ts": [
+    "+export declare function f137(): number;"
+   ],
+   ".:src/many/f138.d.ts": [
+    "+export declare function f138(): number;"
+   ],
+   ".:src/many/f139.d.ts": [
+    "+export declare function f139(): number;"
+   ],
+   ".:src/many/f140.d.ts": [
+    "+export declare function f140(): number;"
+   ],
+   ".:src/many/f141.d.ts": [
+    "+export declare function f141(): number;"
+   ],
+   ".:src/many/f142.d.ts": [
+    "+export declare function f142(): number;"
+   ],
+   ".:src/many/f143.d.ts": [
+    "+export declare function f143(): number;"
+   ],
+   ".:src/many/f144.d.ts": [
+    "+export declare function f144(): number;"
+   ],
+   ".:src/many/f145.d.ts": [
+    "+export declare function f145(): number;"
+   ],
+   ".:src/many/f146.d.ts": [
+    "+export declare function f146(): number;"
+   ],
+   ".:src/many/f147.d.ts": [
+    "+export declare function f147(): number;"
+   ],
+   ".:src/many/f148.d.ts": [
+    "+export declare function f148(): number;"
+   ],
+   ".:src/many/f149.d.ts": [
+    "+export declare function f149(): number;"
+   ],
+   ".:src/many/f150.d.ts": [
+    "+export declare function f150(): number;"
+   ],
+   ".:src/many/f151.d.ts": [
+    "+export declare function f151(): number;"
+   ],
+   ".:src/many/f152.d.ts": [
+    "+export declare function f152(): number;"
+   ],
+   ".:src/many/f153.d.ts": [
+    "+export declare function f153(): number;"
+   ],
+   ".:src/many/f154.d.ts": [
+    "+export declare function f154(): number;"
+   ],
+   ".:src/many/f155.d.ts": [
+    "+export declare function f155(): number;"
+   ],
+   ".:src/many/f156.d.ts": [
+    "+export declare function f156(): number;"
+   ],
+   ".:src/many/f157.d.ts": [
+    "+export declare function f157(): number;"
+   ],
+   ".:src/many/f158.d.ts": [
+    "+export declare function f158(): number;"
+   ],
+   ".:src/many/f159.d.ts": [
+    "+export declare function f159(): number;"
+   ],
+   ".:src/many/f160.d.ts": [
+    "+export declare function f160(): number;"
+   ],
+   ".:src/many/f161.d.ts": [
+    "+export declare function f161(): number;"
+   ],
+   ".:src/many/f162.d.ts": [
+    "+export declare function f162(): number;"
+   ],
+   ".:src/many/f163.d.ts": [
+    "+export declare function f163(): number;"
+   ],
+   ".:src/many/f164.d.ts": [
+    "+export declare function f164(): number;"
+   ],
+   ".:src/many/f165.d.ts": [
+    "+export declare function f165(): number;"
+   ],
+   ".:src/many/f166.d.ts": [
+    "+export declare function f166(): number;"
+   ],
+   ".:src/many/f167.d.ts": [
+    "+export declare function f167(): number;"
+   ],
+   ".:src/many/f168.d.ts": [
+    "+export declare function f168(): number;"
+   ],
+   ".:src/many/f169.d.ts": [
+    "+export declare function f169(): number;"
+   ],
+   ".:src/many/f170.d.ts": [
+    "+export declare function f170(): number;"
+   ],
+   ".:src/many/f171.d.ts": [
+    "+export declare function f171(): number;"
+   ],
+   ".:src/many/f172.d.ts": [
+    "+export declare function f172(): number;"
+   ],
+   ".:src/many/f173.d.ts": [
+    "+export declare function f173(): number;"
+   ],
+   ".:src/many/f174.d.ts": [
+    "+export declare function f174(): number;"
+   ],
+   ".:src/many/f175.d.ts": [
+    "+export declare function f175(): number;"
+   ],
+   ".:src/many/f176.d.ts": [
+    "+export declare function f176(): number;"
+   ],
+   ".:src/many/f177.d.ts": [
+    "+export declare function f177(): number;"
+   ],
+   ".:src/many/f178.d.ts": [
+    "+export declare function f178(): number;"
+   ],
+   ".:src/many/f179.d.ts": [
+    "+export declare function f179(): number;"
+   ],
+   ".:src/many/f180.d.ts": [
+    "+export declare function f180(): number;"
+   ],
+   ".:src/many/f181.d.ts": [
+    "+export declare function f181(): number;"
+   ],
+   ".:src/many/f182.d.ts": [
+    "+export declare function f182(): number;"
+   ],
+   ".:src/many/f183.d.ts": [
+    "+export declare function f183(): number;"
+   ],
+   ".:src/many/f184.d.ts": [
+    "+export declare function f184(): number;"
+   ],
+   ".:src/many/f185.d.ts": [
+    "+export declare function f185(): number;"
+   ],
+   ".:src/many/f186.d.ts": [
+    "+export declare function f186(): number;"
+   ],
+   ".:src/many/f187.d.ts": [
+    "+export declare function f187(): number;"
+   ],
+   ".:src/many/f188.d.ts": [
+    "+export declare function f188(): number;"
+   ],
+   ".:src/many/f189.d.ts": [
+    "+export declare function f189(): number;"
+   ],
+   ".:src/many/f190.d.ts": [
+    "+export declare function f190(): number;"
+   ],
+   ".:src/many/f191.d.ts": [
+    "+export declare function f191(): number;"
+   ],
+   ".:src/many/f192.d.ts": [
+    "+export declare function f192(): number;"
+   ],
+   ".:src/many/f193.d.ts": [
+    "+export declare function f193(): number;"
+   ],
+   ".:src/many/f194.d.ts": [
+    "+export declare function f194(): number;"
+   ],
+   ".:src/many/f195.d.ts": [
+    "+export declare function f195(): number;"
+   ],
+   ".:src/many/f196.d.ts": [
+    "+export declare function f196(): number;"
+   ],
+   ".:src/many/f197.d.ts": [
+    "+export declare function f197(): number;"
+   ],
+   ".:src/many/f198.d.ts": [
+    "+export declare function f198(): number;"
+   ],
+   ".:src/many/f199.d.ts": [
+    "+export declare function f199(): number;"
+   ],
+   ".:src/many/f200.d.ts": [
+    "+export declare function f200(): number;"
+   ],
+   ".:src/many/f201.d.ts": [
+    "+export declare function f201(): number;"
+   ],
+   ".:src/many/f202.d.ts": [
+    "+export declare function f202(): number;"
+   ],
+   ".:src/many/f203.d.ts": [
+    "+export declare function f203(): number;"
+   ],
+   ".:src/many/f204.d.ts": [
+    "+export declare function f204(): number;"
+   ],
+   ".:src/many/f205.d.ts": [
+    "+export declare function f205(): number;"
+   ],
+   ".:src/many/f206.d.ts": [
+    "+export declare function f206(): number;"
+   ],
+   ".:src/many/f207.d.ts": [
+    "+export declare function f207(): number;"
+   ],
+   ".:src/many/f208.d.ts": [
+    "+export declare function f208(): number;"
+   ],
+   ".:src/many/f209.d.ts": [
+    "+export declare function f209(): number;"
+   ],
+   ".:src/many/f210.d.ts": [
+    "+export declare function f210(): number;"
+   ],
+   ".:src/many/f211.d.ts": [
+    "+export declare function f211(): number;"
+   ],
+   ".:src/many/f212.d.ts": [
+    "+export declare function f212(): number;"
+   ],
+   ".:src/many/f213.d.ts": [
+    "+export declare function f213(): number;"
+   ],
+   ".:src/many/f214.d.ts": [
+    "+export declare function f214(): number;"
+   ],
+   ".:src/many/f215.d.ts": [
+    "+export declare function f215(): number;"
+   ],
+   ".:src/many/f216.d.ts": [
+    "+export declare function f216(): number;"
+   ],
+   ".:src/many/f217.d.ts": [
+    "+export declare function f217(): number;"
+   ],
+   ".:src/many/f218.d.ts": [
+    "+export declare function f218(): number;"
+   ],
+   ".:src/many/f219.d.ts": [
+    "+export declare function f219(): number;"
+   ],
+   ".:src/many/f220.d.ts": [
+    "+export declare function f220(): number;"
+   ],
+   ".:src/many/f221.d.ts": [
+    "+export declare function f221(): number;"
+   ],
+   ".:src/many/f222.d.ts": [
+    "+export declare function f222(): number;"
+   ],
+   ".:src/many/f223.d.ts": [
+    "+export declare function f223(): number;"
+   ],
+   ".:src/many/f224.d.ts": [
+    "+export declare function f224(): number;"
+   ],
+   ".:src/many/f225.d.ts": [
+    "+export declare function f225(): number;"
+   ],
+   ".:src/many/f226.d.ts": [
+    "+export declare function f226(): number;"
+   ],
+   ".:src/many/f227.d.ts": [
+    "+export declare function f227(): number;"
+   ],
+   ".:src/many/f228.d.ts": [
+    "+export declare function f228(): number;"
+   ],
+   ".:src/many/f229.d.ts": [
+    "+export declare function f229(): number;"
+   ],
+   ".:src/many/f230.d.ts": [
+    "+export declare function f230(): number;"
+   ],
+   ".:src/many/f231.d.ts": [
+    "+export declare function f231(): number;"
+   ],
+   ".:src/many/f232.d.ts": [
+    "+export declare function f232(): number;"
+   ],
+   ".:src/many/f233.d.ts": [
+    "+export declare function f233(): number;"
+   ],
+   ".:src/many/f234.d.ts": [
+    "+export declare function f234(): number;"
+   ],
+   ".:src/many/f235.d.ts": [
+    "+export declare function f235(): number;"
+   ],
+   ".:src/many/f236.d.ts": [
+    "+export declare function f236(): number;"
+   ],
+   ".:src/many/f237.d.ts": [
+    "+export declare function f237(): number;"
+   ],
+   ".:src/many/f238.d.ts": [
+    "+export declare function f238(): number;"
+   ],
+   ".:src/many/f239.d.ts": [
+    "+export declare function f239(): number;"
+   ],
+   ".:src/many/f240.d.ts": [
+    "+export declare function f240(): number;"
+   ],
+   ".:src/many/f241.d.ts": [
+    "+export declare function f241(): number;"
+   ],
+   ".:src/many/f242.d.ts": [
+    "+export declare function f242(): number;"
+   ],
+   ".:src/many/f243.d.ts": [
+    "+export declare function f243(): number;"
+   ],
+   ".:src/many/f244.d.ts": [
+    "+export declare function f244(): number;"
+   ],
+   ".:src/many/f245.d.ts": [
+    "+export declare function f245(): number;"
+   ],
+   ".:src/many/f246.d.ts": [
+    "+export declare function f246(): number;"
+   ],
+   ".:src/many/f247.d.ts": [
+    "+export declare function f247(): number;"
+   ],
+   ".:src/many/f248.d.ts": [
+    "+export declare function f248(): number;"
+   ],
+   ".:src/many/f249.d.ts": [
+    "+export declare function f249(): number;"
+   ],
+   ".:src/many/f250.d.ts": [
+    "+export declare function f250(): number;"
+   ],
+   ".:src/many/f251.d.ts": [
+    "+export declare function f251(): number;"
+   ],
+   ".:src/many/f252.d.ts": [
+    "+export declare function f252(): number;"
+   ],
+   ".:src/many/f253.d.ts": [
+    "+export declare function f253(): number;"
+   ],
+   ".:src/many/f254.d.ts": [
+    "+export declare function f254(): number;"
+   ],
+   ".:src/many/f255.d.ts": [
+    "+export declare function f255(): number;"
+   ],
+   ".:src/many/f256.d.ts": [
+    "+export declare function f256(): number;"
+   ],
+   ".:src/many/f257.d.ts": [
+    "+export declare function f257(): number;"
+   ],
+   ".:src/many/f258.d.ts": [
+    "+export declare function f258(): number;"
+   ],
+   ".:src/many/f259.d.ts": [
+    "+export declare function f259(): number;"
+   ],
+   ".:src/many/f260.d.ts": [
+    "+export declare function f260(): number;"
+   ],
+   ".:src/many/f261.d.ts": [
+    "+export declare function f261(): number;"
+   ],
+   ".:src/many/f262.d.ts": [
+    "+export declare function f262(): number;"
+   ],
+   ".:src/many/f263.d.ts": [
+    "+export declare function f263(): number;"
+   ],
+   ".:src/many/f264.d.ts": [
+    "+export declare function f264(): number;"
+   ],
+   ".:src/many/f265.d.ts": [
+    "+export declare function f265(): number;"
+   ],
+   ".:src/many/f266.d.ts": [
+    "+export declare function f266(): number;"
+   ],
+   ".:src/many/f267.d.ts": [
+    "+export declare function f267(): number;"
+   ],
+   ".:src/many/f268.d.ts": [
+    "+export declare function f268(): number;"
+   ],
+   ".:src/many/f269.d.ts": [
+    "+export declare function f269(): number;"
+   ],
+   ".:src/many/f270.d.ts": [
+    "+export declare function f270(): number;"
+   ],
+   ".:src/many/f271.d.ts": [
+    "+export declare function f271(): number;"
+   ],
+   ".:src/many/f272.d.ts": [
+    "+export declare function f272(): number;"
+   ],
+   ".:src/many/f273.d.ts": [
+    "+export declare function f273(): number;"
+   ],
+   ".:src/many/f274.d.ts": [
+    "+export declare function f274(): number;"
+   ],
+   ".:src/many/f275.d.ts": [
+    "+export declare function f275(): number;"
+   ],
+   ".:src/many/f276.d.ts": [
+    "+export declare function f276(): number;"
+   ],
+   ".:src/many/f277.d.ts": [
+    "+export declare function f277(): number;"
+   ],
+   ".:src/many/f278.d.ts": [
+    "+export declare function f278(): number;"
+   ],
+   ".:src/many/f279.d.ts": [
+    "+export declare function f279(): number;"
+   ],
+   ".:src/many/f280.d.ts": [
+    "+export declare function f280(): number;"
+   ],
+   ".:src/many/f281.d.ts": [
+    "+export declare function f281(): number;"
+   ],
+   ".:src/many/f282.d.ts": [
+    "+export declare function f282(): number;"
+   ],
+   ".:src/many/f283.d.ts": [
+    "+export declare function f283(): number;"
+   ],
+   ".:src/many/f284.d.ts": [
+    "+export declare function f284(): number;"
+   ],
+   ".:src/many/f285.d.ts": [
+    "+export declare function f285(): number;"
+   ],
+   ".:src/many/f286.d.ts": [
+    "+export declare function f286(): number;"
+   ],
+   ".:src/many/f287.d.ts": [
+    "+export declare function f287(): number;"
+   ],
+   ".:src/many/f288.d.ts": [
+    "+export declare function f288(): number;"
+   ],
+   ".:src/many/f289.d.ts": [
+    "+export declare function f289(): number;"
+   ],
+   ".:src/many/f290.d.ts": [
+    "+export declare function f290(): number;"
+   ],
+   ".:src/many/f291.d.ts": [
+    "+export declare function f291(): number;"
+   ],
+   ".:src/many/f292.d.ts": [
+    "+export declare function f292(): number;"
+   ],
+   ".:src/many/f293.d.ts": [
+    "+export declare function f293(): number;"
+   ],
+   ".:src/many/f294.d.ts": [
+    "+export declare function f294(): number;"
+   ],
+   ".:src/many/f295.d.ts": [
+    "+export declare function f295(): number;"
+   ],
+   ".:src/many/f296.d.ts": [
+    "+export declare function f296(): number;"
+   ],
+   ".:src/many/f297.d.ts": [
+    "+export declare function f297(): number;"
+   ],
+   ".:src/many/f298.d.ts": [
+    "+export declare function f298(): number;"
+   ],
+   ".:src/many/f299.d.ts": [
+    "+export declare function f299(): number;"
+   ],
+   ".:src/many/f300.d.ts": [
+    "+export declare function f300(): number;"
+   ]
+  }
+ },
+ "G14": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Trailing whitespace only.",
+  "rules": [
+   "rule 2 (cosmetic)"
+  ],
+  "components": [
+   {
+    "component": "report",
+    "kind": "function",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`report`: trailing whitespace added on two lines; nothing else.",
+  "publicApi": {}
+ },
+ "G15": {
+  "primaryFile": "src/strings.ts",
+  "tests": "Whole file converted from LF to CRLF line endings.",
+  "rules": [
+   "rule 2 (cosmetic)"
+  ],
+  "components": [
+   {
+    "component": "sql",
+    "kind": "function",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/strings.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "tag",
+   "tagged"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "`tag` and `tagged` are single-line declarations: the line ending lies outside their text, so they are unchanged rather than cosmetic. Only the multi-line `sql` contains changed line endings."
+  ],
+  "optimal": "src/strings.ts switches to CRLF line endings; every line differs in the diff but no code changed.",
+  "publicApi": {}
+ },
+ "G16": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Whole-file reformat (indentation doubled).",
+  "rules": [
+   "rule 2 (cosmetic)"
+  ],
+  "components": [
+   {
+    "component": "fmt",
+    "kind": "function (arrow)",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "legacyFn",
+    "kind": "function (expression)",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "api",
+    "kind": "variable (object)",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "get",
+    "kind": "method",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [
+     "api"
+    ],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "post",
+    "kind": "property (function)",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [
+     "api"
+    ],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "version",
+    "kind": "accessor (get)",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [
+     "api"
+    ],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "withRetry",
+    "kind": "function",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   },
+   {
+    "component": "fetchUser",
+    "kind": "function (async arrow)",
+    "change": "cosmetic",
+    "flags": [],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "LIMIT",
+   "counterVar",
+   "step",
+   "alpha",
+   "beta",
+   "config",
+   "tuple",
+   "api › base",
+   "api › [\"computed\" + \"Key\"]"
+  ],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Single-line declarations and members only changed indentation, which lies outside their text, so they are unchanged; multi-line ones are cosmetic."
+  ],
+  "optimal": "src/variables.ts is re-indented (4 spaces); no code changes.",
+  "publicApi": {}
+ },
+ "G17": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Draft PR.",
+  "rules": [
+   "PR state"
+  ],
+  "components": [
+   {
+    "component": "report",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "label `median` → `middle`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`report` labels the median as `middle`. The PR is a draft.",
+  "publicApi": {}
+ },
+ "G18": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Closed (unmerged) PR.",
+  "rules": [
+   "PR state"
+  ],
+  "components": [
+   {
+    "component": "display",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "pads to 10"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`display` pads to 10 characters. The PR is closed without merging.",
+  "publicApi": {}
+ },
+ "K01": {
+  "primaryFile": "packages/shared/src/index.ts",
+  "tests": "Extract function.",
+  "rules": [
+   "added + bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "formatPrice",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/shared/src/index.ts",
+    "detail": ""
+   },
+   {
+    "component": "toMajor",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "packages/shared/src/index.ts",
+    "detail": "documented"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`toMajor` is extracted from `formatPrice`, which now calls it; behaviour unchanged.",
+  "publicApi": {
+   "packages/shared:index.d.ts": [
+    "+/** Converts minor units to a major-unit string. */",
+    "+export declare function toMajor(cents: number): string;"
+   ]
+  }
+ },
+ "K02": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Inline function.",
+  "rules": [
+   "deleted + bodyChanged"
+  ],
+  "components": [
+   {
+    "component": "internalHelper",
+    "kind": "function",
+    "change": "deleted",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   },
+   {
+    "component": "inner",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "bodyChanged"
+    ],
+    "container": [
+     "outer"
+    ],
+    "file": "src/functions.ts",
+    "detail": ""
+   },
+   {
+    "component": "outer",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`internalHelper` is inlined into `outer › inner` (returns 42 directly) and deleted.",
+  "publicApi": {}
+ },
+ "K03": {
+  "primaryFile": "src/basket.ts",
+  "tests": "Split a file: a class moves to a new file.",
+  "rules": [
+   "moved"
+  ],
+  "components": [
+   {
+    "component": "Basket",
+    "kind": "class",
+    "change": "moved",
+    "flags": [],
+    "container": [],
+    "file": "src/basket.ts",
+    "detail": "from src/documented.ts"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/basket.ts",
+    "change": "added",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [
+   "Members move with the class and are not reported separately (FIXTURES.md → Clarifications)."
+  ],
+  "optimal": "`Basket` (with its members) moves from src/documented.ts to the new src/basket.ts; nothing imported it.",
+  "publicApi": {
+   ".:src/basket.d.ts": [
+    "+/**",
+    "+ * A shopping basket that tracks item counts.",
+    "+ *",
+    "+ * @remarks",
+    "+ * Counts are kept per SKU; adding the same SKU twice increments its count.",
+    "+ *",
+    "+ * @example",
+    "+ * const b = new Basket();",
+    "+ * b.add(\"sku-1\");",
+    "+ */",
+    "+export declare class Basket {",
+    "+    /** Item counts keyed by SKU. */",
+    "+    private counts;",
+    "+    /**",
+    "+     * Adds one unit of a SKU.",
+    "+     *",
+    "+     * @param sku - the stock-keeping unit to add",
+    "+     * @returns the new count for `sku`",
+    "+     */",
+    "+    add(sku: string): number;",
+    "+    /**",
+    "+     * Total number of units across all SKUs.",
+    "+     */",
+    "+    get total(): number;",
+    "+}"
+   ],
+   ".:src/documented.d.ts": [
+    "-/**",
+    "- * A shopping basket that tracks item counts.",
+    "- *",
+    "- * @remarks",
+    "- * Counts are kept per SKU; adding the same SKU twice increments its count.",
+    "- *",
+    "- * @example",
+    "- * const b = new Basket();",
+    "- * b.add(\"sku-1\");",
+    "- */",
+    "-export declare class Basket {",
+    "-    /** Item counts keyed by SKU. */",
+    "-    private counts;",
+    "-    /**",
+    "-     * Adds one unit of a SKU.",
+    "-     *",
+    "-     * @param sku - the stock-keeping unit to add",
+    "-     * @returns the new count for `sku`",
+    "-     */",
+    "-    add(sku: string): number;",
+    "-    /**",
+    "-     * Total number of units across all SKUs.",
+    "-     */",
+    "-    get total(): number;",
+    "-}"
+   ]
+  }
+ },
+ "K04": {
+  "primaryFile": "src/tabs.ts",
+  "tests": "Merge files: a function moves into another file and its file is deleted.",
+  "rules": [
+   "moved + file deleted"
+  ],
+  "components": [
+   {
+    "component": "noNewline",
+    "kind": "function",
+    "change": "moved",
+    "flags": [],
+    "container": [],
+    "file": "src/tabs.ts",
+    "detail": "from src/nonewline.ts"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/nonewline.ts",
+    "change": "deleted",
+    "detail": ""
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "`noNewline` moves into src/tabs.ts and src/nonewline.ts is deleted.",
+  "publicApi": {
+   ".:src/nonewline.d.ts": [
+    "-export declare function noNewline(): number;"
+   ],
+   ".:src/tabs.d.ts": [
+    "+export declare function noNewline(): number;"
+   ]
+  }
+ },
+ "K05": {
+  "primaryFile": "src/syntax.ts",
+  "tests": "A static method moves to another class in the same file.",
+  "rules": [
+   "moved between containers"
+  ],
+  "components": [
+   {
+    "component": "create",
+    "kind": "method (static)",
+    "change": "moved",
+    "flags": [],
+    "container": [
+     "Container"
+    ],
+    "file": "src/syntax.ts",
+    "detail": "from `Animal` to `Container`"
+   },
+   {
+    "component": "Animal",
+    "kind": "abstract class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   },
+   {
+    "component": "Container",
+    "kind": "class (generic)",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/syntax.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "Static method `create` moves from `Animal` to `Container`; its body is unchanged.",
+  "publicApi": {
+   ".:src/syntax.d.ts": [
+    "-    static create(): string;",
+    "+    static create(): string;"
+   ]
+  }
+ },
+ "K06": {
+  "primaryFile": "src/esm.mts",
+  "tests": "Function declaration converted to an arrow function in a const.",
+  "rules": [
+   "declaration form change"
+  ],
+  "components": [
+   {
+    "component": "esmOnly",
+    "kind": "function",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged"
+    ],
+    "container": [],
+    "file": "src/esm.mts",
+    "detail": "function declaration → `const` arrow function; same signature and body"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`esmOnly` is now an arrow function stored in a `const`; signature and behaviour unchanged.",
+  "publicApi": {}
+ },
+ "K07": {
+  "primaryFile": "packages/web/src/components/Legacy.tsx",
+  "tests": "React class component converted to a function component.",
+  "rules": [
+   "declaration form change",
+   "rule 6",
+   "rule 11"
+  ],
+  "components": [
+   {
+    "component": "Counter",
+    "kind": "component",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "bodyChanged"
+    ],
+    "container": [],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": "class → function component with useState/useEffect"
+   },
+   {
+    "component": "increment",
+    "kind": "method (field) → function",
+    "change": "modified",
+    "flags": [
+     "modifiersChanged",
+     "bodyChanged"
+    ],
+    "container": [
+     "Counter"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   },
+   {
+    "component": "state",
+    "kind": "property",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "Counter"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   },
+   {
+    "component": "componentDidMount",
+    "kind": "method",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "Counter"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   },
+   {
+    "component": "componentDidUpdate",
+    "kind": "method",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "Counter"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   },
+   {
+    "component": "render",
+    "kind": "method",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "Counter"
+    ],
+    "file": "packages/web/src/components/Legacy.tsx",
+    "detail": ""
+   }
+  ],
+  "unchanged": [
+   "ErrorBoundary",
+   "CounterProps"
+  ],
+  "fileLevel": [
+   {
+    "file": "packages/web/src/components/Legacy.tsx",
+    "change": "importChanged",
+    "detail": "adds useEffect, useState"
+   }
+  ],
+  "references": [],
+  "notes": [
+   "The class's `componentDidUpdate` behaviour (logging step changes) is dropped; optimal output notes the behaviour difference."
+  ],
+  "optimal": "`Counter` is rewritten as a function component (state via `useState`, mount logging via `useEffect`); `<Counter step={2} />` still type-checks.",
+  "publicApi": {
+   "packages/web:components/Legacy.d.ts": [
+    "-interface CounterState {",
+    "-    count: number;",
+    "-}",
+    "-/** A class component with state and lifecycle methods. */",
+    "-export declare class Counter extends Component<CounterProps, CounterState> {",
+    "-    state: CounterState;",
+    "-    componentDidMount(): void;",
+    "-    componentDidUpdate(prev: CounterProps): void;",
+    "-    increment: () => void;",
+    "-    render(): import(\"react\").JSX.Element;",
+    "-}",
+    "+/** A counter component (function version of the former class component). */",
+    "+export declare function Counter({ step }: CounterProps): import(\"react\").JSX.Element;"
+   ]
+  }
+ },
+ "K08": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Rename and edit together.",
+  "rules": [
+   "exact-body rename detection does not apply"
+  ],
+  "components": [
+   {
+    "component": "withResource",
+    "kind": "function",
+    "change": "deleted",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   },
+   {
+    "component": "withDisposable",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [
+   "Under exact-body rename detection this is a deletion plus an addition; noting the probable rename is optional."
+  ],
+  "optimal": "`withResource` is replaced by `withDisposable`, whose disposer logs; probably a rename with an edit.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "-export declare function withResource(): {",
+    "+export declare function withDisposable(): {"
+   ]
+  }
+ },
+ "K09": {
+  "primaryFile": "src/functions.ts",
+  "tests": "Overload order swapped.",
+  "rules": [
+   "rule 8"
+  ],
+  "components": [
+   {
+    "component": "pick",
+    "kind": "function (overloaded)",
+    "change": "modified",
+    "flags": [
+     "signatureChanged"
+    ],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "overloads 1 and 2 swapped"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`pick`'s first two overloads swap order (overload resolution order changes; callers here are unaffected).",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+export declare function pick(x: number): number;",
+    "-export declare function pick(x: number): number;"
+   ]
+  }
+ },
+ "K10": {
+  "primaryFile": "src/variables.ts",
+  "tests": "Explicit type annotation added to a const (its literal type widens).",
+  "rules": [
+   "typeChanged"
+  ],
+  "components": [
+   {
+    "component": "LIMIT",
+    "kind": "variable",
+    "change": "modified",
+    "flags": [
+     "typeChanged"
+    ],
+    "container": [],
+    "file": "src/variables.ts",
+    "detail": "type `10` → `number`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`LIMIT` gains a `number` annotation, so its type widens from the literal `10` to `number`.",
+  "publicApi": {
+   ".:src/variables.d.ts": [
+    "-export declare const LIMIT = 10;",
+    "+export declare const LIMIT: number;"
+   ]
+  }
+ },
+ "K11": {
+  "primaryFile": "src/classes.ts",
+  "tests": "One member removed and another added in the same class.",
+  "rules": [
+   "added + deleted members"
+  ],
+  "components": [
+   {
+    "component": "save",
+    "kind": "method",
+    "change": "deleted",
+    "flags": [],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "flush",
+    "kind": "method",
+    "change": "added",
+    "flags": [],
+    "container": [
+     "Cart"
+    ],
+    "file": "src/classes.ts",
+    "detail": ""
+   },
+   {
+    "component": "Cart",
+    "kind": "class",
+    "change": "modified",
+    "flags": [
+     "viaMembers"
+    ],
+    "container": [],
+    "file": "src/classes.ts",
+    "detail": ""
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [],
+  "references": [],
+  "notes": [],
+  "optimal": "`Cart.save` is removed and `Cart.flush` (returns the item count) is added.",
+  "publicApi": {
+   ".:src/classes.d.ts": [
+    "-    save(): Promise<void>;",
+    "+    flush(): Promise<number>;"
+   ]
+  }
+ },
+ "X01": {
+  "primaryFile": "tsconfig.json",
+  "tests": "Compiler option creates errors in untouched code.",
+  "rules": [
+   "configChanged"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "tsconfig.json",
+    "change": "configChanged",
+    "detail": "noUncheckedIndexedAccess: true"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Root tsconfig enables `noUncheckedIndexedAccess`; `report`'s median line (src/functions.ts:83) now fails twice although it is unchanged.",
+  "publicApi": {}
+ },
+ "X02": {
+  "primaryFile": "tsconfig.json",
+  "tests": "Compiler option with no effect on this code.",
+  "rules": [
+   "configChanged"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "tsconfig.json",
+    "change": "configChanged",
+    "detail": "exactOptionalPropertyTypes: true"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "Root tsconfig enables `exactOptionalPropertyTypes`; no new errors.",
+  "publicApi": {}
+ },
+ "X03": {
+  "primaryFile": "package.json",
+  "tests": "Dependency-only change (manifest and lockfile).",
+  "rules": [
+   "configChanged"
+  ],
+  "components": [],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "package.json",
+    "change": "configChanged",
+    "detail": "devDependencies.ms 2.1.3"
+   },
+   {
+    "file": "package-lock.json",
+    "change": "configChanged",
+    "detail": "lockfile entries for ms"
+   }
+  ],
+  "references": [],
+  "notes": [],
+  "optimal": "An unused dev dependency (`ms@2.1.3`) is added; package.json and package-lock.json change, no code does.",
+  "publicApi": {}
+ },
+ "X04": {
+  "primaryFile": "src/index.ts",
+  "tests": "A second `export *` creates an ambiguous exported name.",
+  "rules": [
+   "export * conflicts"
+  ],
+  "components": [
+   {
+    "component": "wrap",
+    "kind": "function",
+    "change": "added",
+    "flags": [],
+    "container": [],
+    "file": "src/functions.ts",
+    "detail": "same name as documented.ts's `wrap`"
+   }
+  ],
+  "unchanged": [],
+  "fileLevel": [
+   {
+    "file": "src/index.ts",
+    "change": "reExportAdded",
+    "detail": "export * from ./documented"
+   }
+  ],
+  "references": [
+   {
+    "symbol": "wrap (documented.ts)",
+    "measuredOnBase": [
+     "src/documented.ts:57 (declaration only; re-exported through export * once this PR adds it)"
+    ]
+   }
+  ],
+  "notes": [],
+  "optimal": "src/functions.ts adds `wrap` and src/index.ts adds `export * from \"./documented\"`, which also exports `wrap`; the barrel (src/index.ts:2) now fails with an ambiguous re-export.",
+  "publicApi": {
+   ".:src/functions.d.ts": [
+    "+/** Same name as documented.ts's export. */",
+    "+export declare function wrap<T>(value: T): T[];"
+   ],
+   ".:src/index.d.ts": [
+    "+export * from \"./documented\";"
+   ]
+  }
  }
 }

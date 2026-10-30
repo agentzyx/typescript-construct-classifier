@@ -1,0 +1,434 @@
+[
+ {
+  "id": "E01",
+  "title": "control: catch block body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "    total -= err instanceof Error ? 1 : 0;",
+    "new": "    total -= err instanceof Error ? 2 : 0;"
+   }
+  ]
+ },
+ {
+  "id": "E02",
+  "title": "control: for-in continue condition",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "    if (key.startsWith(\"_\")) continue;",
+    "new": "    if (key.startsWith(\"$\")) continue;"
+   }
+  ]
+ },
+ {
+  "id": "E03",
+  "title": "control: while/do loop bounds",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  while (i < 3) i++;",
+    "new": "  while (i < 5) i++;"
+   }
+  ]
+ },
+ {
+  "id": "E04",
+  "title": "Container.get: overload added",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  get(fallback: T): T;\n  get(fallback?: T): T {",
+    "new": "  get(fallback: T): T;\n  get(fallback: T, strict: boolean): T;\n  get(fallback?: T, _strict?: boolean): T {"
+   }
+  ]
+ },
+ {
+  "id": "E05",
+  "title": "Container: constructor overload made optional",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  constructor(value: T, label: string);",
+    "new": "  constructor(value: T, label?: string);"
+   }
+  ]
+ },
+ {
+  "id": "E06",
+  "title": "Container: type parameter default added",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export class Container<T> {",
+    "new": "export class Container<T = string> {"
+   }
+  ]
+ },
+ {
+  "id": "E07",
+  "title": "Animal.create: static method body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "    return \"animal\";",
+    "new": "    return \"creature\";"
+   }
+  ]
+ },
+ {
+  "id": "E08",
+  "title": "Animal.speak: optional method becomes abstract",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  speak?(): string;",
+    "new": "  abstract speak(): string;"
+   }
+  ]
+ },
+ {
+  "id": "E09",
+  "title": "Container: protected parameter property becomes public",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "protected label = \"box\"",
+    "new": "public label = \"box\""
+   }
+  ]
+ },
+ {
+  "id": "E10",
+  "title": "Animal.sound: abstract property type widened",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  protected abstract sound: string;",
+    "new": "  protected abstract sound: string | null;"
+   }
+  ]
+ },
+ {
+  "id": "E11",
+  "title": "Pet: interface extends a second interface",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export interface Pet extends Named {",
+    "new": "export interface Pet extends Named, Box<number> {"
+   }
+  ]
+ },
+ {
+  "id": "E12",
+  "title": "Level: only the type half of a value+type pair",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export type Level = (typeof Level)[keyof typeof Level];",
+    "new": "export type Level = keyof typeof Level;"
+   }
+  ]
+ },
+ {
+  "id": "E13",
+  "title": "Level: only the value half of a value+type pair",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export const Level = { low: 1, high: 2 } as const;",
+    "new": "export const Level = { low: 1, high: 2, critical: 3 } as const;"
+   }
+  ]
+ },
+ {
+  "id": "E14",
+  "title": "exported import alias retargeted",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export import InnerAlias = Geo.Inner;",
+    "new": "export import InnerAlias = Geo;"
+   }
+  ]
+ },
+ {
+  "id": "E15",
+  "title": "triple-slash reference removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "/// <reference path=\"./ambient.d.ts\" />\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "E16",
+  "title": "top-level await expression",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "await Promise.resolve();",
+    "new": "await Promise.resolve(1);"
+   }
+  ]
+ },
+ {
+  "id": "E17",
+  "title": "await using: async disposer body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  await using res = { async [Symbol.asyncDispose]() {} };",
+    "new": "  await using res = { async [Symbol.asyncDispose]() { console.log(\"closed\"); } };"
+   }
+  ]
+ },
+ {
+  "id": "E18",
+  "title": "const type parameter modifier removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "identityConst<const T extends",
+    "new": "identityConst<T extends"
+   }
+  ]
+ },
+ {
+  "id": "E19",
+  "title": "declare enum member value",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  One = 1,\n}",
+    "new": "  One = 2,\n}"
+   }
+  ]
+ },
+ {
+  "id": "E20",
+  "title": "variance annotation in -> out",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export interface Box<in out T> {",
+    "new": "export interface Box<out T> {"
+   }
+  ]
+ },
+ {
+  "id": "E21",
+  "title": "interface getter type widened",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  get size(): number;",
+    "new": "  get size(): number | undefined;"
+   }
+  ]
+ },
+ {
+  "id": "E22",
+  "title": "named tuple element type",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "[first: string, second?: number, ...rest: boolean[]]",
+    "new": "[first: string, second?: bigint, ...rest: boolean[]]"
+   }
+  ]
+ },
+ {
+  "id": "E23",
+  "title": "intersection type gains a member",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export type Both = { a: number } & { b: string };",
+    "new": "export type Both = { a: number } & { b: string } & { c: boolean };"
+   }
+  ]
+ },
+ {
+  "id": "E24",
+  "title": "typeof type query target",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export type KOf = typeof Geo.Inner.k;",
+    "new": "export type KOf = typeof Geo.dist;"
+   }
+  ]
+ },
+ {
+  "id": "E25",
+  "title": "import() type target",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "import(\"./types\").User;",
+    "new": "import(\"./types\").Callable;"
+   }
+  ]
+ },
+ {
+  "id": "E26",
+  "title": "regular expression flags",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "/^[a-z]+\\d*$/gi;",
+    "new": "/^[a-z]+\\d*$/g;"
+   }
+  ]
+ },
+ {
+  "id": "E27",
+  "title": "bigint literal",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export const big: bigint = 10n;",
+    "new": "export const big: bigint = 20n;"
+   }
+  ]
+ },
+ {
+  "id": "E28",
+  "title": "delete expression removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  delete copy.b;\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "E29",
+  "title": "new.target guard message",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "throw new Error(\"use new\");",
+    "new": "throw new TypeError(\"Legacy must be called with new\");"
+   }
+  ]
+ },
+ {
+  "id": "E30",
+  "title": "debugger statement removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  if (flag) debugger;\n",
+    "new": ""
+   }
+  ]
+ },
+ {
+  "id": "E31",
+  "title": "empty statement removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  }\n  ;\n  return total;",
+    "new": "  }\n  return total;"
+   }
+  ]
+ },
+ {
+  "id": "E32",
+  "title": "JSX namespaced attribute value",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/view.tsx",
+    "old": "<use xlink:href=\"#icon\" />",
+    "new": "<use xlink:href=\"#logo\" />"
+   }
+  ]
+ },
+ {
+  "id": "E33",
+  "title": "JSON module key renamed (non-TS file breaks TS)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/data.json",
+    "old": "\"name\": \"fixture\"",
+    "new": "\"title\": \"fixture\""
+   }
+  ]
+ },
+ {
+  "id": "E34",
+  "title": "decorator argument only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  @tag(\"v1\")",
+    "new": "  @tag(\"v2\")"
+   }
+  ]
+ },
+ {
+  "id": "E35",
+  "title": "left and right swap bodies",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "export function left(n: number): number {\n  return n - 1;\n}\n\nexport function right(n: number): number {\n  return n + 1;\n}",
+    "new": "export function left(n: number): number {\n  return n + 1;\n}\n\nexport function right(n: number): number {\n  return n - 1;\n}"
+   }
+  ]
+ },
+ {
+  "id": "E36",
+  "title": "unique symbol description",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "Symbol(\"token\")",
+    "new": "Symbol(\"token-v2\")"
+   }
+  ]
+ }
+]

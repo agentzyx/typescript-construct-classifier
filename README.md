@@ -12,5 +12,5 @@ affects.
   compare with the recorded errors), `render_prs.py` (index and PR descriptions).
 - `.github/workflows/fixture-errors.yml` — runs `check_pr.py` on every PR head and on `main`.
 
-Requirements: Node.js. `npm ci --ignore-scripts` installs TypeScript 7.0.2 and the React packages; compile with
-`npx tsc -p .`, `npx tsc -p legacy`, `npx tsc -p packages/web`.
+Requirements: Node.js. `npm ci --ignore-scripts` installs TypeScript 7.0.2, the React packages and the workspace package
+`@fixture/shared`; compile with `npx tsc -p .`, `npx tsc -p legacy`, `npx tsc -p packages/web`, `npx tsc -p packages/shared`.

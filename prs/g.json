@@ -1,0 +1,257 @@
+[
+ {
+  "id": "G01",
+  "title": "stale base: edit plain on a branch cut before main moved",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const sum = a + b;\n",
+    "new": "  const sum = a + b + 1;\n"
+   }
+  ],
+  "base": "A"
+ },
+ {
+  "id": "G02",
+  "title": "multi-commit: add triple, then adjust it, then document it",
+  "ops": [],
+  "commits": [
+   [
+    {
+     "op": "replace",
+     "file": "src/functions.ts",
+     "old": "/** Clamps negative numbers to zero. */",
+     "new": "export function triple(n: number): number {\n  return n * 3;\n}\n\n/** Clamps negative numbers to zero. */"
+    }
+   ],
+   [
+    {
+     "op": "replace",
+     "file": "src/functions.ts",
+     "old": "  return n * 3;\n}\n\n/** Clamps",
+     "new": "  return n * 3 + 0;\n}\n\n/** Clamps"
+    }
+   ],
+   [
+    {
+     "op": "replace",
+     "file": "src/functions.ts",
+     "old": "export function triple(n: number): number {",
+     "new": "/**\n * Triples a number.\n *\n * @param n - the value\n */\nexport function triple(n: number): number {"
+    }
+   ]
+  ]
+ },
+ {
+  "id": "G03",
+  "title": "multi-commit: change load, revert it, change identity",
+  "ops": [],
+  "commits": [
+   [
+    {
+     "op": "replace",
+     "file": "src/functions.ts",
+     "old": "export async function load(id: string): Promise<string> {\n  return id;",
+     "new": "export async function load(id: string): Promise<string> {\n  return id.toUpperCase();"
+    }
+   ],
+   [
+    {
+     "op": "replace",
+     "file": "src/functions.ts",
+     "old": "  return id.toUpperCase();",
+     "new": "  return id;"
+    }
+   ],
+   [
+    {
+     "op": "replace",
+     "file": "src/functions.ts",
+     "old": "export function identity<T extends object>(v: T): T {\n  return v;",
+     "new": "export function identity<T extends object>(v: T): T {\n  return Object.freeze(v);"
+    }
+   ]
+  ]
+ },
+ {
+  "id": "G04",
+  "title": "stacked on S12: update the importers (fixes S12's errors)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/App.tsx",
+    "old": "import { useCounter } from \"./hooks/useCart\";",
+    "new": "import { useTally as useCounter } from \"./hooks/useCart\";"
+   },
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/Price.tsx",
+    "old": "import { useCounter } from \"@/hooks/useCart\";",
+    "new": "import { useTally as useCounter } from \"@/hooks/useCart\";"
+   }
+  ],
+  "base": "pr/S12"
+ },
+ {
+  "id": "G05",
+  "title": "stacked on E01: another change to the same function",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  } finally {\n    total += 0;",
+    "new": "  } finally {\n    total += 1;"
+   }
+  ],
+  "base": "pr/E01"
+ },
+ {
+  "id": "G06",
+  "title": "merge conflict: edit display on a branch cut before main changed it",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  return n.toFixed(2);\n}",
+    "new": "  return n.toFixed(3);\n}"
+   }
+  ],
+  "base": "A"
+ },
+ {
+  "id": "G07",
+  "title": "case-only rename: src/nonewline.ts -> src/NoNewline.ts",
+  "ops": [
+   {
+    "op": "gitmv",
+    "from": "src/nonewline.ts",
+    "to": "src/NoNewline.ts"
+   }
+  ]
+ },
+ {
+  "id": "G08",
+  "title": "file mode only: src/tabs.ts made executable",
+  "ops": [
+   {
+    "op": "chmod",
+    "file": "src/tabs.ts",
+    "mode": "755"
+   }
+  ]
+ },
+ {
+  "id": "G09",
+  "title": "symlink added: docs/LATEST.md -> README.md",
+  "ops": [
+   {
+    "op": "symlink",
+    "file": "docs/LATEST.md",
+    "target": "README.md"
+   }
+  ]
+ },
+ {
+  "id": "G10",
+  "title": "empty PR (commit with no changes)",
+  "ops": [],
+  "allowEmpty": true
+ },
+ {
+  "id": "G11",
+  "title": "path with a space and non-ASCII characters",
+  "ops": [
+   {
+    "op": "create",
+    "file": "src/with space/naïve file.ts",
+    "content": "/** Lives at a path with a space and non-ASCII characters. */\nexport function oddPath(): string {\n  return \"ok\";\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "G12",
+  "title": "column-0 lines that look like diff headers (--ticks becomes ++ticks)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "--ticks;\n++ticks;\n",
+    "new": "++ticks;\n++ticks;\n"
+   }
+  ]
+ },
+ {
+  "id": "G13",
+  "title": "301 new files (beyond the 300-file diff view limit)",
+  "ops": [
+   {
+    "op": "createMany",
+    "dir": "src/many",
+    "count": 301
+   }
+  ]
+ },
+ {
+  "id": "G14",
+  "title": "trailing whitespace only",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  const count = values.length;\n  const sum = values.reduce((a, b) => a + b, 0);",
+    "new": "  const count = values.length;   \n  const sum = values.reduce((a, b) => a + b, 0);\t"
+   }
+  ]
+ },
+ {
+  "id": "G15",
+  "title": "line endings converted LF -> CRLF for a whole file",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/strings.ts",
+    "old": "export function sql() {\n  const q = `\nSELECT id\nFROM users\nWHERE active = 1\n`;\n  return q;\n}\n\nconst tag = (s: TemplateStringsArray, ...v: unknown[]) => s.join(\"|\") + v.length;\nexport const tagged = tag`a${1}b`;\n",
+    "new": "export function sql() {\r\n  const q = `\r\nSELECT id\r\nFROM users\r\nWHERE active = 1\r\n`;\r\n  return q;\r\n}\r\n\r\nconst tag = (s: TemplateStringsArray, ...v: unknown[]) => s.join(\"|\") + v.length;\r\nexport const tagged = tag`a${1}b`;\r\n"
+   }
+  ]
+ },
+ {
+  "id": "G16",
+  "title": "mass reformat: src/variables.ts re-indented to 4 spaces",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "export const LIMIT = 10;\nexport let counterVar = 0, step = 2;\n\nexport const fmt = (x: unknown): string => {\n  return String(x);\n};\n\nexport const legacyFn = function named(n: number) {\n  return n * 2;\n};\n\nexport const api = {\n  base: \"/api\",\n  get(url: string) {\n    return fetch(this.base + url);\n  },\n  post: async (url: string) => {\n    return fetch(url, { method: \"POST\" });\n  },\n  get version() {\n    return 1;\n  },\n  [\"computed\" + \"Key\"]: () => 1,\n};\n\nexport const { a: alpha, b: beta } = { a: 1, b: 2 };\nexport const config = { mode: \"dev\" } satisfies Record<string, string>;\nexport const tuple = [1, 2] as const;\n\nfunction withRetry<T extends (...args: any[]) => Promise<unknown>>(fn: T): T {\n  return fn;\n}\n\nexport const fetchUser = withRetry(async (id: number) => {\n  return { id, name: \"user\" + id };\n});\n",
+    "new": "export const LIMIT = 10;\nexport let counterVar = 0, step = 2;\n\nexport const fmt = (x: unknown): string => {\n    return String(x);\n};\n\nexport const legacyFn = function named(n: number) {\n    return n * 2;\n};\n\nexport const api = {\n    base: \"/api\",\n    get(url: string) {\n        return fetch(this.base + url);\n    },\n    post: async (url: string) => {\n        return fetch(url, { method: \"POST\" });\n    },\n    get version() {\n        return 1;\n    },\n    [\"computed\" + \"Key\"]: () => 1,\n};\n\nexport const { a: alpha, b: beta } = { a: 1, b: 2 };\nexport const config = { mode: \"dev\" } satisfies Record<string, string>;\nexport const tuple = [1, 2] as const;\n\nfunction withRetry<T extends (...args: any[]) => Promise<unknown>>(fn: T): T {\n    return fn;\n}\n\nexport const fetchUser = withRetry(async (id: number) => {\n    return { id, name: \"user\" + id };\n});\n"
+   }
+  ]
+ },
+ {
+  "id": "G17",
+  "title": "draft PR: report label change",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "    `median: ${median}`,",
+    "new": "    `middle: ${median}`,"
+   }
+  ],
+  "draft": true
+ },
+ {
+  "id": "G18",
+  "title": "closed (unmerged) PR: display padding",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "  return n.toFixed(2).padStart(8);",
+    "new": "  return n.toFixed(2).padStart(10);"
+   }
+  ],
+  "closed": true
+ }
+]

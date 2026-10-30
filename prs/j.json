@@ -1,0 +1,194 @@
+[
+ {
+  "id": "J01",
+  "title": "@template constrained",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": " * Picks the first element.\n * @template T\n",
+    "new": " * Picks the first element.\n * @template {string} T\n"
+   }
+  ]
+ },
+ {
+  "id": "J02",
+  "title": "@overload added",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": "/**\n * @param {string | number} value\n * @returns {string | number}\n */\nexport function echo(value) {",
+    "new": "/**\n * @overload\n * @param {boolean} value\n * @returns {boolean}\n */\n/**\n * @param {string | number | boolean} value\n * @returns {string | number | boolean}\n */\nexport function echo(value) {"
+   }
+  ]
+ },
+ {
+  "id": "J03",
+  "title": "@property type in @typedef",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": " * @property {number} x - horizontal position",
+    "new": " * @property {string} x - horizontal position"
+   }
+  ]
+ },
+ {
+  "id": "J04",
+  "title": "@satisfies target",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": "/** @satisfies {Point} */",
+    "new": "/** @satisfies {{ x: number }} */"
+   }
+  ]
+ },
+ {
+  "id": "J05",
+  "title": "@import of a missing name",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": "/** @import { Item } from \"./plain.js\" */",
+    "new": "/** @import { Mapper } from \"./plain.js\" */"
+   }
+  ]
+ },
+ {
+  "id": "J06",
+  "title": "@implements type argument",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": "/** @implements {Iterable<number>} */",
+    "new": "/** @implements {Iterable<string>} */"
+   }
+  ]
+ },
+ {
+  "id": "J07",
+  "title": "@readonly removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": "  /** @readonly */\n  start = 0;",
+    "new": "  start = 0;"
+   }
+  ]
+ },
+ {
+  "id": "J08",
+  "title": "@this type",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": " * @this {{ factor: number }}",
+    "new": " * @this {{ factor: string }}"
+   }
+  ]
+ },
+ {
+  "id": "J09",
+  "title": "{@linkcode} target in @see",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": " * @see {@linkcode last} for the opposite end",
+    "new": " * @see {@linkcode echo} for the opposite end"
+   }
+  ]
+ },
+ {
+  "id": "J10",
+  "title": "nullable JSDoc type made non-nullable",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": " * @param {?number} maybe - nullable",
+    "new": " * @param {number} maybe - nullable"
+   }
+  ]
+ },
+ {
+  "id": "J11",
+  "title": ".jsx component attribute",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/widget.jsx",
+    "old": "<button class=\"widget\">",
+    "new": "<button class=\"widget primary\">"
+   }
+  ]
+ },
+ {
+  "id": "J12",
+  "title": "CommonJS module.exports drops a name",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/legacy-cjs.cjs",
+    "old": "module.exports = { add, negate };",
+    "new": "module.exports = { add };"
+   }
+  ]
+ },
+ {
+  "id": "J13",
+  "title": "CommonJS require binding changed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/uses-cjs.cjs",
+    "old": "const { add } = require(\"./legacy-cjs.cjs\");\n\n/** @param {number} n */\nfunction addOne(n) {\n  return add(n, 1);",
+    "new": "const { add, negate } = require(\"./legacy-cjs.cjs\");\n\n/** @param {number} n */\nfunction addOne(n) {\n  return negate(add(n, 1));"
+   }
+  ]
+ },
+ {
+  "id": "J14",
+  "title": ".mts function body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/esm.mts",
+    "old": "  return x * 2;",
+    "new": "  return x * 3;"
+   }
+  ]
+ },
+ {
+  "id": "J15",
+  "title": ".cts function body",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/cjs.cts",
+    "old": "  return x + 2;",
+    "new": "  return x + 3;"
+   }
+  ]
+ },
+ {
+  "id": "J16",
+  "title": "@override removed",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "js/jsdoc-full.js",
+    "old": "  /** @override */\n  greet() {\n    return \"derived\";",
+    "new": "  greet() {\n    return \"derived\";"
+   }
+  ]
+ }
+]

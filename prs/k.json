@@ -1,0 +1,161 @@
+[
+ {
+  "id": "K01",
+  "title": "extract function: toMajor from formatPrice",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/shared/src/index.ts",
+    "old": "export function formatPrice(money: Money): string {\n  return `${(money.cents / 100).toFixed(2)} ${money.currency}`;\n}",
+    "new": "export function formatPrice(money: Money): string {\n  return `${toMajor(money.cents)} ${money.currency}`;\n}\n\n/** Converts minor units to a major-unit string. */\nexport function toMajor(cents: number): string {\n  return (cents / 100).toFixed(2);\n}"
+   }
+  ]
+ },
+ {
+  "id": "K02",
+  "title": "inline function: internalHelper inlined into inner",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "function internalHelper() {\n  return 42;\n}\n\n",
+    "new": ""
+   },
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "    return internalHelper();",
+    "new": "    return 42;"
+   }
+  ]
+ },
+ {
+  "id": "K03",
+  "title": "split file: Basket moved to src/basket.ts",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/documented.ts",
+    "old": "/**\n * A shopping basket that tracks item counts.\n *\n * @remarks\n * Counts are kept per SKU; adding the same SKU twice increments its count.\n *\n * @example\n * const b = new Basket();\n * b.add(\"sku-1\");\n */\nexport class Basket {\n  /** Item counts keyed by SKU. */\n  private counts = new Map<string, number>();\n\n  /**\n   * Adds one unit of a SKU.\n   *\n   * @param sku - the stock-keeping unit to add\n   * @returns the new count for `sku`\n   */\n  add(sku: string): number {\n    const next = (this.counts.get(sku) ?? 0) + 1;\n    this.counts.set(sku, next);\n    return next;\n  }\n\n  /**\n   * Total number of units across all SKUs.\n   */\n  get total(): number {\n    let sum = 0;\n    for (const c of this.counts.values()) sum += c;\n    return sum;\n  }\n}\n\n",
+    "new": ""
+   },
+   {
+    "op": "create",
+    "file": "src/basket.ts",
+    "content": "/**\n * A shopping basket that tracks item counts.\n *\n * @remarks\n * Counts are kept per SKU; adding the same SKU twice increments its count.\n *\n * @example\n * const b = new Basket();\n * b.add(\"sku-1\");\n */\nexport class Basket {\n  /** Item counts keyed by SKU. */\n  private counts = new Map<string, number>();\n\n  /**\n   * Adds one unit of a SKU.\n   *\n   * @param sku - the stock-keeping unit to add\n   * @returns the new count for `sku`\n   */\n  add(sku: string): number {\n    const next = (this.counts.get(sku) ?? 0) + 1;\n    this.counts.set(sku, next);\n    return next;\n  }\n\n  /**\n   * Total number of units across all SKUs.\n   */\n  get total(): number {\n    let sum = 0;\n    for (const c of this.counts.values()) sum += c;\n    return sum;\n  }\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "K04",
+  "title": "merge files: noNewline moved into src/tabs.ts",
+  "ops": [
+   {
+    "op": "delete",
+    "file": "src/nonewline.ts"
+   },
+   {
+    "op": "replace",
+    "file": "src/tabs.ts",
+    "old": "\treturn t;\n}\n",
+    "new": "\treturn t;\n}\n\nexport function noNewline() {\n  return 1;\n}\n"
+   }
+  ]
+ },
+ {
+  "id": "K05",
+  "title": "move method between classes: create from Animal to Container",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  static create(): string {\n    return \"animal\";\n  }\n",
+    "new": ""
+   },
+   {
+    "op": "replace",
+    "file": "src/syntax.ts",
+    "old": "  self(): this {",
+    "new": "  static create(): string {\n    return \"animal\";\n  }\n\n  self(): this {"
+   }
+  ]
+ },
+ {
+  "id": "K06",
+  "title": "function declaration converted to an arrow function",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/esm.mts",
+    "old": "export function esmOnly(x: number): number {\n  return x * 2;\n}",
+    "new": "export const esmOnly = (x: number): number => {\n  return x * 2;\n};"
+   }
+  ]
+ },
+ {
+  "id": "K07",
+  "title": "React: class component converted to a function component",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/Legacy.tsx",
+    "old": "/** A class component with state and lifecycle methods. */\nexport class Counter extends Component<CounterProps, CounterState> {\n  state: CounterState = { count: 0 };\n\n  componentDidMount() {\n    console.log(\"mounted\");\n  }\n\n  componentDidUpdate(prev: CounterProps) {\n    if (prev.step !== this.props.step) console.log(\"step changed\");\n  }\n\n  increment = () => {\n    this.setState((s) => ({ count: s.count + this.props.step }));\n  };\n\n  render() {\n    return <button onClick={this.increment}>{this.state.count}</button>;\n  }\n}\n\n",
+    "new": "/** A counter component (function version of the former class component). */\nexport function Counter({ step }: CounterProps) {\n  const [count, setCount] = useState(0);\n  useEffect(() => {\n    console.log(\"mounted\");\n  }, []);\n  const increment = () => {\n    setCount((c) => c + step);\n  };\n  return <button onClick={increment}>{count}</button>;\n}\n\n"
+   },
+   {
+    "op": "replace",
+    "file": "packages/web/src/components/Legacy.tsx",
+    "old": "import { Component, type ErrorInfo, type ReactNode } from \"react\";",
+    "new": "import { Component, useEffect, useState, type ErrorInfo, type ReactNode } from \"react\";"
+   }
+  ]
+ },
+ {
+  "id": "K08",
+  "title": "rename and edit: withResource -> withDisposable",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function withResource() {\n  using res = { [Symbol.dispose]() {} };",
+    "new": "export function withDisposable() {\n  using res = { [Symbol.dispose]() { console.log(\"done\"); } };"
+   }
+  ]
+ },
+ {
+  "id": "K09",
+  "title": "overload order swapped",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/functions.ts",
+    "old": "export function pick(x: string): string;\nexport function pick(x: number): number;",
+    "new": "export function pick(x: number): number;\nexport function pick(x: string): string;"
+   }
+  ]
+ },
+ {
+  "id": "K10",
+  "title": "type annotation added to a variable (literal type widens)",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/variables.ts",
+    "old": "export const LIMIT = 10;",
+    "new": "export const LIMIT: number = 10;"
+   }
+  ]
+ },
+ {
+  "id": "K11",
+  "title": "same class: one member removed, another added",
+  "ops": [
+   {
+    "op": "replace",
+    "file": "src/classes.ts",
+    "old": "  async save(): Promise<void> {}",
+    "new": "  async flush(): Promise<number> {\n    return this.items.length;\n  }"
+   }
+  ]
+ }
+]

@@ -164,4 +164,94 @@ R34   ThemeProvider: React 19 <Ctx value> -> <Ctx.Provider value>  none
 R35   useField optimistic reducer param type string -> number      none
 R36   remove TSDoc from CartView (exported component)              none
 R37   Counter.increment class-field arrow body (rule 13)           none
-base clean after run: True
+E01   control: catch block body                                    none
+E02   control: for-in continue condition                           none
+E03   control: while/do loop bounds                                none
+E04   Container.get: overload added                                none
+E05   Container: constructor overload made optional                none
+E06   Container: type parameter default added                      none
+E07   Animal.create: static method body                            none
+E08   Animal.speak: optional method becomes abstract               none
+E09   Container: protected parameter property becomes public       none
+E10   Animal.sound: abstract property type widened                 none
+E11   Pet: interface extends a second interface                    none
+E12   Level: only the type half of a value+type pair               none
+E13   Level: only the value half of a value+type pair              none
+E14   exported import alias retargeted                             none
+E15   triple-slash reference removed                               none
+E16   top-level await expression                                   none
+E17   await using: async disposer body                             none
+E18   const type parameter modifier removed                        none
+E19   declare enum member value                                    src/syntax.ts:34 TS2322
+E20   variance annotation in -> out                                none
+E21   interface getter type widened                                none
+E22   named tuple element type                                     none
+E23   intersection type gains a member                             none
+E24   typeof type query target                                     none
+E25   import() type target                                         none
+E26   regular expression flags                                     none
+E27   bigint literal                                               none
+E28   delete expression removed                                    none
+E29   new.target guard message                                     none
+E30   debugger statement removed                                   none
+E31   empty statement removed                                      none
+E32   JSX namespaced attribute value                               none
+E33   JSON module key renamed (non-TS file breaks TS)              src/syntax.ts:19 TS2339
+E34   decorator argument only                                      none
+E35   left and right swap bodies                                   none
+E36   unique symbol description                                    none
+J01   @template constrained                                        none
+J02   @overload added                                              none
+J03   @property type in @typedef                                   js/jsdoc-full.js:64 TS2322
+J04   @satisfies target                                            js/jsdoc-full.js:64 TS2353
+J05   @import of a missing name                                    js/jsdoc-full.js:105 TS2304
+J06   @implements type argument                                    js/jsdoc-full.js:76 TS2416
+J07   @readonly removed                                            none
+J08   @this type                                                   js/jsdoc-full.js:102 TS2363
+J09   {@linkcode} target in @see                                   none
+J10   nullable JSDoc type made non-nullable                        none
+J11   .jsx component attribute                                     none
+J12   CommonJS module.exports drops a name                         none
+J13   CommonJS require binding changed                             none
+J14   .mts function body                                           none
+J15   .cts function body                                           none
+J16   @override removed                                            none
+W01   shared formatPrice: required parameter added (breaks another packages/web/src/components/Price.tsx:9 TS2554
+W02   shared Money field renamed                                   packages/shared/src/index.ts:14 TS2339 packages/shared/src/index.ts:14 TS2339
+W03   shared: new export added                                     none
+W04   web: alias import rewritten as a relative import             none
+W05   web tsconfig: alias remapped (config breaks an import)       packages/web/src/components/Price.tsx:2 TS2307
+S12   useCounter renamed to useTally without updating importers    packages/web/src/App.tsx:14 TS2305 packages/web/src/components/Price.tsx:2 TS2305
+G01   stale base: edit plain on a branch cut before main moved     none
+G02   multi-commit: add triple, then adjust it, then document it   none
+G03   multi-commit: change load, revert it, change identity        none
+G04   stacked on S12: update the importers (fixes S12's errors)    none
+G05   stacked on E01: another change to the same function          none
+G06   merge conflict: edit display on a branch cut before main cha none
+G07   case-only rename: src/nonewline.ts -> src/NoNewline.ts       none
+G08   file mode only: src/tabs.ts made executable                  none
+G09   symlink added: docs/LATEST.md -> README.md                   none
+G10   empty PR (commit with no changes)                            none
+G11   path with a space and non-ASCII characters                   none
+G12   column-0 lines that look like diff headers (--ticks becomes  none
+G13   301 new files (beyond the 300-file diff view limit)          none
+G14   trailing whitespace only                                     none
+G15   line endings converted LF -> CRLF for a whole file           none
+G16   mass reformat: src/variables.ts re-indented to 4 spaces      none
+G17   draft PR: report label change                                none
+G18   closed (unmerged) PR: display padding                        none
+K01   extract function: toMajor from formatPrice                   none
+K02   inline function: internalHelper inlined into inner           none
+K03   split file: Basket moved to src/basket.ts                    none
+K04   merge files: noNewline moved into src/tabs.ts                none
+K05   move method between classes: create from Animal to Container none
+K06   function declaration converted to an arrow function          none
+K07   React: class component converted to a function component     none
+K08   rename and edit: withResource -> withDisposable              none
+K09   overload order swapped                                       none
+K10   type annotation added to a variable (literal type widens)    none
+K11   same class: one member removed, another added                none
+X01   tsconfig: noUncheckedIndexedAccess (errors in unchanged code src/functions.ts:83 TS2532 src/functions.ts:83 TS2532
+X02   tsconfig: exactOptionalPropertyTypes                         none
+X03   dependency only: unused devDependency ms@2.1.3 added (packag none
+X04   barrel: second export * creates an ambiguous name            src/index.ts:2 TS2308
