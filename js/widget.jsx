@@ -3,5 +3,5 @@
  * @param {{ label: string }} props
  */
 export function Widget(props) {
-  return <button class="widget">{props.label}</button>;
+  return <button class="widget primary">{props.label}</button>;
 }
