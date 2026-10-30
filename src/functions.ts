@@ -43,7 +43,7 @@ export function outer() {
   function inner() {
     return internalHelper();
   }
-  const viaArrow = () => inner();
+  const viaArrow = () => inner() * 2;
   return viaArrow();
 }
 
