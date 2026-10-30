@@ -1,3 +1,3 @@
 export function crlf() {
-  return 1;
+  return 2;
 }
