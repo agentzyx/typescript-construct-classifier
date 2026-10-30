@@ -64,6 +64,6 @@ export const Anon = class {
 
 export function Timestamped<B extends new (...a: any[]) => object>(Base: B) {
   return class extends Base {
-    ts = Date.now();
+    ts = Date.now() + 1;
   };
 }
