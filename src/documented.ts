@@ -61,7 +61,6 @@ export function wrap<T>(value: T): T[] {
 /**
  * Squares a number.
  *
- * @deprecated Use {@link power} with `exp = 2` instead.
  * @param n - the value to square
  */
 export function oldSquare(n: number): number {
