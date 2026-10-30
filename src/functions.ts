@@ -1,6 +1,6 @@
 export function plain(a: number, b: number): number {
-  const sum = a + b;
-  return sum;
+    const sum = a + b;
+    return sum;
 }
 
 export async function load(id: string): Promise<string> {
