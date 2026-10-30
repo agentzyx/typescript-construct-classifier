@@ -54,7 +54,7 @@ export function withResource() {
 
 // Formats a number for display with two decimals.
 export function display(n: number) {
-  return n.toFixed(2);
+  return n.toFixed(3);
 }
 
 /**
