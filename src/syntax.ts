@@ -82,7 +82,7 @@ export function Legacy(this: unknown) {
 export function control(values: Record<string, number>): number {
   let total = 0;
   for (const key in values) {
-    if (key.startsWith("_")) continue;
+    if (key.startsWith("$")) continue;
     total += values[key] ?? 0;
   }
   let i = 0;
