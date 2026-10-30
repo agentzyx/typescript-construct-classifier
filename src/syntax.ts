@@ -71,7 +71,7 @@ export class Container<T> {
   };
 }
 
-export function identityConst<const T extends readonly unknown[]>(items: T): T {
+export function identityConst<T extends readonly unknown[]>(items: T): T {
   return items;
 }
 
