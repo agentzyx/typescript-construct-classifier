@@ -35,7 +35,7 @@ export function CartView({ initial, title = "Cart" }: CartViewProps) {
 
   return (
     <>
-      {/* heading and close button */}
+      {/* title row */}
       <h2 className={styles.cart}>{title}</h2>
       <button onClick={() => setOpen(false)}>close</button>
       {items.length === 0 ? (
