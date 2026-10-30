@@ -1,5 +1,5 @@
 /**
- * @typedef {{ id: number, label: string }} Item
+ * @typedef {{ id: number, label: string, note?: string }} Item
  */
 
 /**
