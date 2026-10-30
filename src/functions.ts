@@ -63,7 +63,7 @@ export function display(n: number) {
  */
 export function square(n: number) {
   // multiply rather than Math.pow for speed
-  return n * n;
+  return n ** 2;
 }
 
 export function doubled(xs: number[]) {
