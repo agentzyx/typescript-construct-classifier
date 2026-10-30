@@ -53,6 +53,7 @@ export function power(base: number, exp: number): number {
  * @typeParam T - the element type
  * @param value - the value to wrap
  * @returns a one-element array containing `value`
+ * @internal
  */
 export function wrap<T>(value: T): T[] {
   return [value];
