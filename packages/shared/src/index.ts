@@ -1,6 +1,6 @@
 /** An amount of money in minor units (cents). */
 export interface Money {
-  cents: number;
+  amountCents: number;
   currency: string;
 }
 
