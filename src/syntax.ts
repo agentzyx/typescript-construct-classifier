@@ -55,7 +55,7 @@ export abstract class Animal {
   speak?(): string;
 }
 
-export class Container<T> {
+export class Container<T = string> {
   constructor(value: T);
   constructor(value: T, label: string);
   constructor(private value: T, protected label = "box") {}
