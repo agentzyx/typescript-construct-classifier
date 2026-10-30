@@ -1,5 +1,5 @@
 export interface Store {
-  get(id: number): string;
+  get(id: string): string;
 }
 
 export class DbStore implements Store {
