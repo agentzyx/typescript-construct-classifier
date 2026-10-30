@@ -28,7 +28,7 @@ export enum Color {
 }
 
 export const enum Dir {
-  Up = 1,
+  Up = 10,
   Down,
 }
 
