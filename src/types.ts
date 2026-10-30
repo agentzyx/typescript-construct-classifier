@@ -37,7 +37,7 @@ export namespace Geo {
     return Math.abs(a - b);
   }
   export namespace Inner {
-    export const k = 1;
+    export const k = 2;
   }
 }
 
