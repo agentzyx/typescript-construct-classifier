@@ -1,7 +1,7 @@
 export interface User {
   id: number;
   name: string;
-  greet(msg: string): string;
+  greet(msg: string, loud?: boolean): string;
   readonly tags?: string[];
 }
 
