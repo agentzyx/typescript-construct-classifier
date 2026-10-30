@@ -1,2 +1,2 @@
-import helper = require("./util");
-export const v = helper();
+import helperFn = require("./util");
+export const v = helperFn();
