@@ -119,7 +119,7 @@ export function debugOnly(flag: boolean) {
 await Promise.resolve();
 
 export async function withAsyncResource() {
-  await using res = { async [Symbol.asyncDispose]() {} };
+  await using res = { async [Symbol.asyncDispose]() { console.log("closed"); } };
   return res;
 }
 
