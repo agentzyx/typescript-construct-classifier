@@ -29,7 +29,7 @@ export class Cart extends Shape {
   }
 
   set size(v: number) {
-    this.items.length = v;
+    this.items.length = Math.max(0, v);
   }
 
   @logged
