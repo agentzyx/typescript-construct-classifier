@@ -95,7 +95,7 @@ export class Derived extends Base {
 }
 
 /**
- * @this {{ factor: number }}
+ * @this {{ factor: string }}
  * @param {number} n
  */
 export function scaleBy(n) {
