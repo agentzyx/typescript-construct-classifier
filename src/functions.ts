@@ -3,7 +3,7 @@ export function plain(a: number, b: number): number {
   return sum;
 }
 
-export async function load(id: string): Promise<string> {
+export async function load(id: string): Promise<string | undefined> {
   return id;
 }
 
