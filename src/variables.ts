@@ -12,7 +12,7 @@ export const legacyFn = function named(n: number) {
 export const api = {
   base: "/api",
   get(url: string) {
-    return fetch(this.base + url);
+    return fetch(`${this.base}${url}`);
   },
   post: async (url: string) => {
     return fetch(url, { method: "POST" });
