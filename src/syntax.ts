@@ -95,7 +95,7 @@ export function control(values: Record<string, number>): number {
   } catch (err) {
     total -= err instanceof Error ? 2 : 0;
   } finally {
-    total += 0;
+    total += 1;
   }
   ;
   return total;
