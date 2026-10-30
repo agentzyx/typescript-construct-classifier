@@ -31,7 +31,7 @@ export function isString(v: unknown): v is string {
   return typeof v === "string";
 }
 
-export function withThis(this: { n: number }, k = 1, ...rest: number[]) {
+export function withContext(this: { n: number }, k = 1, ...rest: number[]) {
   return this.n + k + rest.length;
 }
 
