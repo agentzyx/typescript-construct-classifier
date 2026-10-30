@@ -23,7 +23,7 @@ export const api = {
   ["computed" + "Key"]: () => 1,
 };
 
-export const { a: alpha, b: beta } = { a: 1, b: 2 };
+export const { a: alpha, b: beta } = { a: 1, b: 3 };
 export const config = { mode: "dev" } satisfies Record<string, string>;
 export const tuple = [1, 2] as const;
 
