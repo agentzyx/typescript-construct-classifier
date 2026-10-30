@@ -15,7 +15,7 @@ export const ThemeContext = createContext<Theme>({ color: "black", dense: false 
  * @param props - the theme and the subtree it applies to
  */
 export function ThemeProvider({ theme, children }: { theme: Theme; children: ReactNode }) {
-  return <ThemeContext value={theme}>{children}</ThemeContext>;
+  return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
 }
 
 /** Reads the theme with `useContext`. */
