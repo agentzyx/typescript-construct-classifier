@@ -1,4 +1,4 @@
 export function tabbed() {
 	const t = 1;
-	return t;
+	return t + 1;
 }
