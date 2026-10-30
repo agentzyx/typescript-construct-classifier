@@ -20,7 +20,7 @@ export class Cart extends Shape {
     Cart.count = 1;
   }
 
-  constructor(private items: string[] = [], public owner?: string) {
+  constructor(private items: string[] = []) {
     super();
   }
 
