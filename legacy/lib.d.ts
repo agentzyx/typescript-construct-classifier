@@ -1,2 +1,2 @@
 export function libFn(): void;
-export as namespace Lib;
+export as namespace LibV2;
