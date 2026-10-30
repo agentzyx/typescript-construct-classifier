@@ -9,6 +9,10 @@ describe("Cart", () => {
     c.add("x");
   });
 
+  it("adds", () => {
+    new Cart().add("z");
+  });
+
   describe("size", () => {
     it("starts at zero", () => {
       if (new Cart().size !== 0) throw new Error("bad");
