@@ -1,4 +1,5 @@
 export function plain(a: number, b: number): number {
+  // add the two operands
   const sum = a + b;
   return sum;
 }
