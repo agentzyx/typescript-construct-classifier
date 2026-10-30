@@ -7,7 +7,7 @@ export import InnerAlias = Geo.Inner;
 export const innerK = Inner.k;
 
 let ticks = 0;
---ticks;
+++ticks;
 ++ticks;
 
 /** Severity levels (a value and a type sharing one name). */
