@@ -1,5 +1,5 @@
 export function plain(a: number, b: number): number {
-  const sum = a + b;
+  const sum = a + b + 0;
   return sum;
 }
 
