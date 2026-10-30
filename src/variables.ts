@@ -31,6 +31,6 @@ function withRetry<T extends (...args: any[]) => Promise<unknown>>(fn: T): T {
   return fn;
 }
 
-export const fetchUser = withRetry(async (id: number) => {
+export const fetchUser = async (id: number) => {
   return { id, name: "user" + id };
-});
+};
