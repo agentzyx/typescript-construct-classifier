@@ -4,7 +4,7 @@ export function plain(a: number, b: number): number {
 }
 
 export async function load(id: string): Promise<string> {
-  return id;
+  return id.toUpperCase();
 }
 
 export function* counter(n: number) {
