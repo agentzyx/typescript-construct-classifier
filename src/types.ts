@@ -7,6 +7,7 @@ export interface User {
 
 export interface User {
   email?: string;
+  phone?: string;
 }
 
 export interface Callable {
