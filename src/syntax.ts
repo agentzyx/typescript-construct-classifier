@@ -112,7 +112,6 @@ export function expressions(input: { a: number; b?: number }) {
 }
 
 export function debugOnly(flag: boolean) {
-  if (flag) debugger;
   return flag;
 }
 
