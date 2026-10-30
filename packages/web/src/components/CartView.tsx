@@ -21,7 +21,7 @@ export function CartView({ initial, title = "Cart" }: CartViewProps) {
 
   useEffect(() => {
     document.title = `${title} (${total})`;
-  }, [title, total]);
+  }, [title]);
 
   useEffect(() => {
     console.log("cart mounted");
