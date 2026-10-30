@@ -10,7 +10,7 @@ get("/users", (req) => {
 });
 
 get("/orders", (req) => {
-  return "orders " + req.url;
+  return "orders: " + req.url;
 });
 
 export { routes };
