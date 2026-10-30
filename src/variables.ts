@@ -1,7 +1,7 @@
 export const LIMIT = 10;
 export let counterVar = 0, step = 2;
 
-export const fmt = (x: unknown): string => {
+export const formatValue = (x: unknown): string => {
   return String(x);
 };
 
