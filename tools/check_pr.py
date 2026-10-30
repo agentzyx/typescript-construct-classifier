@@ -52,6 +52,10 @@ def main():
     found, raw = compile_all(ROOT, tsc)
     got = sorted(f"{f}:{l} {c}" for f, l, c in found)
     scope, want_scope = compiled_files(ROOT, tsc), expected_scope(pr_id)
+    for p in PROJECTS:
+        if p not in want_scope:
+            print(f"{label}: the answer key records no compiled files for project {p}")
+            want_scope[p] = set()
     print(f"{label}: answer key from {os.environ.get('FIXTURE_ANSWER_REF') or 'working tree'}")
     print(f"{label}: compiled files " + ", ".join(f"{p} {len(scope[p])} (expected {len(want_scope[p])})" for p in PROJECTS))
     scope_ok = all(scope[p] and set(scope[p]) == want_scope[p] for p in PROJECTS)

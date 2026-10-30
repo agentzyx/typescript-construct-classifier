@@ -7,3 +7,11 @@ export const Badge = ({ label }: { label: string }) => {
 };
 
 export const page = <CartView count={1} />;
+
+export function SvgUse() {
+  return (
+    <svg>
+      <use xlink:href="#icon" />
+    </svg>
+  );
+}

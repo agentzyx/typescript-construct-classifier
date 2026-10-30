@@ -54,7 +54,7 @@ export function withResource() {
 
 // Formats a number for display with two decimals.
 export function display(n: number) {
-  return n.toFixed(2);
+  return n.toFixed(2).padStart(8);
 }
 
 /**
@@ -92,4 +92,9 @@ export function report(values: number[]) {
     `range: ${range}`,
   ];
   return lines.join("\n");
+}
+
+/** Clamps negative numbers to zero. */
+export function clampZero(n: number): number {
+  return n < 0 ? 0 : n;
 }

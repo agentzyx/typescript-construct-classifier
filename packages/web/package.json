@@ -1,1 +1,14 @@
-{"name":"@fixture/web","private":true,"type":"module","dependencies":{"react":"19.3.1","react-dom":"19.3.1"},"devDependencies":{"@types/react":"19.3.0","@types/react-dom":"19.3.0"}}
+{
+  "name": "@fixture/web",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "@fixture/shared": "*"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0"
+  }
+}

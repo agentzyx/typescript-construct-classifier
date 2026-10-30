@@ -15,7 +15,7 @@ Operations:
 """
 import base64, json, pathlib, re, subprocess, sys
 
-PROJECTS = [".", "legacy", "packages/web"]
+PROJECTS = [".", "legacy", "packages/web", "packages/shared"]
 LINE = re.compile(r"^(\S+?)\((\d+),\d+\): error (TS\d+)", re.M)
 
 

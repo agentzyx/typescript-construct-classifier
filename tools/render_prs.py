@@ -12,7 +12,7 @@ PRS = ROOT / "prs"
 CATEGORIES = {"A": "Kinds of change", "B": "Every construct", "DOC": "Documentation", "C": "File level",
               "D": "Encoding and robustness", "M": "Multi-file changes", "S": "Semantic impact", "R": "React"}
 PUBLISHED_AS = {"B02": "S8", "DOC03": "S11", "DOC18": "S9", "DOC19": "S10"}
-TOOLCHAIN = "TypeScript 7.0.2 (`tsc -p .`, `tsc -p legacy`, `tsc -p packages/web`)"
+TOOLCHAIN = "TypeScript 7.0.2 (`tsc -p .`, `tsc -p legacy`, `tsc -p packages/web`, `tsc -p packages/shared`)"
 
 
 def load():
