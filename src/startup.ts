@@ -3,7 +3,7 @@ import { load } from "./functions";
 let ready = false;
 
 (async () => {
-  await load("boot");
+  await load("startup");
   ready = true;
 })();
 
