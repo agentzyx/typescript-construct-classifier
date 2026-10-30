@@ -10,8 +10,8 @@ export interface Money {
  * @param money - the amount
  * @returns the amount with its currency code, e.g. `12.50 EUR`
  */
-export function formatPrice(money: Money): string {
-  return `${(money.cents / 100).toFixed(2)} ${money.currency}`;
+export function formatPrice(money: Money, locale: string): string {
+  return `${(money.cents / 100).toLocaleString(locale)} ${money.currency}`;
 }
 
 /** Currencies the shop accepts. */
