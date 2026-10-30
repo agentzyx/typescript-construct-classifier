@@ -1,4 +1,4 @@
-export const LIMIT = 10;
+export const LIMIT: number = 10;
 export let counterVar = 0, step = 2;
 
 export const fmt = (x: unknown): string => {
