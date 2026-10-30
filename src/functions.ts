@@ -27,7 +27,7 @@ export function assertDefined(v: unknown): asserts v {
   if (v == null) throw new Error("undefined");
 }
 
-export function isString(v: unknown): v is string {
+function isString(v: unknown): v is string {
   return typeof v === "string";
 }
 
