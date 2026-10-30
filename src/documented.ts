@@ -51,6 +51,7 @@ export function power(base: number, exp: number): number {
  * Wraps a value in a single-element array.
  *
  * @typeParam T - the element type
+ * @typeParam U - unused
  * @param value - the value to wrap
  * @returns a one-element array containing `value`
  */
