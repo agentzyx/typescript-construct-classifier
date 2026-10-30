@@ -1,23 +1,23 @@
 export interface Store {
-  get(id: number): string;
+  get(id: string): string;
 }
 
 export class DbStore implements Store {
-  get(id: number) {
+  get(id: string) {
     return "db" + id;
   }
 }
 
 export class MemStore implements Store {
-  get(id: number) {
+  get(id: string) {
     return "mem" + id;
   }
 }
 
 export function handle(s: Store) {
-  return s.get(1);
+  return s.get("1");
 }
 
 export function direct() {
-  return new DbStore().get(2);
+  return new DbStore().get("2");
 }
