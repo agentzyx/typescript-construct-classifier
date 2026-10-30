@@ -6,7 +6,8 @@ export interface HeaderProps {
 }
 
 /** Page header typed with `FC`. */
-export const Header: FC<PropsWithChildren<HeaderProps>> = ({ title, children }) => {
+export const Header: FC<HeaderProps> = ({ title }) => {
+  const children = null;
   return (
     <header>
       <h1>{title}</h1>
