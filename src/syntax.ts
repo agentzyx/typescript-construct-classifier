@@ -131,7 +131,7 @@ function tag(label: string) {
 }
 
 export class Tagged {
-  @tag("v1")
+  @tag("v2")
   run() {
     return 1;
   }
