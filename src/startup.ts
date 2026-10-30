@@ -1,4 +1,4 @@
-import { load } from "./functions";
+import { load, plain } from "./functions";
 
 let ready = false;
 
