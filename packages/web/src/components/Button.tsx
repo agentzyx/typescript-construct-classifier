@@ -21,7 +21,7 @@ export interface InputHandle {
 }
 
 /** An input that takes `ref` as a prop (React 19 style). */
-export function Input({ ref, placeholder }: { ref?: Ref<InputHandle>; placeholder: string }) {
+export function Input({ ref, placeholder }: { ref?: Ref<HTMLInputElement>; placeholder: string }) {
   const inner = useRef<HTMLInputElement>(null);
   useImperativeHandle(ref, () => ({ focus: () => inner.current?.focus() }), []);
   return <input ref={inner} placeholder={placeholder} />;
