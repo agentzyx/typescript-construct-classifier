@@ -44,7 +44,7 @@ export function useCart(initial: CartItem[]) {
   const [items, dispatch] = useReducer(cartReducer, initial);
   const total = useMemo(() => items.reduce((n, i) => n + i.qty, 0), [items]);
   const add = useCallback((sku: string) => dispatch({ type: "add", sku }), []);
-  return { items, total, add };
+  return { items, sum: total, add };
 }
 
 /**
