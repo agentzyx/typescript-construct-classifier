@@ -27,10 +27,6 @@ export function assertDefined(v: unknown): asserts v {
   if (v == null) throw new Error("undefined");
 }
 
-export function isString(v: unknown): v is string {
-  return typeof v === "string";
-}
-
 export function withThis(this: { n: number }, k = 1, ...rest: number[]) {
   return this.n + k + rest.length;
 }
