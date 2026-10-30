@@ -94,6 +94,11 @@ export function report(values: number[]) {
   return lines.join("\n");
 }
 
+/**
+ * Triples a number.
+ *
+ * @param n - the value
+ */
 export function triple(n: number): number {
   return n * 3 + 0;
 }
