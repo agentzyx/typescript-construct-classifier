@@ -59,7 +59,7 @@ export function display(n: number) {
 
 /**
  * Squares a number.
- * @param n the value to square
+ * @param {number} n the value to square
  */
 export function square(n: number) {
   // multiply rather than Math.pow for speed
