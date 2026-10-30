@@ -11,6 +11,6 @@ export interface ListProps<T extends { id: string }> {
  *
  * @typeParam T - the item type
  */
-export function List<T extends { id: string }>({ items, render }: ListProps<T>) {
+export function List<T extends { id: number }>({ items, render }: ListProps<T>) {
   return <ul>{items.map((item) => <li key={item.id}>{render(item)}</li>)}</ul>;
 }
