@@ -1,4 +1,4 @@
-/** @import { Item } from "./plain.js" */
+/** @import { Mapper } from "./plain.js" */
 
 /**
  * A point in 2D.
