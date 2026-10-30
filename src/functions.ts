@@ -3,6 +3,12 @@ export function plain(a: number, b: number): number {
   return sum;
 }
 
+/**
+ * Loads a record by id.
+ *
+ * @param id - the record id
+ * @returns the loaded record
+ */
 export async function load(id: string): Promise<string> {
   return id;
 }
