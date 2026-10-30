@@ -20,7 +20,7 @@ export function pick(x: string | number) {
 }
 
 export function identity<T extends object>(v: T): T {
-  return v;
+  return Object.freeze(v);
 }
 
 export function assertDefined(v: unknown): asserts v {
